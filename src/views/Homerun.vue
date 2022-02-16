@@ -2,7 +2,7 @@
   <div class="hello">
     <div class="header">
       <div class="nav">
-        <div class="container">
+        <div class="container-top">
           <div class="top-bar">
             <div class="bar-1">
             <a href="#" class="shopping">shopping list</a>
@@ -12,8 +12,12 @@
             </div>
             <div class="bar-2">login</div>
           </div>
-          <div class="logo"><img src="../img/logo.png" alt="logo" style="width:100px"></div>
-          <div class="nav">
+          <div class="logo">
+            <div class="line"></div>
+            <img src="../img/logo.png" alt="logo" style="width:100px">
+            <div class="line"></div>
+          </div>
+          <div class="nav margin">
             <a href="#">MEN'S WATCHES</a>
             <a href="#">LADIES' WATCHES</a>
             <a href="#">NEW RELEASES</a>
@@ -25,21 +29,18 @@
     </div>
     <div class="content">
       <div class="main-photo">
-        <div class="photo-top">
-          <img src="../img/s11.jpg" alt="image" style="width:100%">
-          <div class="info">
-            <h3>MAN ACCESSORIES</h3>
-            <h1>ALWAYS BE A GENTLEMAN</h1>
-            <h4>Cras magna nunc, tempus in odio eu, lacinia placerat tellus. In rutrum iaculis elit, sed sodales lacus ullamcorper ut. Nunc venenatis sempe</h4>
+        <div class="container">
+          <div class="photo-top">
+            <img src="../img/s11-2.jpg" alt="image">
+          </div>
+          <div class="photo-row">
+            <img src="../img/s12.jpg" alt="image">
+            <img src="../img/s01.jpg" alt="image">
+            <img src="../img/s06.jpg" alt="image">
           </div>
         </div>
-        <div class="photo-row">
-          <img src="../img/s12.jpg" alt="image" style="width:100%">
-          <img src="../img/s01.jpg" alt="image" style="width:100%">
-          <img src="../img/s06.jpg" alt="image" style="width:100%">
-        </div>
       </div>
-      <div class="trending-products">
+      <!-- <div class="trending-products">
         <div class="container">
           <div class="title topic">
             <div class="line"></div>
@@ -247,7 +248,7 @@
           </div>
         </div>
         <div>Bremont Watch Company Limited is registered in England 05414485. Registered office; Bremont Watch Company, Manufacturing and Technology Centre, The Wing, Reading Road, Henley-on-Thames, Oxfordshire, RG9 4GE.</div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -258,6 +259,13 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 //全域設定
+$brand-color:#BFB094;
+$gray-color:#5B5B5B;
+
+// .container {
+//   width: 1200px;
+// }
+
 img {
   vertical-align: top;
 }
@@ -275,4 +283,106 @@ li {
 a {
   color: #42b983;
 }
+
+// header
+.header {
+  .top-bar {
+    display: flex;
+    padding: 15px 0;
+    flex: 1;
+    background-color: $brand-color;
+    text-align: left;
+    text-decoration: none;
+
+    .bar-1 {
+      flex: 1;
+      margin-left: 50px;
+    }
+
+    .bar-2 {
+      color: $brand-color;
+      margin-right: 50px;
+      text-transform: uppercase;
+      font-size: 12px;
+      background-color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin: 10px;
+    }
+
+  }
+
+  .logo {
+    justify-content: center;
+    display: flex;
+    margin-top: 30px;
+
+    .line {
+      width: 450px;
+      border-top: 1px solid $brand-color;
+      position: relative;
+      top: 30px;
+    }
+
+    img {
+      margin: 0 40px;
+    }
+
+  }
+
+  .nav {
+    &.margin {
+      margin-top: 30px;
+    }
+
+    a {
+      text-decoration: none;
+      color: $gray-color;
+      font-size: 10px;
+      margin: 0 20px;
+      letter-spacing: 1.5px;
+    }
+  }
+
+
+}
+
+//content
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.main-photo {
+  .photo-top {
+    width: 100%;
+    margin-top: 30px;
+    img {
+      width: 100%;
+    }
+  }
+
+  .photo-row {
+    width: 100%;
+    display: flex;
+    height: 300px;
+    img {
+      flex: 1;
+      width: 33.33333%;
+      object-fit: cover;
+    }
+  }
+  
+  
+}
+
 </style>
