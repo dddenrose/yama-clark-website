@@ -363,11 +363,20 @@ a {
 
 
 .main-photo {
+  width: 100%;
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
   .photo-top {
+    display: flex;
     width: 100%;
-    margin-top: 30px;
+    height: 700px;
+    margin-top: 60px;
     img {
+      flex: 1;
       width: 100%;
+      object-fit: cover;
     }
   }
 
@@ -376,7 +385,6 @@ a {
     display: flex;
     height: 300px;
     img {
-      flex: 1;
       width: 33.33333%;
       object-fit: cover;
     }
