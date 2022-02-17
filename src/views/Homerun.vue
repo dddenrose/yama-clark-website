@@ -40,7 +40,7 @@
           </div>
         </div>
       </div>
-      <!-- <div class="trending-products">
+      <div class="trending-products">
         <div class="container">
           <div class="title topic">
             <div class="line"></div>
@@ -52,62 +52,86 @@
           </div>
           <div class="product-bar">
             <div class="product">
-              <img src="../img/p01.jpg" alt="prodcut">
-              <h2>1815</h2>
-              <h3 class="name">JUSTIN GATILIN</h3>
-              <h3>GOLD/BLUE TURTLE</h3>
-              <h3>$10,100</h3>
+              <div class="image-box">
+                <img src="../img/p01.jpg" alt="prodcut">
+              </div>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$10,100</h3>
+              </div>
             </div>
             <div class="product">
-              <img src="../img/p13.jpg" alt="prodcut">
-              <h2>1815</h2>
-              <h3 class="name">CHRONOGRAPH</h3>
-              <h3>STEEL / BLACK</h3>
-              <h3>$9,500</h3>
+              <div class="image-box"><img src="../img/p13.jpg" alt="prodcut"></div>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">CHRONOGRAPH</h3>
+                <h3>STEEL / BLACK</h3>
+                <h3>$9,500</h3>
+              </div>
             </div>
             <div class="product">
-              <img src="../img/p12.jpg" alt="prodcut">
-              <h2>1815</h2>
-              <h3 class="name">AT' SEA</h3>
-              <h3>GOLD/BLUE TURTLE</h3>
-              <h3>$12,500</h3>
+              <div class="image-box"><img src="../img/p12.jpg" alt="prodcut"></div>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">AT' SEA</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$12,500</h3>
+              </div>
             </div>
             <div class="product">
-              <img src="../img/p11.jpg" alt="prodcut">
-              <h2>1815</h2>
-              <h3 class="name">CHRONOGRAPH</h3>
-              <h3>STEEL / BLACK</h3>
-              <h3>$9,500</h3>
+              <div class="image-box"><img src="../img/p11.jpg" alt="prodcut"></div>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">CHRONOGRAPH</h3>
+                <h3>STEEL / BLACK</h3>
+                <h3>$9,500</h3>
+              </div>
             </div>
           </div>
           <div class="product-bar">
             <div class="product">
-              <img src="../img/p10.jpg" alt="prodcut">
-              <h2>1982</h2>
-              <h3 class="name">JUSTIN GATILIN</h3>
-              <h3>GOLD/BLUE TURTLE</h3>
-              <h3>$10,100</h3>
+              <div class="image-box">
+                <img class="top" src="../img/p10.jpg" alt="prodcut">
+              </div>
+              <div class="info">
+                <h2>1982</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$10,100</h3>
+              </div>
             </div>
             <div class="product">
-              <img src="../img/p09.jpg" alt="prodcut">
-              <h2>1815</h2>
-              <h3 class="name">AT' SEA</h3>
-              <h3>GOLD/BLUE TURTLE</h3>
-              <h3>$13,500</h3>
+              <div class="image-box">
+                <img src="../img/p09.jpg" alt="prodcut">
+              </div>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">AT' SEA</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$13,500</h3>
+              </div>
             </div>
             <div class="product">
-              <img src="../img/p08.jpg" alt="prodcut">
-              <h2>1982</h2>
-              <h3 class="name">JUSTIN GATILIN</h3>
-              <h3>GOLD/BLUE TURTLE</h3>
-              <h3>$15,500</h3>
+              <div class="image-box"><img src="../img/p08.jpg" alt="prodcut"></div>
+              <div class="info">
+                <h2>1982</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$15,500</h3>
+              </div>
             </div>
             <div class="product">
-              <img src="../img/p07.jpg" alt="prodcut">
-              <h2>1815</h2>
-              <h3 class="name">JUSTIN GATILIN</h3>
-              <h3>GOLD/GREEN TURTLE</h3>
-              <h3>$19,500</h3>
+              <div class="image-box">
+                <img src="../img/p07.jpg" alt="prodcut">
+              </div>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/GREEN TURTLE</h3>
+                <h3>$19,500</h3>
+              </div>
             </div>
           </div>
         </div>
@@ -115,11 +139,11 @@
       <div class="photo-bar">
         <div class="container">
           <div class="slide">
-            <div class="arrow"></div>
+            <div><i class="arrow left white"></i></div>
             <div class="photo-row">
               <img src="../img/s10.jpg" alt="image">
             </div>
-            <div class="arrow"></div>
+            <div><i class="arrow right white"></i></div>
           </div>
           <div class="info topic">
             <div class="title">Time Discovered Truth.</div>
@@ -127,8 +151,8 @@
               <h3>MAN ACCESSORIES</h3>
               <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat quam, recusandae ut libero nisi qui, error natus optio, veniam ea voluptatum sapiente repellendus. Quam molestias adipisci voluptas enim illum? Ipsa dolore provident iusto sequi voluptates quasi numquam quo atque vitae.</h5>
             </div>
-            <div class="circle">. . . . .</div>
           </div>
+          <div class="circle">. . . . .</div>
         </div>
       </div>
       <div class="best-selling">
@@ -142,39 +166,50 @@
             <div class="line"></div>
           </div>
           <div class="product-bar">
+            <div class="arr"><i class="arrow left white"></i></div>
             <div class="product">
-              <img src="../img/p10.jpg" alt="prodcut">
-              <h2>1982</h2>
-              <h3 class="name">JUSTIN GATILIN</h3>
-              <h3>GOLD/BLUE TURTLE</h3>
-              <h3>$10,100</h3>
+              <div class="image-box"><img src="../img/p10.jpg" alt="prodcut"></div>
+              <div class="info">
+                <h2>1982</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$10,100</h3>
+              </div>
+              
             </div>
             <div class="product">
-              <img src="../img/p09.jpg" alt="prodcut">
-              <h2>1815</h2>
-              <h3 class="name">AT' SEA</h3>
-              <h3>GOLD/BLUE TURTLE</h3>
-              <h3>$13,500</h3>
+              <div class="image-box"><img src="../img/p09.jpg" alt="prodcut"></div>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">AT' SEA</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$13,500</h3>
+              </div>
             </div>
             <div class="product">
-              <img src="../img/p08.jpg" alt="prodcut">
-              <h2>1982</h2>
-              <h3 class="name">JUSTIN GATILIN</h3>
-              <h3>GOLD/BLUE TURTLE</h3>
-              <h3>$15,500</h3>
+              <div class="image-box"><img src="../img/p08.jpg" alt="prodcut"></div>
+              <div class="info">
+                <h2>1982</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$15,500</h3>
+              </div>
             </div>
             <div class="product">
-              <img src="../img/p07.jpg" alt="prodcut">
-              <h2>1815</h2>
-              <h3 class="name">JUSTIN GATILIN</h3>
-              <h3>GOLD/GREEN TURTLE</h3>
-              <h3>$19,500</h3>
+              <div class="image-box"><img src="../img/p07.jpg" alt="prodcut"></div>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/GREEN TURTLE</h3>
+                <h3>$19,500</h3>
+              </div>
             </div>
+            <div class="arr arr-right"><i class="arrow right white"></i></div>
           </div>
           <div class="circle">. . . . .</div>
         </div>
       </div>
-      <div class="barnd-story">
+      <div class="brand-story">
         <div class="container">
           <img src="../img/s13.jpg" alt="image">
           <div class="title topic">
@@ -185,22 +220,22 @@
             </div>
             <div class="line"></div>
           </div>
-          <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur dicta inventore sit quo aut quaerat veniam ducimus. Dolorem cumque eaque itaque, quam perspiciatis harum provident porro aut explicabo consectetur! Tempore autem nostrum temporibus eius voluptate tempora iusto, vero, officiis asperiores enim vel excepturi cumque officia voluptatibus doloremque quos, facilis doloribus?</div>
+          <div class="article">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur dicta inventore sit quo aut quaerat veniam ducimus. Dolorem cumque eaque itaque, quam perspiciatis harum provident porro aut explicabo consectetur! Tempore autem nostrum temporibus eius voluptate tempora iusto, vero, officiis asperiores enim vel excepturi cumque officia voluptatibus doloremque quos, facilis doloribus?</div>
         </div>
       </div>
-      <div class="photo-row">
+      <div class="photo-row-bottom">
         <div class="one">
           <img src="../img/s04.jpg" alt="image">
         </div>
         <div class="two">
-          <img src="../img/s02.jpg" alt="image">
+          <img class="top" src="../img/s02.jpg" alt="image">
           <img src="../img/s07.jpg" alt="image">
         </div>
         <div class="one">
           <img src="../img/s08.jpg" alt="image">
         </div>
-        <div class="two">
-          <img src="../img/s03.jpg" alt="image">
+        <div class="two none">
+          <img class="top" src="../img/s03.jpg" alt="image">
           <img src="../img/s09.jpg" alt="image">
         </div>
       </div>
@@ -210,7 +245,7 @@
         <div class="information">
             
           <div class="info">
-            <img src="../img/logo.png" alt="logo">
+            <img src="../img/logo-w.png" alt="logo">
             <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
           </div>
           <div class="info">
@@ -247,8 +282,8 @@
             <a href="#">Youtube</a>
           </div>
         </div>
-        <div>Bremont Watch Company Limited is registered in England 05414485. Registered office; Bremont Watch Company, Manufacturing and Technology Centre, The Wing, Reading Road, Henley-on-Thames, Oxfordshire, RG9 4GE.</div>
-      </div> -->
+        <div class="bottom-word">Bremont Watch Company Limited is registered in England 05414485. Registered office; Bremont Watch Company, Manufacturing and Technology Centre, The Wing, Reading Road, Henley-on-Thames, Oxfordshire, RG9 4GE.</div>
+      </div>
     </div>
   </div>
 </template>
@@ -261,28 +296,74 @@
 //全域設定
 $brand-color:#BFB094;
 $gray-color:#5B5B5B;
+.arrow {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
 
-// .container {
-//   width: 1200px;
-// }
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.title {
+    &.topic {
+      display: flex;
+      .line {
+        position: relative;
+        top:20px;
+        width: 350px;
+        border-top:1px solid $brand-color;
+      }
+
+      .info {
+        margin: 0 50px;
+      }
+
+      h2 {
+        font-weight: 100;
+        font-size: 18px;
+        letter-spacing: 2px;
+        color: $brand-color;
+      }
+
+      h4 {
+        font-weight: 100;
+        letter-spacing: .5px;
+        font-size: 10px;
+        margin-top: 10px;
+        color: $gray-color;
+      }
+
+    }
+  }
 
 img {
   vertical-align: top;
 }
-h3 {
-  margin: 40px 0 0;
-}
+
 ul {
   list-style-type: none;
   padding: 0;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 
 // header
 .header {
@@ -390,7 +471,373 @@ a {
     }
   }
   
-  
 }
+
+.trending-products {
+  margin-top:60px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .title {
+    &.topic {
+      display: flex;
+      .line {
+        position: relative;
+        top:20px;
+        width: 350px;
+        border-top:1px solid $brand-color;
+      }
+
+      .info {
+        margin: 0 50px;
+      }
+
+      h2 {
+        font-weight: 100;
+        font-size: 18px;
+        letter-spacing: 2px;
+        color: $brand-color;
+      }
+
+      h4 {
+        font-weight: 100;
+        letter-spacing: .5px;
+        font-size: 10px;
+        margin-top: 10px;
+        color: $gray-color;
+      }
+
+    }
+  }
+  .product-bar {
+    display: flex;
+    margin-top: 60px;
+    width: 70%;
+    justify-content: space-around;
+    .product {
+      display: flex;
+      flex-direction: column;
+      width: 15%;
+    }
+    .image-box {
+      flex: 6 1 250px;
+    }
+    img {
+      width: 100%;
+      &.top {
+        position: relative;
+        bottom: 15px;
+      }
+    }
+    .info {
+      flex: 4 1 0;
+      h2 {
+        font-weight: 100;
+        box-sizing: border-box;
+        padding-bottom: 5px;
+        color: $brand-color;
+        border-bottom: 1px solid $brand-color;
+      }
+      h3 {
+        font-weight: 100;
+        font-size: 10px;
+        margin: 5px 0;
+      }
+      .name {
+        margin-top: 10px;
+        color: $brand-color;
+      }
+    }
+  }
+}
+
+.photo-bar {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60px;
+  background-color: $brand-color;
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    img {
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+  .slide {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .photo-row {
+    box-sizing: border-box;
+    flex: 1;
+    display: flex;
+    height: 400px;
+    padding: 0 20px;
+  }
+
+  .info.topic {
+    margin-top: 60px;
+    color: white;
+    display: flex;
+    .title {
+      flex: 1;
+      font-size: 65px;
+      text-align: left;
+    }
+    .info {
+      text-align: left;
+      flex: 1;
+    }
+    h3 {
+      font-weight: 100;
+    }
+    h5 {
+      font-size: 10px;
+      font-weight: 100;
+      margin-top: 10px;
+    }
+  }
+  .circle {
+    color: white;
+  }
+
+}
+
+.best-selling {
+  padding-bottom: 350px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $brand-color;
+  padding-top: 60px;
+  .container {
+    width: 70%;
+    background-color: white;
+    padding: 50px 100px;
+    border-radius: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .title {
+    &.topic {
+      display: flex;
+      .line {
+        position: relative;
+        top:20px;
+        width: 350px;
+        border-top:1px solid $brand-color;
+      }
+
+      .info {
+        margin: 0 50px;
+      }
+
+      h2 {
+        font-weight: 100;
+        font-size: 18px;
+        letter-spacing: 2px;
+        color: $brand-color;
+      }
+
+      h4 {
+        font-weight: 100;
+        letter-spacing: .5px;
+        font-size: 10px;
+        margin-top: 10px;
+        color: $gray-color;
+      }
+
+    }
+  }
+  .product-bar {
+    display: flex;
+    margin-top: 60px;
+    align-items: center;
+    justify-content: space-around;
+    .product {
+      display: flex;
+      flex-direction: column;
+      width: 15%;
+    }
+    .image-box {
+      flex: 6 1 250px;
+    }
+    img {
+      width: 100%;
+      &.top {
+        position: relative;
+        bottom: 15px;
+      }
+    }
+    .info {
+      flex: 4 1 0;
+      h2 {
+        font-weight: 100;
+        box-sizing: border-box;
+        padding-bottom: 5px;
+        color: $brand-color;
+        border-bottom: 1px solid $brand-color;
+      }
+      h3 {
+        font-weight: 100;
+        font-size: 10px;
+        margin: 5px 0;
+      }
+      .name {
+        margin-top: 10px;
+        color: $brand-color;
+      }
+    }
+  }
+  .arr {
+    height: 25px;
+    background-color: $brand-color;
+    width: 25px;
+    border-radius: 25px;
+  }
+  .arrow {
+    position: relative;
+    left: 2px;
+    top: 1.5px;
+  }
+  .arr-right {
+    .arrow {
+      left: -1.5px;
+    }
+  }
+}
+
+.brand-story {
+  .container {
+    position: relative;
+    top: -200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  img {
+    width: 70%;
+    border-radius: 200px;
+  }
+  .article {
+    width: 50%;
+    font-size: 10px;
+    margin-top: 30px;
+  }
+  .title {
+    margin-top: 60px;
+  }
+}
+
+.photo-row-bottom {
+  display: flex;
+  position: relative;
+  top: -60px;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    &.top {
+      box-sizing: border-box;
+      padding-bottom: 15px;
+      flex: 1;
+      object-fit: cover;
+    }
+  }
+  .one {
+    display: flex;
+    flex: 2 1 0;
+    box-sizing: border-box;
+    padding-right: 15px;
+  }
+  .two {
+    box-sizing: border-box;
+    padding-right: 15px;
+    flex-direction: column;
+    display: flex;
+    flex: 1 1 0;
+    &.none {
+      padding-right: 0;
+    }
+  }
+}
+
+.footer {
+  background-color: #c0b094;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+  
+  .container {
+    width: 80%;
+  }
+
+  .information {
+    display: flex;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    text-align: left;
+    text-decoration: none;
+    img {
+      width: 40%;
+    }
+    h4 {
+      margin-top: 5px;
+      color: white;
+      font-weight: 100;
+      font-size: 10px;
+      width: 60%;
+    }
+    a { 
+        font-size: 12px;
+        color: white;
+        margin-bottom: 5px;
+        text-decoration: none;
+      }
+  }
+
+  
+
+    .footer-title {
+      padding-bottom: 5px;
+      color: white;
+      border-bottom: 1px solid white;
+      width: 70%;
+      margin-bottom: 15px;
+      
+    }
+
+  .bottom-word {
+    margin-top: 50px;
+    width: 80%;
+    text-align: left;
+    margin-left: 20%;
+    color: white;
+    font-size: 10px;
+  }
+
+}
+
+
 
 </style>
