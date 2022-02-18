@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Homerun from '../views/Homerun.vue'
 import ProductList from '../views/ProductList.vue'
 import ProductDetail from '../views/ProductDetail.vue'
+import ShoppingList from '../views/ShoppingList.vue'
 
 
 Vue.use(VueRouter)
@@ -36,6 +37,11 @@ const routes = [
     path: '/productdetail',
     name: 'productdetail',
     component: ProductDetail,
+  },
+  {
+    path: '/shoppinglist',
+    name: 'shoppinglist',
+    component: ShoppingList,
   }
 ]
 
