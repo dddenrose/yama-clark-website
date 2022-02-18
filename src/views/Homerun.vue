@@ -5,10 +5,13 @@
         <div class="container-top">
           <div class="top-bar">
             <div class="bar-1">
-            <a href="#" class="shopping">shopping list</a>
+            <a href="#" class="shopping">shopping list <i class="fas fa-shopping-cart"></i></a>
             <a href="#">about us</a>
             <a href="#">contact</a>
-            <a href="#">social media</a>
+            <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
+            <a class="icon" href="#"><i class="fab fa-instagram-square"></i></a>
+            <a class="icon" href="#"><i class="fab fa-twitter-square"></i></a>
+            <a class="icon" href="#"><i class="fab fa-youtube"></i></a>
             </div>
             <div class="bar-2">login</div>
           </div>
@@ -276,10 +279,10 @@
           </div>
           <div class="info">
             <div class="footer-title">SOCIAL MEDIA</div>
-            <a href="#">Facebook</a>
-            <a href="#">Twitter</a>
-            <a href="#">Insagram</a>
-            <a href="#">Youtube</a>
+            <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="#"><i class="fab fa-twitter-square"></i> Twitter</a>
+            <a href="#"><i class="fab fa-instagram-square"></i> Insagram</a>
+            <a href="#"><i class="fab fa-youtube"></i> Youtube</a>
           </div>
         </div>
         <div class="bottom-word">Bremont Watch Company Limited is registered in England 05414485. Registered office; Bremont Watch Company, Manufacturing and Technology Centre, The Wing, Reading Road, Henley-on-Thames, Oxfordshire, RG9 4GE.</div>
@@ -396,6 +399,11 @@ ul {
       text-transform: uppercase;
       font-size: 12px;
       margin: 10px;
+      letter-spacing: 1px;
+    }
+    a.icon {
+     margin: 5px; 
+     font-size: 14px;
     }
 
   }
@@ -421,18 +429,15 @@ ul {
   .nav {
     &.margin {
       margin-top: 30px;
-    }
-
-    a {
-      text-decoration: none;
-      color: $gray-color;
-      font-size: 10px;
-      margin: 0 20px;
-      letter-spacing: 1.5px;
+        a {
+          text-decoration: none;
+          color: $gray-color;
+          font-size: 10px;
+          margin: 0 20px;
+          letter-spacing: 1.5px;
+      }
     }
   }
-
-
 }
 
 //content
@@ -834,6 +839,7 @@ ul {
     margin-left: 20%;
     color: white;
     font-size: 10px;
+    letter-spacing: 1px;
   }
 
 }
