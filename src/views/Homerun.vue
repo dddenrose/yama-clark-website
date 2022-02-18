@@ -55,9 +55,9 @@
           </div>
           <div class="product-bar">
             <div class="product">
-              <div class="image-box">
+              <a href="#" class="image-box">
                 <img src="../img/p01.jpg" alt="prodcut">
-              </div>
+              </a>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
@@ -66,7 +66,7 @@
               </div>
             </div>
             <div class="product">
-              <div class="image-box"><img src="../img/p13.jpg" alt="prodcut"></div>
+              <a href="#" class="image-box"><img src="../img/p13.jpg" alt="prodcut"></a>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">CHRONOGRAPH</h3>
@@ -75,7 +75,7 @@
               </div>
             </div>
             <div class="product">
-              <div class="image-box"><img src="../img/p12.jpg" alt="prodcut"></div>
+              <a href="#" class="image-box"><img src="../img/p12.jpg" alt="prodcut"></a>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">AT' SEA</h3>
@@ -84,7 +84,7 @@
               </div>
             </div>
             <div class="product">
-              <div class="image-box"><img src="../img/p11.jpg" alt="prodcut"></div>
+              <a href="#" class="image-box"><img src="../img/p11.jpg" alt="prodcut"></a>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">CHRONOGRAPH</h3>
@@ -95,9 +95,9 @@
           </div>
           <div class="product-bar">
             <div class="product">
-              <div class="image-box">
+              <a href="#" class="image-box">
                 <img class="top" src="../img/p10.jpg" alt="prodcut">
-              </div>
+              </a>
               <div class="info">
                 <h2>1982</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
@@ -106,9 +106,9 @@
               </div>
             </div>
             <div class="product">
-              <div class="image-box">
+              <a href="#" class="image-box">
                 <img src="../img/p09.jpg" alt="prodcut">
-              </div>
+              </a>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">AT' SEA</h3>
@@ -117,7 +117,7 @@
               </div>
             </div>
             <div class="product">
-              <div class="image-box"><img src="../img/p08.jpg" alt="prodcut"></div>
+              <a href="#" class="image-box"><img src="../img/p08.jpg" alt="prodcut"></a>
               <div class="info">
                 <h2>1982</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
@@ -126,9 +126,9 @@
               </div>
             </div>
             <div class="product">
-              <div class="image-box">
+              <a href="#" class="image-box">
                 <img src="../img/p07.jpg" alt="prodcut">
-              </div>
+              </a>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
@@ -803,6 +803,7 @@ ul {
     width: 20%;
     text-align: left;
     text-decoration: none;
+    letter-spacing: .5px;
     img {
       width: 40%;
     }
