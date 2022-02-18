@@ -144,6 +144,41 @@
                 </div>
               </div>
             </div>
+            <div class="product-bar">
+              <div class="product">
+                <a href="#" class="image-box">
+                  <img class="top" src="../img/p10.jpg" alt="prodcut" />
+                </a>
+                <div class="info">
+                  <h2>1982</h2>
+                  <h3 class="name">JUSTIN GATILIN</h3>
+                  <h3>GOLD/BLUE TURTLE</h3>
+                  <h3>$10,100</h3>
+                </div>
+              </div>
+              <div class="product">
+                <a href="#" class="image-box">
+                  <img src="../img/p09.jpg" alt="prodcut" />
+                </a>
+                <div class="info">
+                  <h2>1815</h2>
+                  <h3 class="name">AT' SEA</h3>
+                  <h3>GOLD/BLUE TURTLE</h3>
+                  <h3>$13,500</h3>
+                </div>
+              </div>
+              <div class="product">
+                <a href="#" class="image-box">
+                  <img src="../img/p08.jpg" alt="prodcut" />
+                </a>
+                <div class="info">
+                  <h2>1982</h2>
+                  <h3 class="name">JUSTIN GATILIN</h3>
+                  <h3>GOLD/BLUE TURTLE</h3>
+                  <h3>$15,500</h3>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
