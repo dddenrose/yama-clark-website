@@ -59,7 +59,8 @@
             Fuga ad dicta totam itaque consequuntur deserunt molestias qui sequi
             minima aut similique, natus hic sunt.
           </h4>
-          <a href="#" class="button">ADD TO CART</a>
+          <router-link class="button" :to="{ name:'shoppinglist'}">ADD TO CART</router-link>
+          
         </div>
       </div>
       <div class="brand-story">

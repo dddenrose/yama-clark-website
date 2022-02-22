@@ -37,41 +37,19 @@
             <h3 class="price">price</h3>
           </div>
           <div class="lists">
-            <div class="selling-product">
+            <div class="imageWrapper"></div>
+            <div class="selling-product" v-for="(product, index) in webProductList" :key="index">
               <img src="../img/p09.jpg" alt="product" />
               <h3>
-                1844 gift - the one that stops the time 1844 steel mesh black
-                leather / watch roll
+                {{product.productName}}
               </h3>
               <div class="count">
                 <div class="counting">+ 1 -</div>
                 <a href="#">DELET</a>
               </div>
-              <div class="price">$15,800</div>
-            </div>
-            <div class="selling-product">
-              <img src="../img/p09.jpg" alt="product" />
-              <h3>
-                1844 gift - the one that stops the time 1844 steel mesh black
-                leather / watch roll
-              </h3>
-              <div class="count">
-                <div class="counting">+ 1 -</div>
-                <a href="#">DELET</a>
+              <div :class="isPriceShow ? '':'hide'" class="price">
+                {{product.price}}
               </div>
-              <div class="price">$15,800</div>
-            </div>
-            <div class="selling-product">
-              <img src="../img/p09.jpg" alt="product" />
-              <h3>
-                1844 gift - the one that stops the time 1844 steel mesh black
-                leather / watch roll
-              </h3>
-              <div class="count">
-                <div class="counting">+ 1 -</div>
-                <a href="#">DELET</a>
-              </div>
-              <div class="price">$15,800</div>
             </div>
           </div>
           <div class="pavement">
@@ -89,7 +67,7 @@
                 <h3 class="left-title">price</h3>
                 <h3 class="price">$38,000</h3>
               </div>
-              <a class="confirm" href="#">confirm</a>
+              <router-link class="confirm" :to="{ name:'orderlist'}">confirm</router-link>
             </div>
           </div>
         </div>
@@ -148,6 +126,101 @@
 </template>
 
 <script>
+import { initializeApp } from "firebase/app"; //SDK =>
+import { getDatabase, ref, onValue } from "firebase/database";  // {XXXXX}內的小東西都是firebase裡面寫的小功能，為了要避免import時要讀入整包檔案
+
+// // TODO: Replace the following with your app's Firebase project configuration
+// const firebaseConfig = {
+//   //...
+// };
+
+// const app = initializeApp(firebaseConfig);
+
+export default {
+  name: "homerun",
+  data() {
+    return {
+      webProductList:[],
+      ref:null,
+      isPriceShow:true,
+      imagePath:'p09'
+    };
+  },
+  mounted() {
+    //在頁面打開時會直接執行mounted的動作(只有打開頁面時作動)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
+      authDomain: "yama-website.firebaseapp.com",
+      databaseURL: "https://yama-website-default-rtdb.firebaseio.com",
+      projectId: "yama-website",
+      storageBucket: "yama-website.appspot.com",
+      messagingSenderId: "1094650287749",
+      appId: "1:1094650287749:web:b011ea45db8ec625e5bbec",
+      measurementId: "G-6TTRYFGB6X",
+    };
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const starCountRef = ref(database, "/");
+    this.ref = starCountRef
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      this.webProductList = data.userList[0].cart;
+    });
+  },
+
+  methods: {
+
+    // getImageWidth(){
+    //   return new Promise((resolve,reject)=>{
+    //     let image = new Image();
+    //     image.src = 'https://images.unsplash.com/photo-1645262779093-a02b95f38e94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2565&q=80'
+    //     // image.src = 
+    //     //  console.log(image.width,'image')
+    //     image.onload = () => {
+    //       console.log(image.width,'image')
+    //       try {
+    //         if(image.width ===2565 ){
+    //           reject('width should not be zero')
+    //         }else{
+    //           resolve(image.width)
+    //         }
+    //       } catch (error) {
+    //         reject('width should not be zero')
+    //       }
+
+    //       // document.querySelector('.imageWrapper').append(image)
+    //     }
+    //   })
+
+    // },
+    
+    
+    // sendProduct(){
+    //   console.log('sendProduct');
+    //   let productKindList = {
+    //     'toy':'ironMan',
+    //     'sport':'basketball'
+    //   }
+    //   return new Promise((resolve) => {     // resolve , reject 固定
+    //     setTimeout(() => {
+    //       resolve(productKindList)
+    //     }, Math.random()*10);
+    //   })
+    // },
+   
+    // sendUserInfo(){
+    //   let userInfo = {
+    //     'name':'chiyang',
+    //     'loveKind':'toy'
+    //   }
+    //   return new Promise((resolve) => {     // resolve , reject 固定
+    //     setTimeout(() => {
+    //       resolve(userInfo)
+    //     }, Math.random()*10);
+    //   })
+    // },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -155,6 +228,9 @@
 //全域設定
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
+.hide{
+  display: none !important;
+}
 .arrow-up {
   width: 0;
   height: 0;

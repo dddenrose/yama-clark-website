@@ -5,19 +5,23 @@
         <div class="container-top">
           <div class="top-bar">
             <div class="bar-1">
-            <a href="#" class="shopping">shopping list <i class="fas fa-shopping-cart"></i></a>
-            <a href="#">about us</a>
-            <a href="#">contact</a>
-            <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
-            <a class="icon" href="#"><i class="fab fa-instagram-square"></i></a>
-            <a class="icon" href="#"><i class="fab fa-twitter-square"></i></a>
-            <a class="icon" href="#"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="shopping"
+                >shopping list <i class="fas fa-shopping-cart"></i
+              ></a>
+              <a href="#">about us</a>
+              <a href="#">contact</a>
+              <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
+              <a class="icon" href="#"
+                ><i class="fab fa-instagram-square"></i
+              ></a>
+              <a class="icon" href="#"><i class="fab fa-twitter-square"></i></a>
+              <a class="icon" href="#"><i class="fab fa-youtube"></i></a>
             </div>
             <div class="bar-2">login</div>
           </div>
           <div class="logo">
             <div class="line"></div>
-            <img src="../img/logo.png" alt="logo" style="width:100px">
+            <img src="../img/logo.png" alt="logo" style="width: 100px" />
             <div class="line"></div>
           </div>
           <div class="nav margin">
@@ -34,12 +38,12 @@
       <div class="main-photo">
         <div class="container">
           <div class="photo-top">
-            <img src="../img/s11-2.jpg" alt="image">
+            <img src="../img/s11-2.jpg" alt="image" />
           </div>
           <div class="photo-row">
-            <img src="../img/s12.jpg" alt="image">
-            <img src="../img/s01.jpg" alt="image">
-            <img src="../img/s06.jpg" alt="image">
+            <img src="../img/s12.jpg" alt="image" />
+            <img src="../img/s01.jpg" alt="image" />
+            <img src="../img/s06.jpg" alt="image" />
           </div>
         </div>
       </div>
@@ -49,16 +53,19 @@
             <div class="line"></div>
             <div class="info">
               <h2>TRENDING PRODUCTS</h2>
-              <h4>Nam interdum, lacus quis tempor iaculis, nunc mauris tincidunt metus,</h4>
+              <h4>
+                Nam interdum, lacus quis tempor iaculis, nunc mauris tincidunt
+                metus,
+              </h4>
             </div>
             <div class="line"></div>
           </div>
           <div class="product-bar">
             <div class="product">
-              <a href="#" class="image-box">
-                <img src="../img/p01.jpg" alt="prodcut">
-              </a>
-              <div class="info">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
+              <div class="info" @click="handleInfo">
                 <h2>1815</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
                 <h3>GOLD/BLUE TURTLE</h3>
@@ -66,7 +73,9 @@
               </div>
             </div>
             <div class="product">
-              <a href="#" class="image-box"><img src="../img/p13.jpg" alt="prodcut"></a>
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">CHRONOGRAPH</h3>
@@ -75,7 +84,9 @@
               </div>
             </div>
             <div class="product">
-              <a href="#" class="image-box"><img src="../img/p12.jpg" alt="prodcut"></a>
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">AT' SEA</h3>
@@ -84,7 +95,9 @@
               </div>
             </div>
             <div class="product">
-              <a href="#" class="image-box"><img src="../img/p11.jpg" alt="prodcut"></a>
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">CHRONOGRAPH</h3>
@@ -95,9 +108,9 @@
           </div>
           <div class="product-bar">
             <div class="product">
-              <a href="#" class="image-box">
-                <img class="top" src="../img/p10.jpg" alt="prodcut">
-              </a>
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
                 <h2>1982</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
@@ -106,9 +119,9 @@
               </div>
             </div>
             <div class="product">
-              <a href="#" class="image-box">
-                <img src="../img/p09.jpg" alt="prodcut">
-              </a>
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">AT' SEA</h3>
@@ -117,7 +130,9 @@
               </div>
             </div>
             <div class="product">
-              <a href="#" class="image-box"><img src="../img/p08.jpg" alt="prodcut"></a>
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
                 <h2>1982</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
@@ -126,9 +141,9 @@
               </div>
             </div>
             <div class="product">
-              <a href="#" class="image-box">
-                <img src="../img/p07.jpg" alt="prodcut">
-              </a>
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
@@ -144,7 +159,7 @@
           <div class="slide">
             <div><i class="arrow left white"></i></div>
             <div class="photo-row">
-              <img src="../img/s10.jpg" alt="image">
+              <img src="../img/s10.jpg" alt="image" />
             </div>
             <div><i class="arrow right white"></i></div>
           </div>
@@ -152,7 +167,13 @@
             <div class="title">Time Discovered Truth.</div>
             <div class="info">
               <h3>MAN ACCESSORIES</h3>
-              <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat quam, recusandae ut libero nisi qui, error natus optio, veniam ea voluptatum sapiente repellendus. Quam molestias adipisci voluptas enim illum? Ipsa dolore provident iusto sequi voluptates quasi numquam quo atque vitae.</h5>
+              <h5>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Repellat quam, recusandae ut libero nisi qui, error natus optio,
+                veniam ea voluptatum sapiente repellendus. Quam molestias
+                adipisci voluptas enim illum? Ipsa dolore provident iusto sequi
+                voluptates quasi numquam quo atque vitae.
+              </h5>
             </div>
           </div>
           <div class="circle">. . . . .</div>
@@ -164,24 +185,30 @@
             <div class="line"></div>
             <div class="info">
               <h2>BEST-SELLING PRODUCTS</h2>
-              <h4>Nam interdum, lacus quis tempor iaculis, nunc mauris tincidunt metus,</h4>
+              <h4>
+                Nam interdum, lacus quis tempor iaculis, nunc mauris tincidunt
+                metus,
+              </h4>
             </div>
             <div class="line"></div>
           </div>
           <div class="product-bar">
             <div class="arr"><i class="arrow left white"></i></div>
             <div class="product">
-              <div class="image-box"><img src="../img/p10.jpg" alt="prodcut"></div>
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
                 <h2>1982</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
                 <h3>GOLD/BLUE TURTLE</h3>
                 <h3>$10,100</h3>
               </div>
-              
             </div>
             <div class="product">
-              <div class="image-box"><img src="../img/p09.jpg" alt="prodcut"></div>
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">AT' SEA</h3>
@@ -190,7 +217,9 @@
               </div>
             </div>
             <div class="product">
-              <div class="image-box"><img src="../img/p08.jpg" alt="prodcut"></div>
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
                 <h2>1982</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
@@ -199,7 +228,9 @@
               </div>
             </div>
             <div class="product">
-              <div class="image-box"><img src="../img/p07.jpg" alt="prodcut"></div>
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
@@ -214,41 +245,50 @@
       </div>
       <div class="brand-story">
         <div class="container">
-          <img src="../img/s13.jpg" alt="image">
+          <img src="../img/s13.jpg" alt="image" />
           <div class="title topic">
             <div class="line"></div>
             <div class="info">
               <h2>BRAND STORY</h2>
-              <h4>Nam interdum, lacus quis tempor iaculis, nunc mauris tincidunt metus,</h4>
+              <h4>
+                Nam interdum, lacus quis tempor iaculis, nunc mauris tincidunt
+                metus,
+              </h4>
             </div>
             <div class="line"></div>
           </div>
-          <div class="article">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur dicta inventore sit quo aut quaerat veniam ducimus. Dolorem cumque eaque itaque, quam perspiciatis harum provident porro aut explicabo consectetur! Tempore autem nostrum temporibus eius voluptate tempora iusto, vero, officiis asperiores enim vel excepturi cumque officia voluptatibus doloremque quos, facilis doloribus?</div>
+          <div class="article">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
+            dicta inventore sit quo aut quaerat veniam ducimus. Dolorem cumque
+            eaque itaque, quam perspiciatis harum provident porro aut explicabo
+            consectetur! Tempore autem nostrum temporibus eius voluptate tempora
+            iusto, vero, officiis asperiores enim vel excepturi cumque officia
+            voluptatibus doloremque quos, facilis doloribus?
+          </div>
         </div>
       </div>
       <div class="photo-row-bottom">
         <div class="one">
-          <img src="../img/s04.jpg" alt="image">
+          <img src="../img/s04.jpg" alt="image" />
         </div>
         <div class="two">
-          <img class="top" src="../img/s02.jpg" alt="image">
-          <img src="../img/s07.jpg" alt="image">
+          <img class="top" src="../img/s02.jpg" alt="image" />
+          <img src="../img/s07.jpg" alt="image" />
         </div>
         <div class="one">
-          <img src="../img/s08.jpg" alt="image">
+          <img src="../img/s08.jpg" alt="image" />
         </div>
         <div class="two none">
-          <img class="top" src="../img/s03.jpg" alt="image">
-          <img src="../img/s09.jpg" alt="image">
+          <img class="top" src="../img/s03.jpg" alt="image" />
+          <img src="../img/s09.jpg" alt="image" />
         </div>
       </div>
     </div>
     <div class="footer">
       <div class="container">
         <div class="information">
-            
           <div class="info">
-            <img src="../img/logo-w.png" alt="logo">
+            <img src="../img/logo-w.png" alt="logo" />
             <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
           </div>
           <div class="info">
@@ -285,20 +325,70 @@
             <a href="#"><i class="fab fa-youtube"></i> Youtube</a>
           </div>
         </div>
-        <div class="bottom-word">Bremont Watch Company Limited is registered in England 05414485. Registered office; Bremont Watch Company, Manufacturing and Technology Centre, The Wing, Reading Road, Henley-on-Thames, Oxfordshire, RG9 4GE.</div>
+        <div class="bottom-word">
+          Bremont Watch Company Limited is registered in England 05414485.
+          Registered office; Bremont Watch Company, Manufacturing and Technology
+          Centre, The Wing, Reading Road, Henley-on-Thames, Oxfordshire, RG9
+          4GE.
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { initializeApp } from "firebase/app"; //SDK =>
+import { getDatabase, ref, onValue } from "firebase/database";  // {XXXXX}內的小東西都是firebase裡面寫的小功能，為了要避免import時要讀入整包檔案
+
+// // TODO: Replace the following with your app's Firebase project configuration
+// const firebaseConfig = {
+//   //...
+// };
+
+// const app = initializeApp(firebaseConfig);
+
+export default {
+  name: "homerun",
+  data() {
+    return {};
+  },
+  mounted() {
+    //在頁面打開時會直接執行mounted的動作(只有打開頁面時作動)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
+      authDomain: "yama-website.firebaseapp.com",
+      databaseURL: "https://yama-website-default-rtdb.firebaseio.com",
+      projectId: "yama-website",
+      storageBucket: "yama-website.appspot.com",
+      messagingSenderId: "1094650287749",
+      appId: "1:1094650287749:web:b011ea45db8ec625e5bbec",
+      measurementId: "G-6TTRYFGB6X",
+    };
+    const app = initializeApp(firebaseConfig);
+    console.log(app, "app");
+    const database = getDatabase(app);
+    console.log(database);
+    const starCountRef = ref(database, "/");
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+    });
+  },
+
+  methods: {
+    init() {
+      const a = 1;
+      console.log(a);
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 //全域設定
-$brand-color:#BFB094;
-$gray-color:#5B5B5B;
+$brand-color: #bfb094;
+$gray-color: #5b5b5b;
 .arrow {
   border: solid white;
   border-width: 0 2px 2px 0;
@@ -327,36 +417,35 @@ $gray-color:#5B5B5B;
 }
 
 .title {
-    &.topic {
-      display: flex;
-      .line {
-        position: relative;
-        top:20px;
-        width: 350px;
-        border-top:1px solid $brand-color;
-      }
+  &.topic {
+    display: flex;
+    .line {
+      position: relative;
+      top: 20px;
+      width: 350px;
+      border-top: 1px solid $brand-color;
+    }
 
-      .info {
-        margin: 0 50px;
-      }
+    .info {
+      margin: 0 50px;
+    }
 
-      h2 {
-        font-weight: 100;
-        font-size: 18px;
-        letter-spacing: 2px;
-        color: $brand-color;
-      }
+    h2 {
+      font-weight: 100;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: $brand-color;
+    }
 
-      h4 {
-        font-weight: 100;
-        letter-spacing: .5px;
-        font-size: 10px;
-        margin-top: 10px;
-        color: $gray-color;
-      }
-
+    h4 {
+      font-weight: 100;
+      letter-spacing: 0.5px;
+      font-size: 10px;
+      margin-top: 10px;
+      color: $gray-color;
     }
   }
+}
 
 img {
   vertical-align: top;
@@ -366,7 +455,6 @@ ul {
   list-style-type: none;
   padding: 0;
 }
-
 
 // header
 .header {
@@ -402,10 +490,9 @@ ul {
       letter-spacing: 1px;
     }
     a.icon {
-     margin: 5px; 
-     font-size: 14px;
+      margin: 5px;
+      font-size: 14px;
     }
-
   }
 
   .logo {
@@ -423,18 +510,17 @@ ul {
     img {
       margin: 0 40px;
     }
-
   }
 
   .nav {
     &.margin {
       margin-top: 30px;
-        a {
-          text-decoration: none;
-          color: $gray-color;
-          font-size: 10px;
-          margin: 0 20px;
-          letter-spacing: 1.5px;
+      a {
+        text-decoration: none;
+        color: $gray-color;
+        font-size: 10px;
+        margin: 0 20px;
+        letter-spacing: 1.5px;
       }
     }
   }
@@ -446,7 +532,6 @@ ul {
   flex-direction: column;
   align-items: center;
 }
-
 
 .main-photo {
   width: 100%;
@@ -475,11 +560,10 @@ ul {
       object-fit: cover;
     }
   }
-  
 }
 
 .trending-products {
-  margin-top:60px;
+  margin-top: 60px;
   .container {
     display: flex;
     flex-direction: column;
@@ -491,9 +575,9 @@ ul {
       display: flex;
       .line {
         position: relative;
-        top:20px;
+        top: 20px;
         width: 350px;
-        border-top:1px solid $brand-color;
+        border-top: 1px solid $brand-color;
       }
 
       .info {
@@ -509,12 +593,11 @@ ul {
 
       h4 {
         font-weight: 100;
-        letter-spacing: .5px;
+        letter-spacing: 0.5px;
         font-size: 10px;
         margin-top: 10px;
         color: $gray-color;
       }
-
     }
   }
   .product-bar {
@@ -617,7 +700,6 @@ ul {
   .circle {
     color: white;
   }
-
 }
 
 .best-selling {
@@ -642,9 +724,9 @@ ul {
       display: flex;
       .line {
         position: relative;
-        top:20px;
+        top: 20px;
         width: 350px;
-        border-top:1px solid $brand-color;
+        border-top: 1px solid $brand-color;
       }
 
       .info {
@@ -660,12 +742,11 @@ ul {
 
       h4 {
         font-weight: 100;
-        letter-spacing: .5px;
+        letter-spacing: 0.5px;
         font-size: 10px;
         margin-top: 10px;
         color: $gray-color;
       }
-
     }
   }
   .product-bar {
@@ -788,7 +869,7 @@ ul {
   align-items: center;
   justify-content: center;
   padding: 80px 0;
-  
+
   .container {
     width: 80%;
   }
@@ -803,7 +884,7 @@ ul {
     width: 20%;
     text-align: left;
     text-decoration: none;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
     img {
       width: 40%;
     }
@@ -814,24 +895,21 @@ ul {
       font-size: 10px;
       width: 60%;
     }
-    a { 
-        font-size: 12px;
-        color: white;
-        margin-bottom: 5px;
-        text-decoration: none;
-      }
+    a {
+      font-size: 12px;
+      color: white;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
   }
 
-  
-
-    .footer-title {
-      padding-bottom: 5px;
-      color: white;
-      border-bottom: 1px solid white;
-      width: 70%;
-      margin-bottom: 15px;
-      
-    }
+  .footer-title {
+    padding-bottom: 5px;
+    color: white;
+    border-bottom: 1px solid white;
+    width: 70%;
+    margin-bottom: 15px;
+  }
 
   .bottom-word {
     margin-top: 50px;
@@ -842,9 +920,5 @@ ul {
     font-size: 10px;
     letter-spacing: 1px;
   }
-
 }
-
-
-
 </style>
