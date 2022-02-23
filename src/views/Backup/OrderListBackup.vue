@@ -32,29 +32,18 @@
       <div class="main-list">
         <div class="container">
           <div class="left-info">
-            <div class="one-part">
-              <input type="text" placeholder="COUNTRY" />
-            </div>
+            <div class="one-part"><input type="text" /></div>
             <div class="two-part">
-              <input type="text" placeholder="FIRST NAME" />
-              <input type="text" placeholder="LAST NAME" />
+              <input type="text" />
+              <input type="text" />
             </div>
-            <div class="one-part">
-              <input type="text" placeholder="ADDRESS" />
-            </div>
-            <div class="one-part"><input type="text" placeholder="ROAD" /></div>
+            <div class="one-part"><input type="text" /></div>
+            <div class="one-part"><input type="text" /></div>
             <div class="two-part">
-              <input type="text" placeholder="CITY" />
-              <input type="text" placeholder="TOWN" />
+              <input type="text" />
+              <input type="text" />
             </div>
-            <div class="one-part">
-              <input type="text" placeholder="PHONE" />
-            </div>
-            <div class="saveInfo">
-              <div class="square"></div>
-              <div class="word">SAVE THE INFORMATION</div>
-            </div>
-            <a href="#" class="confirm">confirm</a>
+            <div class="one-part"><input type="text" /></div>
           </div>
           <div class="right-list">
             <div class="top-info">
@@ -63,22 +52,42 @@
               <h3 class="price">price</h3>
             </div>
             <div class="lists">
-              <div
-                class="selling-product"
-                v-for="(product, index) in webProductList"
-                :key="index"
-              >
-                <img v-bind:src="product.img" alt="product" />
+              
+              <div class="selling-product">
+                <img src="../img/p09.jpg" alt="product" />
                 <h3>
-                  {{ product.productName }}
+                  1844 gift - the one that stops the time 1844 steel mesh black
+                  leather / watch roll
                 </h3>
                 <div class="count">
                   <div class="counting">+ 1 -</div>
                   <a href="#">DELET</a>
                 </div>
-                <div class="price">
-                  {{ product.price }}
+                <div class="price">$15,800</div>
+              </div>
+              <div class="selling-product">
+                <img src="../img/p09.jpg" alt="product" />
+                <h3>
+                  1844 gift - the one that stops the time 1844 steel mesh black
+                  leather / watch roll
+                </h3>
+                <div class="count">
+                  <div class="counting">+ 1 -</div>
+                  <a href="#">DELET</a>
                 </div>
+                <div class="price">$15,800</div>
+              </div>
+              <div class="selling-product">
+                <img src="../img/p09.jpg" alt="product" />
+                <h3>
+                  1844 gift - the one that stops the time 1844 steel mesh black
+                  leather / watch roll
+                </h3>
+                <div class="count">
+                  <div class="counting">+ 1 -</div>
+                  <a href="#">DELET</a>
+                </div>
+                <div class="price">$15,800</div>
               </div>
             </div>
             <div class="pavement">
@@ -96,6 +105,7 @@
                   <h3 class="left-title">price</h3>
                   <h3 class="price">$38,000</h3>
                 </div>
+                <a class="confirm" href="#">confirm</a>
               </div>
             </div>
           </div>
@@ -155,39 +165,6 @@
 </template>
 
 <script>
-import { initializeApp } from "firebase/app"; //SDK =>
-import { getDatabase, ref, onValue } from "firebase/database"; // {XXXXX}內的小東西都是firebase裡面寫的小功能，為了要避免import時要讀入整包檔案
-
-export default {
-  name: "homerun",
-  data() {
-    return {
-      webProductList: [],
-      ref: null,
-    };
-  },
-  mounted() {
-    //在頁面打開時會直接執行mounted的動作(只有打開頁面時作動)
-    const firebaseConfig = {
-      apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
-      authDomain: "yama-website.firebaseapp.com",
-      databaseURL: "https://yama-website-default-rtdb.firebaseio.com",
-      projectId: "yama-website",
-      storageBucket: "yama-website.appspot.com",
-      messagingSenderId: "1094650287749",
-      appId: "1:1094650287749:web:b011ea45db8ec625e5bbec",
-      measurementId: "G-6TTRYFGB6X",
-    };
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    const starCountRef = ref(database, "/");
-    this.ref = starCountRef;
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      this.webProductList = data.userList[0].cart;
-    });
-  },
-};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -367,20 +344,21 @@ ul {
     border-bottom: 1px solid;
     padding-bottom: 30px;
     h3.product {
-      flex: 6 1 0;
+      flex: 7 1 0;
       text-align: left;
+      padding-left: 30px;
       font-weight: 100;
-      font-size: 12px;
+      font-size: 16px;
     }
     h3.count {
-      flex: 3 1 0;
+      flex: 2 1 0;
       text-align: left;
-      font-size: 12px;
+      font-size: 16px;
       font-weight: 100;
     }
     h3.price {
       flex: 1 1 0;
-      font-size: 12px;
+      font-size: 16px;
       font-weight: 100;
       text-align: left;
     }
@@ -394,32 +372,34 @@ ul {
     padding: 30px 0;
     border-bottom: 1px solid;
     img {
-      height: 80px;
+      height: 200px;
+
       flex: 2 1 0;
       object-fit: contain;
     }
     h3 {
-      flex: 4 1 0;
+      flex: 5 1 0;
       text-transform: uppercase;
       font-size: 14px;
       box-sizing: border-box;
+      padding-right: 50px;
       line-height: 2;
       font-weight: 600;
     }
     .count {
-      flex: 3 1 0;
+      flex: 2 1 0;
       text-align: left;
       flex-direction: column;
       a {
         display: block;
         text-decoration: none;
         color: gray;
-        margin: 11px 0 0 7px;
+        margin: 18px 0 0 18px;
         font-size: 10px;
       }
     }
     .counting {
-      padding: 6px 8px;
+      padding: 10px 20px;
       display: inline-block;
       border: 1px solid;
       color: gray;
@@ -543,9 +523,6 @@ ul {
 }
 
 .main-list {
-  .right-list {
-    width: 500px;
-  }
   .container {
     display: flex;
     .left-info {
@@ -554,57 +531,27 @@ ul {
       flex-direction: column;
       box-sizing: border-box;
       padding-right: 30px;
-      width: 550px;
-      input {
-        padding: 5px;
-        box-sizing: border-box;
-      }
     }
     .one-part {
       box-sizing: border-box;
       margin-bottom: 15px;
       input {
         width: 100%;
-        height: 45px;
+        height: 30px;
+        
       }
     }
     .two-part {
       box-sizing: border-box;
       display: flex;
+      height: 30px;
       margin-bottom: 20px;
       justify-content: space-between;
       input {
-        height: 45px;
-        width: 48%;
+        
+        width: 49%;
       }
     }
-  }
-  .saveInfo {
-    text-align: left;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    .square {
-      width: 20px;
-      height: 20px;
-      border: 1px solid $brand-color;
-      margin-right: 10px;
-      border-radius: 5px;
-    }
-    .word {
-      font-size: 10px;
-    }
-  }
-  a.confirm {
-    text-decoration: none;
-    text-transform: uppercase;
-    background-color: $brand-color;
-    color: white;
-    display: inline-block;
-    text-align: center;
-    padding: 20px;
-    width: 80px;
-    border-radius: 5px;
   }
 }
 </style>

@@ -29,6 +29,11 @@
     </div>
     <div class="content">
       <div class="shop-title">SHOPPING LIST</div>
+      <div class="features">
+        <div class="goods"><i class="fas fa-globe-americas"></i>global delivery free</div>
+        <div class="goods"><i class="fas fa-user-shield"></i>warranty free</div>
+        <div class="goods"><i class="fas fa-glass-martini"></i>traditional skills</div>
+      </div>
       <div class="main-list">
         <div class="container">
           <div class="top-info">
@@ -39,7 +44,7 @@
           <div class="lists">
             <div class="imageWrapper"></div>
             <div class="selling-product" v-for="(product, index) in webProductList" :key="index">
-              <img src="../img/p09.jpg" alt="product" />
+              <img v-bind:src="product.img" alt="product" />
               <h3>
                 {{product.productName}}
               </h3>
@@ -47,13 +52,23 @@
                 <div class="counting">+ 1 -</div>
                 <a href="#">DELET</a>
               </div>
-              <div :class="isPriceShow ? '':'hide'" class="price">
+              <div class="price">
                 {{product.price}}
               </div>
             </div>
           </div>
           <div class="pavement">
-            <div class="title">PAVEMENT</div>
+            <div class="title">
+              PAVEMENT
+              <div class="pay">
+                <div class="card"><i class="fab fa-cc-visa"></i></div>
+                <div class="card"><i class="fab fa-cc-mastercard"></i></div>
+                <div class="card"><i class="fab fa-cc-jcb"></i></div>
+                <div class="card"><i class="fab fa-cc-paypal"></i></div>
+                <div class="card"><i class="fab fa-cc-apple-pay"></i></div>
+                <div class="card"><i class="fab fa-cc-amazon-pay"></i></div>
+              </div>
+            </div>
             <div class="price-detail">
               <div class="total">
                 <h3 class="left-title">total</h3>
@@ -122,6 +137,21 @@
         </div>
       </div>
     </div>
+    <div class="pavement-bar">
+      <div class="container">
+        <div class="pay">
+          <div class="card"><i class="fab fa-cc-visa"></i></div>
+          <div class="card"><i class="fab fa-cc-mastercard"></i></div>
+          <div class="card"><i class="fab fa-cc-jcb"></i></div>
+          <div class="card"><i class="fab fa-cc-paypal"></i></div>
+          <div class="card"><i class="fab fa-cc-apple-pay"></i></div>
+          <div class="card"><i class="fab fa-cc-amazon-pay"></i></div>
+        </div>
+        <div class="information">
+          <a href="#"><i class="far fa-question-circle"></i>information</a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -129,12 +159,6 @@
 import { initializeApp } from "firebase/app"; //SDK =>
 import { getDatabase, ref, onValue } from "firebase/database";  // {XXXXX}內的小東西都是firebase裡面寫的小功能，為了要避免import時要讀入整包檔案
 
-// // TODO: Replace the following with your app's Firebase project configuration
-// const firebaseConfig = {
-//   //...
-// };
-
-// const app = initializeApp(firebaseConfig);
 
 export default {
   name: "homerun",
@@ -142,8 +166,6 @@ export default {
     return {
       webProductList:[],
       ref:null,
-      isPriceShow:true,
-      imagePath:'p09'
     };
   },
   mounted() {
@@ -166,60 +188,7 @@ export default {
       const data = snapshot.val();
       this.webProductList = data.userList[0].cart;
     });
-  },
-
-  methods: {
-
-    // getImageWidth(){
-    //   return new Promise((resolve,reject)=>{
-    //     let image = new Image();
-    //     image.src = 'https://images.unsplash.com/photo-1645262779093-a02b95f38e94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2565&q=80'
-    //     // image.src = 
-    //     //  console.log(image.width,'image')
-    //     image.onload = () => {
-    //       console.log(image.width,'image')
-    //       try {
-    //         if(image.width ===2565 ){
-    //           reject('width should not be zero')
-    //         }else{
-    //           resolve(image.width)
-    //         }
-    //       } catch (error) {
-    //         reject('width should not be zero')
-    //       }
-
-    //       // document.querySelector('.imageWrapper').append(image)
-    //     }
-    //   })
-
-    // },
-    
-    
-    // sendProduct(){
-    //   console.log('sendProduct');
-    //   let productKindList = {
-    //     'toy':'ironMan',
-    //     'sport':'basketball'
-    //   }
-    //   return new Promise((resolve) => {     // resolve , reject 固定
-    //     setTimeout(() => {
-    //       resolve(productKindList)
-    //     }, Math.random()*10);
-    //   })
-    // },
-   
-    // sendUserInfo(){
-    //   let userInfo = {
-    //     'name':'chiyang',
-    //     'loveKind':'toy'
-    //   }
-    //   return new Promise((resolve) => {     // resolve , reject 固定
-    //     setTimeout(() => {
-    //       resolve(userInfo)
-    //     }, Math.random()*10);
-    //   })
-    // },
-  },
+  }
 };
 </script>
 
@@ -228,6 +197,7 @@ export default {
 //全域設定
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
+$green-color: #3e5940;
 .hide{
   display: none !important;
 }
@@ -391,35 +361,72 @@ ul {
 .shop-title {
   letter-spacing: 2px;
   font-size: 18px;
-  color: #c0b094;
+  color: $brand-color;
+  
+    padding-bottom: 10px;
+    border-bottom: 1px solid $brand-color;
+    width: 900px;
+}
+
+.features {
+  
+    display: flex;
+    text-transform: uppercase;
+    padding: 20px 0;
+    border-bottom: 1px solid $brand-color;
+    width: 900px;
+    justify-content: center;
+    font-size: 9px;
+    letter-spacing: 1px;
+    .goods {
+      color: $brand-color;
+    margin: 0 20px;
+    }
+    svg {
+      padding-right: 10px;
+      font-size: 18px;
+    }
+
 }
 
 .main-list {
   margin-top: 60px;
-
+  .container {
+    width: 900px;
+  }
   .top-info {
     display: flex;
     text-transform: uppercase;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #d1d1d1;
     padding-bottom: 30px;
     h3.product {
       flex: 7 1 0;
       text-align: left;
       padding-left: 30px;
       font-weight: 100;
-      font-size: 16px;
+      font-size: 12px;
     }
     h3.count {
       flex: 2 1 0;
       text-align: left;
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 100;
     }
     h3.price {
       flex: 1 1 0;
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 100;
       text-align: left;
+    }
+  }
+  .pay {
+    margin-top: 10px;
+    color: #d1d1d1;
+    display: flex;
+    text-align: left;
+    font-size: 20px;
+    .card {
+      padding-right: 10px;
     }
   }
 }
@@ -428,22 +435,21 @@ ul {
   .selling-product {
     display: flex;
     align-items: center;
-    padding: 30px 0;
-    border-bottom: 1px solid;
+    padding: 20px 0;
     img {
-      height: 200px;
-
+      height: 120px;
       flex: 2 1 0;
       object-fit: contain;
     }
     h3 {
       flex: 5 1 0;
       text-transform: uppercase;
-      font-size: 14px;
+      font-size: 12px;
       box-sizing: border-box;
       padding-right: 50px;
       line-height: 2;
-      font-weight: 600;
+      font-weight: 100;
+      text-align: left;
     }
     .count {
       flex: 2 1 0;
@@ -460,11 +466,13 @@ ul {
     .counting {
       padding: 10px 20px;
       display: inline-block;
-      border: 1px solid;
-      color: gray;
+      border: 1px solid #d1d1d1;
+      color: #d1d1d1;
     }
     .price {
       flex: 1 1 0;
+      text-align: left;
+      font-size: 9px;
     }
   }
 }
@@ -472,6 +480,8 @@ ul {
 .pavement {
   margin: 30px 0;
   display: flex;
+  border-top: 1px solid #d1d1d1;
+  padding-top: 30px;
 
   .title {
     padding-left: 30px;
@@ -483,7 +493,7 @@ ul {
   .price-detail {
     flex: 3 1 0;
     text-align: right;
-    font-size: 12px;
+    font-size: 9px;
     letter-spacing: 1px;
     text-transform: uppercase;
     h3 {
@@ -504,7 +514,7 @@ ul {
   .coupon {
     display: flex;
     padding-bottom: 10px;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #d1d1d1;
     margin-bottom: 10px;
   }
   .price-title {
@@ -578,6 +588,46 @@ ul {
     color: white;
     font-size: 10px;
     letter-spacing: 1px;
+  }
+  
+}
+
+.pavement-bar {
+  background-color: $green-color;
+  padding: 30px 0;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .container {
+    display: flex;
+    width: 80%;
+    text-align: left;
+  }
+  .pay {
+    flex: 1;
+    display: flex;
+    text-align: left;
+    margin-left: 20%;
+    font-size: 30px;
+  }
+  .card {
+    color: white;
+    margin-right: 20px;
+  }
+  .information {
+    padding: 8px;
+    border: 1px solid white;
+    border-radius: 20px;
+    a {
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    svg {
+      padding-right: 10px;
+    }
   }
 }
 </style>

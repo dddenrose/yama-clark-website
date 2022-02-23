@@ -5,9 +5,9 @@
         <div class="container-top">
           <div class="top-bar">
             <div class="bar-1">
-              <router-link class="shopping" :to="{ name: 'shoppinglist' }"
+              <a href="#" class="shopping"
                 >shopping list <i class="fas fa-shopping-cart"></i
-              ></router-link>
+              ></a>
               <a href="#">about us</a>
               <a href="#">contact</a>
               <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
@@ -61,19 +61,94 @@
             <div class="line"></div>
           </div>
           <div class="product-bar">
-            <div
-              class="product"
-              v-for="(product, index) in webProductList"
-              :key="index"
-            >
-              <router-link class="image-box" :to="{ name: 'productdetail' }">
-                <img v-bind:src="product.imagePath" alt="product" />
-              </router-link>
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
+              <div class="info" @click="handleInfo">
+                <h2>1815</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$10,100</h3>
+              </div>
+            </div>
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
-                <h2>{{ product.series }}</h2>
-                <h3 class="name">{{ product.seriesName }}</h3>
-                <h3>{{ product.color }}</h3>
-                <h3>{{ product.price }}</h3>
+                <h2>1815</h2>
+                <h3 class="name">CHRONOGRAPH</h3>
+                <h3>STEEL / BLACK</h3>
+                <h3>$9,500</h3>
+              </div>
+            </div>
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">AT' SEA</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$12,500</h3>
+              </div>
+            </div>
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">CHRONOGRAPH</h3>
+                <h3>STEEL / BLACK</h3>
+                <h3>$9,500</h3>
+              </div>
+            </div>
+          </div>
+          <div class="product-bar">
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
+              <div class="info">
+                <h2>1982</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$10,100</h3>
+              </div>
+            </div>
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">AT' SEA</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$13,500</h3>
+              </div>
+            </div>
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
+              <div class="info">
+                <h2>1982</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$15,500</h3>
+              </div>
+            </div>
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/GREEN TURTLE</h3>
+                <h3>$19,500</h3>
               </div>
             </div>
           </div>
@@ -119,19 +194,48 @@
           </div>
           <div class="product-bar">
             <div class="arr"><i class="arrow left white"></i></div>
-            <div
-              class="product"
-              v-for="(product, index) in webBestSelling"
-              :key="index"
-            >
-              <router-link class="image-box" :to="{ name: 'productdetail' }">
-                <img v-bind:src="product.imagePath" alt="product" />
-              </router-link>
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
               <div class="info">
-                <h2>{{ product.series }}</h2>
-                <h3 class="name">{{ product.seriesName }}</h3>
-                <h3>{{ product.color }}</h3>
-                <h3>{{ product.price }}</h3>
+                <h2>1982</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$10,100</h3>
+              </div>
+            </div>
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">AT' SEA</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$13,500</h3>
+              </div>
+            </div>
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
+              <div class="info">
+                <h2>1982</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/BLUE TURTLE</h3>
+                <h3>$15,500</h3>
+              </div>
+            </div>
+            <div class="product">
+              <router-link class="image-box" :to="{ name: 'productdetail' }"
+                ><img src="../img/p01.jpg" alt="prodcut"
+              /></router-link>
+              <div class="info">
+                <h2>1815</h2>
+                <h3 class="name">JUSTIN GATILIN</h3>
+                <h3>GOLD/GREEN TURTLE</h3>
+                <h3>$19,500</h3>
               </div>
             </div>
             <div class="arr arr-right"><i class="arrow right white"></i></div>
@@ -229,38 +333,27 @@
         </div>
       </div>
     </div>
-    <div class="pavement-bar">
-      <div class="container">
-        <div class="pay">
-          <div class="card"><i class="fab fa-cc-visa"></i></div>
-          <div class="card"><i class="fab fa-cc-mastercard"></i></div>
-          <div class="card"><i class="fab fa-cc-jcb"></i></div>
-          <div class="card"><i class="fab fa-cc-paypal"></i></div>
-          <div class="card"><i class="fab fa-cc-apple-pay"></i></div>
-          <div class="card"><i class="fab fa-cc-amazon-pay"></i></div>
-        </div>
-        <div class="information">
-          <a href="#"><i class="far fa-question-circle"></i>information</a>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { initializeApp } from "firebase/app"; //SDK =>
+import { getDatabase, ref, onValue } from "firebase/database";  // {XXXXX}內的小東西都是firebase裡面寫的小功能，為了要避免import時要讀入整包檔案
+
+// // TODO: Replace the following with your app's Firebase project configuration
+// const firebaseConfig = {
+//   //...
+// };
+
+// const app = initializeApp(firebaseConfig);
 
 export default {
   name: "homerun",
   data() {
-    return {
-      webProductList: [],
-      webBestSelling: [],
-      ref: null,
-    };
+    return {};
   },
   mounted() {
+    //在頁面打開時會直接執行mounted的動作(只有打開頁面時作動)
     const firebaseConfig = {
       apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
       authDomain: "yama-website.firebaseapp.com",
@@ -272,14 +365,21 @@ export default {
       measurementId: "G-6TTRYFGB6X",
     };
     const app = initializeApp(firebaseConfig);
+    console.log(app, "app");
     const database = getDatabase(app);
+    console.log(database);
     const starCountRef = ref(database, "/");
-    this.ref = starCountRef;
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
-      this.webProductList = data.trendingProduct[0];
-      this.webBestSelling = data.bestSelling[0];
+      console.log(data);
     });
+  },
+
+  methods: {
+    init() {
+      const a = 1;
+      console.log(a);
+    },
   },
 };
 </script>
@@ -289,7 +389,6 @@ export default {
 //全域設定
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
-$green-color: #3e5940;
 .arrow {
   border: solid white;
   border-width: 0 2px 2px 0;
@@ -506,20 +605,16 @@ ul {
     margin-top: 60px;
     width: 70%;
     justify-content: space-around;
-    flex-wrap: wrap;
     .product {
       display: flex;
       flex-direction: column;
-      width: 200px;
-      padding: 0 50px;
+      width: 15%;
     }
     .image-box {
       flex: 6 1 250px;
     }
     img {
       width: 100%;
-      height: 350px;
-      object-fit: contain;
       &.top {
         position: relative;
         bottom: 15px;
@@ -553,7 +648,7 @@ ul {
   flex-direction: column;
   align-items: center;
   padding-top: 60px;
-  background-color: $green-color;
+  background-color: $brand-color;
   .container {
     display: flex;
     flex-direction: column;
@@ -613,7 +708,7 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: $green-color;
+  background-color: $brand-color;
   padding-top: 60px;
   .container {
     width: 70%;
@@ -662,16 +757,13 @@ ul {
     .product {
       display: flex;
       flex-direction: column;
-      width: 200px;
-      padding: 0 20px;
+      width: 15%;
     }
     .image-box {
       flex: 6 1 250px;
     }
     img {
       width: 100%;
-      height: 350px;
-      object-fit: contain;
       &.top {
         position: relative;
         bottom: 15px;
@@ -813,8 +905,8 @@ ul {
 
   .footer-title {
     padding-bottom: 5px;
-    color: $green-color;
-    border-bottom: 1px solid $green-color;
+    color: white;
+    border-bottom: 1px solid white;
     width: 70%;
     margin-bottom: 15px;
   }
@@ -827,45 +919,6 @@ ul {
     color: white;
     font-size: 10px;
     letter-spacing: 1px;
-  }
-}
-
-.pavement-bar {
-  background-color: $green-color;
-  padding: 30px 0;
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  .container {
-    display: flex;
-    width: 80%;
-    text-align: left;
-  }
-  .pay {
-    flex: 1;
-    display: flex;
-    text-align: left;
-    margin-left: 20%;
-    font-size: 30px;
-  }
-  .card {
-    color: white;
-    margin-right: 20px;
-  }
-  .information {
-    padding: 8px;
-    border: 1px solid white;
-    border-radius: 20px;
-    a {
-      color: white;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-size: 12px;
-    }
-    svg {
-      padding-right: 10px;
-    }
   }
 }
 </style>
