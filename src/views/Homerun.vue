@@ -21,8 +21,9 @@
           </div>
           <div class="logo">
             <div class="line"></div>
-            <img src="../img/logo.png" alt="logo" style="width: 100px" />
-            <div class="line"></div>
+            <div class="logo-box">
+              <img src="../img/logo.png" alt="logo" style="width: 100px" />
+            </div>
           </div>
           <div class="nav margin">
             <a href="#">MEN'S WATCHES</a>
@@ -41,9 +42,24 @@
             <img src="../img/s11-2.jpg" alt="image" />
           </div>
           <div class="photo-row">
-            <img src="../img/s12.jpg" alt="image" />
-            <img src="../img/s01.jpg" alt="image" />
-            <img src="../img/s06.jpg" alt="image" />
+            <div class="image-box">
+              <img src="../img/s12.jpg" alt="image" />
+              <router-link class="info" :to="{ name: 'productlist' }">
+                mens' wateches <i class="arrow right white"></i>
+              </router-link>
+            </div>
+            <div class="image-box">
+              <img src="../img/s01.jpg" alt="image" />
+              <router-link class="info" :to="{ name: 'productlist' }">
+                new releases <i class="arrow right white"></i>
+              </router-link>
+            </div>
+            <div class="image-box">
+              <img src="../img/s06.jpg" alt="image" />
+              <router-link class="info" :to="{ name: 'productlist' }">
+                classic watches <i class="arrow right white"></i>
+              </router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -281,7 +297,9 @@ export default {
       this.webBestSelling = data.bestSelling[0];
     });
   },
+  
 };
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -399,23 +417,29 @@ ul {
   .logo {
     justify-content: center;
     display: flex;
-    margin-top: 30px;
+    margin-top: 60px;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 
     .line {
-      width: 450px;
+      width: 70%;
       border-top: 1px solid $brand-color;
       position: relative;
-      top: 30px;
     }
 
     img {
       margin: 0 40px;
     }
+    .logo-box {
+      background-color: white;
+      position: absolute;
+    }
   }
 
   .nav {
     &.margin {
-      margin-top: 30px;
+      padding-top: 60px;
       a {
         text-decoration: none;
         color: $gray-color;
@@ -451,15 +475,30 @@ ul {
       object-fit: cover;
     }
   }
+}
 
-  .photo-row {
-    width: 100%;
-    display: flex;
+.photo-row {
+  display: flex;
+  .image-box {
+    flex: 1 1 0;
     height: 300px;
-    img {
-      width: 33.33333%;
-      object-fit: cover;
-    }
+    position: relative;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .info {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    color: white;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+
+    text-decoration: none;
   }
 }
 

@@ -21,14 +21,24 @@
           </div>
           <div class="logo">
             <div class="line"></div>
-            <img src="../img/logo.png" alt="logo" style="width: 100px" />
-            <div class="line"></div>
+            <div class="logo-box">
+              <img src="../img/logo.png" alt="logo" style="width: 100px" />
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="content">
       <div class="shop-title">ORDER LIST</div>
+      <div class="features">
+        <div class="goods">
+          <i class="fas fa-globe-americas"></i>global delivery free
+        </div>
+        <div class="goods"><i class="fas fa-user-shield"></i>warranty free</div>
+        <div class="goods">
+          <i class="fas fa-glass-martini"></i>traditional skills
+        </div>
+      </div>
       <div class="main-list">
         <div class="container">
           <div class="left-info">
@@ -151,6 +161,21 @@
         </div>
       </div>
     </div>
+    <div class="pavement-bar">
+      <div class="container">
+        <div class="pay">
+          <div class="card"><i class="fab fa-cc-visa"></i></div>
+          <div class="card"><i class="fab fa-cc-mastercard"></i></div>
+          <div class="card"><i class="fab fa-cc-jcb"></i></div>
+          <div class="card"><i class="fab fa-cc-paypal"></i></div>
+          <div class="card"><i class="fab fa-cc-apple-pay"></i></div>
+          <div class="card"><i class="fab fa-cc-amazon-pay"></i></div>
+        </div>
+        <div class="information">
+          <a href="#"><i class="far fa-question-circle"></i>information</a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -195,6 +220,8 @@ export default {
 //全域設定
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
+$green-color: #3e5940;
+
 .arrow-up {
   width: 0;
   height: 0;
@@ -315,17 +342,23 @@ ul {
   .logo {
     justify-content: center;
     display: flex;
-    margin-top: 30px;
+    margin-top: 60px;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 
     .line {
-      width: 450px;
+      width: 70%;
       border-top: 1px solid $brand-color;
       position: relative;
-      top: 30px;
     }
 
     img {
       margin: 0 40px;
+    }
+    .logo-box {
+      background-color: white;
+      position: absolute;
     }
   }
 
@@ -354,8 +387,30 @@ ul {
 
 .shop-title {
   letter-spacing: 2px;
-  font-size: 18px;
+  font-size: 12px;
   color: #c0b094;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $brand-color;
+  width: 70%;
+}
+
+.features {
+  display: flex;
+  text-transform: uppercase;
+  padding: 20px 0;
+  border-bottom: 1px solid $brand-color;
+  width: 70%;
+  justify-content: center;
+  font-size: 9px;
+  letter-spacing: 1px;
+  .goods {
+    color: $brand-color;
+    margin: 0 20px;
+  }
+  svg {
+    padding-right: 10px;
+    font-size: 18px;
+  }
 }
 
 .main-list {
@@ -364,16 +419,16 @@ ul {
   .top-info {
     display: flex;
     text-transform: uppercase;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #d1d1d1;
     padding-bottom: 30px;
     h3.product {
-      flex: 6 1 0;
+      flex: 7 1 0;
       text-align: left;
       font-weight: 100;
       font-size: 12px;
     }
     h3.count {
-      flex: 3 1 0;
+      flex: 2 1 0;
       text-align: left;
       font-size: 12px;
       font-weight: 100;
@@ -391,23 +446,23 @@ ul {
   .selling-product {
     display: flex;
     align-items: center;
-    padding: 30px 0;
-    border-bottom: 1px solid;
+    padding: 20px 0;
     img {
       height: 80px;
       flex: 2 1 0;
       object-fit: contain;
     }
     h3 {
-      flex: 4 1 0;
+      flex: 5 1 0;
       text-transform: uppercase;
-      font-size: 14px;
+      font-size: 7px;
       box-sizing: border-box;
       line-height: 2;
-      font-weight: 600;
+      font-weight: 100;
+      text-align: left;
     }
     .count {
-      flex: 3 1 0;
+      flex: 2 1 0;
       text-align: left;
       flex-direction: column;
       a {
@@ -426,13 +481,16 @@ ul {
     }
     .price {
       flex: 1 1 0;
+      font-size: 9px;
     }
   }
 }
 
 .pavement {
-  margin: 30px 0;
+  margin-bottom: 30px;
   display: flex;
+  border-top: 1px solid #d1d1d1;
+  padding-top: 30px;
 
   .title {
     padding-left: 30px;
@@ -444,7 +502,7 @@ ul {
   .price-detail {
     flex: 3 1 0;
     text-align: right;
-    font-size: 12px;
+    font-size: 9px;
     letter-spacing: 1px;
     text-transform: uppercase;
     h3 {
@@ -525,8 +583,8 @@ ul {
 
   .footer-title {
     padding-bottom: 5px;
-    color: white;
-    border-bottom: 1px solid white;
+    color: $green-color;
+    border-bottom: 1px solid $green-color;
     width: 70%;
     margin-bottom: 15px;
   }
@@ -578,6 +636,10 @@ ul {
         width: 48%;
       }
     }
+    input::placeholder {
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
   }
   .saveInfo {
     text-align: left;
@@ -602,9 +664,48 @@ ul {
     color: white;
     display: inline-block;
     text-align: center;
-    padding: 20px;
-    width: 80px;
-    border-radius: 5px;
+    padding: 10px;
+    width: 60px;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+}
+.pavement-bar {
+  background-color: $green-color;
+  padding: 30px 0;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .container {
+    display: flex;
+    width: 80%;
+    text-align: left;
+  }
+  .pay {
+    flex: 1;
+    display: flex;
+    text-align: left;
+    margin-left: 20%;
+    font-size: 30px;
+  }
+  .card {
+    color: white;
+    margin-right: 20px;
+  }
+  .information {
+    padding: 8px;
+    border: 1px solid white;
+    border-radius: 20px;
+    a {
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    svg {
+      padding-right: 10px;
+    }
   }
 }
 </style>

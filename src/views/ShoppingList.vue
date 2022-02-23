@@ -21,8 +21,9 @@
           </div>
           <div class="logo">
             <div class="line"></div>
-            <img src="../img/logo.png" alt="logo" style="width: 100px" />
-            <div class="line"></div>
+            <div class="logo-box">
+              <img src="../img/logo.png" alt="logo" style="width: 100px" />
+            </div>
           </div>
         </div>
       </div>
@@ -30,9 +31,13 @@
     <div class="content">
       <div class="shop-title">SHOPPING LIST</div>
       <div class="features">
-        <div class="goods"><i class="fas fa-globe-americas"></i>global delivery free</div>
+        <div class="goods">
+          <i class="fas fa-globe-americas"></i>global delivery free
+        </div>
         <div class="goods"><i class="fas fa-user-shield"></i>warranty free</div>
-        <div class="goods"><i class="fas fa-glass-martini"></i>traditional skills</div>
+        <div class="goods">
+          <i class="fas fa-glass-martini"></i>traditional skills
+        </div>
       </div>
       <div class="main-list">
         <div class="container">
@@ -43,17 +48,21 @@
           </div>
           <div class="lists">
             <div class="imageWrapper"></div>
-            <div class="selling-product" v-for="(product, index) in webProductList" :key="index">
+            <div
+              class="selling-product"
+              v-for="(product, index) in webProductList"
+              :key="index"
+            >
               <img v-bind:src="product.img" alt="product" />
               <h3>
-                {{product.productName}}
+                {{ product.productName }}
               </h3>
               <div class="count">
                 <div class="counting">+ 1 -</div>
                 <a href="#">DELET</a>
               </div>
               <div class="price">
-                {{product.price}}
+                {{ product.price }}
               </div>
             </div>
           </div>
@@ -82,7 +91,9 @@
                 <h3 class="left-title">price</h3>
                 <h3 class="price">$38,000</h3>
               </div>
-              <router-link class="confirm" :to="{ name:'orderlist'}">confirm</router-link>
+              <router-link class="confirm" :to="{ name: 'orderlist' }"
+                >confirm</router-link
+              >
             </div>
           </div>
         </div>
@@ -157,15 +168,14 @@
 
 <script>
 import { initializeApp } from "firebase/app"; //SDK =>
-import { getDatabase, ref, onValue } from "firebase/database";  // {XXXXX}內的小東西都是firebase裡面寫的小功能，為了要避免import時要讀入整包檔案
-
+import { getDatabase, ref, onValue } from "firebase/database"; // {XXXXX}內的小東西都是firebase裡面寫的小功能，為了要避免import時要讀入整包檔案
 
 export default {
   name: "homerun",
   data() {
     return {
-      webProductList:[],
-      ref:null,
+      webProductList: [],
+      ref: null,
     };
   },
   mounted() {
@@ -183,12 +193,12 @@ export default {
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
     const starCountRef = ref(database, "/");
-    this.ref = starCountRef
+    this.ref = starCountRef;
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
       this.webProductList = data.userList[0].cart;
     });
-  }
+  },
 };
 </script>
 
@@ -198,7 +208,7 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
-.hide{
+.hide {
   display: none !important;
 }
 .arrow-up {
@@ -321,17 +331,23 @@ ul {
   .logo {
     justify-content: center;
     display: flex;
-    margin-top: 30px;
+    margin-top: 60px;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 
     .line {
-      width: 450px;
+      width: 70%;
       border-top: 1px solid $brand-color;
       position: relative;
-      top: 30px;
     }
 
     img {
       margin: 0 40px;
+    }
+    .logo-box {
+      background-color: white;
+      position: absolute;
     }
   }
 
@@ -360,33 +376,31 @@ ul {
 
 .shop-title {
   letter-spacing: 2px;
-  font-size: 18px;
+  font-size: 12px;
   color: $brand-color;
-  
-    padding-bottom: 10px;
-    border-bottom: 1px solid $brand-color;
-    width: 900px;
+
+  padding-bottom: 10px;
+  border-bottom: 1px solid $brand-color;
+  width: 70%;
 }
 
 .features {
-  
-    display: flex;
-    text-transform: uppercase;
-    padding: 20px 0;
-    border-bottom: 1px solid $brand-color;
-    width: 900px;
-    justify-content: center;
-    font-size: 9px;
-    letter-spacing: 1px;
-    .goods {
-      color: $brand-color;
+  display: flex;
+  text-transform: uppercase;
+  padding: 20px 0;
+  border-bottom: 1px solid $brand-color;
+  width: 70%;
+  justify-content: center;
+  font-size: 9px;
+  letter-spacing: 1px;
+  .goods {
+    color: $brand-color;
     margin: 0 20px;
-    }
-    svg {
-      padding-right: 10px;
-      font-size: 18px;
-    }
-
+  }
+  svg {
+    padding-right: 10px;
+    font-size: 18px;
+  }
 }
 
 .main-list {
@@ -574,8 +588,8 @@ ul {
 
   .footer-title {
     padding-bottom: 5px;
-    color: white;
-    border-bottom: 1px solid white;
+    color: $green-color;
+    border-bottom: 1px solid $green-color;
     width: 70%;
     margin-bottom: 15px;
   }
@@ -589,7 +603,6 @@ ul {
     font-size: 10px;
     letter-spacing: 1px;
   }
-  
 }
 
 .pavement-bar {

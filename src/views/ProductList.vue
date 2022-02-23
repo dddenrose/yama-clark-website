@@ -21,9 +21,11 @@
           </div>
           <div class="logo">
             <div class="line"></div>
-            <img src="../img/logo.png" alt="logo" style="width: 100px" />
-            <div class="line"></div>
+            <div class="logo-box">
+              <img src="../img/logo.png" alt="logo" style="width: 100px" />
+            </div>
           </div>
+          
         </div>
       </div>
     </div>
@@ -39,20 +41,33 @@
         </div>
         <div class="trending-products">
           <div class="total-container">
-            <div class="product-bar" v-for="(product, index) in webProductList" :key="index">
+            <div
+              class="product-bar"
+              v-for="(product, index) in webProductList"
+              :key="index"
+            >
               <div class="product">
                 <a href="#" class="image-box">
-                  <img src="../img/p01.jpg" alt="prodcut" />
+                  <img v-bind:src="product.imagePath" alt="prodcut" />
                 </a>
                 <div class="info">
-                  <h2>{{product.series}}</h2>
-                  <h3 class="name">{{product.seriesName}}</h3>
-                  <h3>{{product.color}}</h3>
-                  <h3>{{product.price}}</h3>
+                  <h2>{{ product.series }}</h2>
+                  <h3 class="name">{{ product.seriesName }}</h3>
+                  <h3>{{ product.color }}</h3>
+                  <h3>{{ product.price }}</h3>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="features">
+        <div class="goods">
+          <i class="fas fa-globe-americas"></i>global delivery free
+        </div>
+        <div class="goods"><i class="fas fa-user-shield"></i>warranty free</div>
+        <div class="goods">
+          <i class="fas fa-glass-martini"></i>traditional skills
         </div>
       </div>
     </div>
@@ -105,6 +120,21 @@
         </div>
       </div>
     </div>
+    <div class="pavement-bar">
+      <div class="container">
+        <div class="pay">
+          <div class="card"><i class="fab fa-cc-visa"></i></div>
+          <div class="card"><i class="fab fa-cc-mastercard"></i></div>
+          <div class="card"><i class="fab fa-cc-jcb"></i></div>
+          <div class="card"><i class="fab fa-cc-paypal"></i></div>
+          <div class="card"><i class="fab fa-cc-apple-pay"></i></div>
+          <div class="card"><i class="fab fa-cc-amazon-pay"></i></div>
+        </div>
+        <div class="information">
+          <a href="#"><i class="far fa-question-circle"></i>information</a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -116,10 +146,10 @@ export default {
   name: "homerun",
   data() {
     return {
-      webProductList:[],
-      ref:null,
-      isPriceShow:true,
-      imagePath:'p09'
+      webProductList: [],
+      ref: null,
+      isPriceShow: true,
+      imagePath: "p09",
     };
   },
   mounted() {
@@ -136,14 +166,13 @@ export default {
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
     const starCountRef = ref(database, "/");
-    this.ref = starCountRef
+    this.ref = starCountRef;
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
       this.webProductList = data.productList[0];
     });
   },
 };
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -151,6 +180,7 @@ export default {
 //全域設定
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
+$green-color: #3e5940;
 .arrow {
   border: solid white;
   border-width: 0 2px 2px 0;
@@ -260,17 +290,23 @@ ul {
   .logo {
     justify-content: center;
     display: flex;
-    margin-top: 30px;
+    margin-top: 60px;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 
     .line {
-      width: 450px;
+      width: 70%;
       border-top: 1px solid $brand-color;
       position: relative;
-      top: 30px;
     }
 
     img {
       margin: 0 40px;
+    }
+    .logo-box {
+      background-color: white;
+      position: absolute;
     }
   }
 
@@ -296,19 +332,41 @@ ul {
   align-items: center;
   .container {
     display: flex;
+    width: 70%;
+  }
+}
+
+.features {
+  margin-bottom: 60px;
+  display: flex;
+  text-transform: uppercase;
+  padding: 20px 0;
+  border-top: 1px solid $brand-color;
+  border-bottom: 1px solid $brand-color;
+  width: 70%;
+  justify-content: center;
+  font-size: 9px;
+  letter-spacing: 1px;
+  .goods {
+    color: $brand-color;
+    margin: 0 20px;
+  }
+  svg {
+    padding-right: 10px;
+    font-size: 18px;
   }
 }
 
 .total-container {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .left-info {
   display: flex;
   text-align: left;
   flex-direction: column;
-  flex: 1 1 0;
   .left-title {
     color: $brand-color;
     border-bottom: 1px solid $brand-color;
@@ -331,6 +389,8 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    flex: 1 1 0;
   }
 
   .title {
@@ -367,10 +427,12 @@ ul {
     display: flex;
     margin-bottom: 60px;
     justify-content: space-around;
+    flex-wrap: wrap;
     .product {
       display: flex;
       flex-direction: column;
-      width: 15%;
+      width: 200px;
+      padding: 0 60px;
     }
     .image-box {
       flex: 6 1 250px;
@@ -426,7 +488,7 @@ ul {
     width: 20%;
     text-align: left;
     text-decoration: none;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
     img {
       width: 40%;
     }
@@ -447,8 +509,8 @@ ul {
 
   .footer-title {
     padding-bottom: 5px;
-    color: white;
-    border-bottom: 1px solid white;
+    color: $green-color;
+    border-bottom: 1px solid $green-color;
     width: 70%;
     margin-bottom: 15px;
   }
@@ -461,6 +523,44 @@ ul {
     color: white;
     font-size: 10px;
     letter-spacing: 1px;
+  }
+}
+.pavement-bar {
+  background-color: $green-color;
+  padding: 30px 0;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .container {
+    display: flex;
+    width: 80%;
+    text-align: left;
+  }
+  .pay {
+    flex: 1;
+    display: flex;
+    text-align: left;
+    margin-left: 20%;
+    font-size: 30px;
+  }
+  .card {
+    color: white;
+    margin-right: 20px;
+  }
+  .information {
+    padding: 8px;
+    border: 1px solid white;
+    border-radius: 20px;
+    a {
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    svg {
+      padding-right: 10px;
+    }
   }
 }
 </style>

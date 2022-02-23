@@ -21,13 +21,21 @@
           </div>
           <div class="logo">
             <div class="line"></div>
-            <img src="../img/logo.png" alt="logo" style="width: 100px" />
-            <div class="line"></div>
+            <div class="logo-box"><img src="../img/logo.png" alt="logo" style="width: 100px" /></div>
           </div>
         </div>
       </div>
     </div>
     <div class="content">
+      <div class="features">
+        <div class="goods">
+          <i class="fas fa-globe-americas"></i>global delivery free
+        </div>
+        <div class="goods"><i class="fas fa-user-shield"></i>warranty free</div>
+        <div class="goods">
+          <i class="fas fa-glass-martini"></i>traditional skills
+        </div>
+      </div>
       <div class="product-detail">
         <div class="scroll">
           <div class="arrow-up"></div>
@@ -149,6 +157,21 @@
         </div>
       </div>
     </div>
+    <div class="pavement-bar">
+      <div class="container">
+        <div class="pay">
+          <div class="card"><i class="fab fa-cc-visa"></i></div>
+          <div class="card"><i class="fab fa-cc-mastercard"></i></div>
+          <div class="card"><i class="fab fa-cc-jcb"></i></div>
+          <div class="card"><i class="fab fa-cc-paypal"></i></div>
+          <div class="card"><i class="fab fa-cc-apple-pay"></i></div>
+          <div class="card"><i class="fab fa-cc-amazon-pay"></i></div>
+        </div>
+        <div class="information">
+          <a href="#"><i class="far fa-question-circle"></i>information</a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -160,6 +183,7 @@
 //全域設定
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
+$green-color: #3e5940;
 .arrow-up {
   width: 0;
   height: 0;
@@ -280,17 +304,23 @@ ul {
   .logo {
     justify-content: center;
     display: flex;
-    margin-top: 30px;
+    margin-top: 60px;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 
     .line {
-      width: 450px;
+      width: 70%;
       border-top: 1px solid $brand-color;
       position: relative;
-      top: 30px;
     }
 
     img {
       margin: 0 40px;
+    }
+    .logo-box {
+      background-color: white;
+      position: absolute;
     }
   }
 
@@ -314,6 +344,27 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.features {
+  margin-bottom: 60px;
+  display: flex;
+  text-transform: uppercase;
+  padding: 20px 0;
+  border-top: 1px solid $brand-color;
+  border-bottom: 1px solid $brand-color;
+  width: 70%;
+  justify-content: center;
+  font-size: 9px;
+  letter-spacing: 1px;
+  .goods {
+    color: $brand-color;
+    margin: 0 20px;
+  }
+  svg {
+    padding-right: 10px;
+    font-size: 18px;
+  }
 }
 
 .product-detail {
@@ -534,8 +585,8 @@ a.button {
 
   .footer-title {
     padding-bottom: 5px;
-    color: white;
-    border-bottom: 1px solid white;
+    color: $green-color;
+    border-bottom: 1px solid $green-color;
     width: 70%;
     margin-bottom: 15px;
   }
@@ -548,6 +599,44 @@ a.button {
     color: white;
     font-size: 10px;
     letter-spacing: 1px;
+  }
+}
+.pavement-bar {
+  background-color: $green-color;
+  padding: 30px 0;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .container {
+    display: flex;
+    width: 80%;
+    text-align: left;
+  }
+  .pay {
+    flex: 1;
+    display: flex;
+    text-align: left;
+    margin-left: 20%;
+    font-size: 30px;
+  }
+  .card {
+    color: white;
+    margin-right: 20px;
+  }
+  .information {
+    padding: 8px;
+    border: 1px solid white;
+    border-radius: 20px;
+    a {
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    svg {
+      padding-right: 10px;
+    }
   }
 }
 </style>
