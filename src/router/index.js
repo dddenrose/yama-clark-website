@@ -6,6 +6,7 @@ import ProductList from '../views/ProductList.vue'
 import ProductDetail from '../views/ProductDetail.vue'
 import ShoppingList from '../views/ShoppingList.vue'
 import OrderList from '../views/OrderList.vue'
+import Login from '../views/Login.vue'
 
 
 
@@ -49,6 +50,11 @@ const routes = [
     path: '/orderlist',
     name: 'orderlist',
     component: OrderList,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
   }
 ]
 
