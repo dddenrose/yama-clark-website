@@ -297,9 +297,7 @@ export default {
       this.webBestSelling = data.bestSelling[0];
     });
   },
-  
 };
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
