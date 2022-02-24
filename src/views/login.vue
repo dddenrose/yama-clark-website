@@ -41,8 +41,20 @@
       </div>
       <div class="main-list">
         <div class="container">
-          
-          
+          <div class="left-img">
+            <img src="../img/s04.jpg" alt="image" />
+          </div>
+          <div class="right-login">
+            <input type="text" placeholder="account" />
+            <input type="text" placeholder="password" />
+            <div class="login"><a href="#">login</a></div>
+            <h4>or</h4>
+            <div class="sign-up"><a href="#">sign up</a></div>
+            <div class="info">
+              <div class="con">contact us</div>
+              <div class="info-box">information</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -295,7 +307,6 @@ ul {
       position: absolute;
     }
   }
-
 }
 
 //content
@@ -335,7 +346,81 @@ ul {
   }
 }
 
+.main-list {
+  display: flex;
+  margin-top: 60px;
+  justify-content: center;
+  .container {
+    width: 80%;
+    display: flex;
+    align-items: center;
+  }
+}
 
+.left-img {
+  width: 550px;
+  img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+  }
+}
+
+.right-login {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  box-sizing: border-box;
+  width: 550px;
+  letter-spacing: 1px;
+  color: $brand-color;
+  input {
+    width: 100%;
+    height: 45px;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+
+  ::placeholder {
+    text-transform: uppercase;
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+  a {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    height: 45px;
+    background-color: $brand-color;
+    display: block;
+    line-height: 3.5;
+    text-transform: uppercase;
+    font-size: 9px;
+  }
+  h4 {
+    margin: 20px 0;
+    text-transform: uppercase;
+    font-size: 9px;
+    font-weight: 100;
+  }
+
+  .info {
+    display: flex;
+    margin-top: 20px;
+    .info-box {
+      text-transform: uppercase;
+      font-size: 9px;
+    }
+  }
+
+  .con {
+    text-transform: uppercase;
+    font-size: 9px;
+    flex: 1;
+    text-align: left;
+  }
+}
 
 .footer {
   background-color: #c0b094;
