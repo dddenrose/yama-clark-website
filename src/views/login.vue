@@ -5,9 +5,9 @@
         <div class="container-top">
           <div class="top-bar">
             <div class="bar-1">
-              <a href="#" class="shopping"
+              <router-link class="shopping" :to="{ name: 'shoppinglist' }"
                 >shopping list <i class="fas fa-shopping-cart"></i
-              ></a>
+              ></router-link>
               <a href="#">about us</a>
               <a href="#">contact</a>
               <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
@@ -45,7 +45,7 @@
             <img src="../img/s04.jpg" alt="image" />
           </div>
           <div class="right-login">
-            <input type="text" placeholder="account" />
+            <input type="text" placeholder="account" v-model="login" />
             <input type="text" placeholder="password" />
             <div class="login"><a href="#">login</a></div>
             <h4>or</h4>
@@ -135,6 +135,7 @@ export default {
     return {
       webProductList: [],
       ref: null,
+      login: "",
     };
   },
   mounted() {
@@ -159,6 +160,7 @@ export default {
     });
   },
 };
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <button type="button">點擊我</button>
     <div class="header">
       <div class="nav">
         <div class="container-top">
@@ -65,7 +66,7 @@
               <router-link class="image-box" :to="{ name: 'productdetail' }"
                 ><img src="../img/p01.jpg" alt="prodcut"
               /></router-link>
-              <div class="info" @click="handleInfo">
+              <div class="info">
                 <h2>1815</h2>
                 <h3 class="name">JUSTIN GATILIN</h3>
                 <h3>GOLD/BLUE TURTLE</h3>
@@ -337,51 +338,8 @@
 </template>
 
 <script>
-import { initializeApp } from "firebase/app"; //SDK =>
-import { getDatabase, ref, onValue } from "firebase/database";  // {XXXXX}內的小東西都是firebase裡面寫的小功能，為了要避免import時要讀入整包檔案
 
-// // TODO: Replace the following with your app's Firebase project configuration
-// const firebaseConfig = {
-//   //...
-// };
 
-// const app = initializeApp(firebaseConfig);
-
-export default {
-  name: "homerun",
-  data() {
-    return {};
-  },
-  mounted() {
-    //在頁面打開時會直接執行mounted的動作(只有打開頁面時作動)
-    const firebaseConfig = {
-      apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
-      authDomain: "yama-website.firebaseapp.com",
-      databaseURL: "https://yama-website-default-rtdb.firebaseio.com",
-      projectId: "yama-website",
-      storageBucket: "yama-website.appspot.com",
-      messagingSenderId: "1094650287749",
-      appId: "1:1094650287749:web:b011ea45db8ec625e5bbec",
-      measurementId: "G-6TTRYFGB6X",
-    };
-    const app = initializeApp(firebaseConfig);
-    console.log(app, "app");
-    const database = getDatabase(app);
-    console.log(database);
-    const starCountRef = ref(database, "/");
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
-    });
-  },
-
-  methods: {
-    init() {
-      const a = 1;
-      console.log(a);
-    },
-  },
-};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

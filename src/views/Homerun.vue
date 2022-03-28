@@ -1,5 +1,26 @@
 <template>
-  <div class="hello">
+  <div class="hello" ref="app">
+    <slider
+      class="rwd-bar"
+      :width="300"
+      format="full"
+      direction="left"
+      :opacity="0.6"
+      :links="[
+        { id: 1, text: `SHOPPING LIST`, url: '#' },
+        { id: 2, text: `ABOUT US`, url: '#' },
+        { id: 3, text: `CONTACT`, url: '#' },
+        { id: 4, text: `MEN'S WATCHES`, url: '#' },
+        { id: 5, text: `LADIES' WATCHES`, url: '#' },
+        { id: 6, text: `NEW RELEASES`, url: '#' },
+        { id: 7, text: `ACCESSORIES`, url: '#' },
+      ]"
+      :customStyles="{
+        navMenu: { 'background-color': 'red' },
+        navIcon: { color: 'red' },
+      }"
+    ></slider>
+
     <div class="header">
       <div class="nav">
         <div class="container-top">
@@ -26,11 +47,19 @@
             </div>
           </div>
           <div class="nav margin">
-            <a href="#">MEN'S WATCHES</a>
-            <a href="#">LADIES' WATCHES</a>
-            <a href="#">NEW RELEASES</a>
-            <a href="#">ACCESSORIES</a>
-            <a href="#">OTHER</a>
+            <router-link :to="{ name: 'productlist' }">
+              MEN'S WATCHES
+            </router-link>
+            <router-link :to="{ name: 'productlist' }">
+              LADIES' WATCHES
+            </router-link>
+            <router-link :to="{ name: 'productlist' }">
+              NEW RELEASES
+            </router-link>
+            <router-link :to="{ name: 'productlist' }">
+              ACCESSORIES
+            </router-link>
+            <router-link :to="{ name: 'productlist' }"> OTHER </router-link>
           </div>
         </div>
       </div>
@@ -266,6 +295,7 @@
 <script>
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue } from "firebase/database";
+import Slider from "@jeremyhamm/vue-slider";
 
 export default {
   name: "homerun",
@@ -296,6 +326,9 @@ export default {
       this.webProductList = data.trendingProduct[0];
       this.webBestSelling = data.bestSelling[0];
     });
+  },
+  components: {
+    slider: Slider,
   },
 };
 </script>
@@ -621,14 +654,17 @@ ul {
     margin-top: 60px;
     color: white;
     display: flex;
+    
     .title {
       flex: 1;
       font-size: 65px;
       text-align: left;
+      
     }
     .info {
       text-align: left;
       flex: 1;
+      line-height: 1.5;
     }
     h3 {
       font-weight: 100;
@@ -903,6 +939,99 @@ ul {
     svg {
       padding-right: 10px;
     }
+  }
+}
+
+.rwd-bar {
+  display: none;
+}
+
+#app {
+  .hello {
+    .navMenu {
+      background-color: wheat;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .product-bar {
+    width: 80vw;
+  }
+
+  .title.topic {
+    .line {
+      display: none;
+    }
+  }
+
+  .main-photo .photo-top {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .rwd-bar {
+    display: flex;
+    background-color: $brand-color;
+  }
+
+  .header {
+    .nav {
+      .container-top {
+        .top-bar {
+          display: none;
+        }
+        .nav.margin {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .best-selling {
+    display: none;
+  }
+  .main-photo .photo-top {
+    height: auto;
+  }
+
+  .photo-row {
+    .image-box {
+      height: 180px;
+    }
+  }
+
+  .brand-story {
+    .container {
+      top: 0;
+      padding: 30px 0;
+    }
+  }
+
+  .photo-row-bottom {
+    top: 0;
+    padding-bottom: 30px;
+  }
+
+  .footer {
+    display: none;
+  }
+
+  .pavement-bar {
+    display: none;
+  }
+
+  .photo-bar {
+    padding-bottom: 30px;
+    .info.topic {
+      flex-direction: column;
+    }
+    .title {
+      padding-bottom: 2vh;
+      font-size: 13vw;
+    }
+
   }
 }
 </style>

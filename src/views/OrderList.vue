@@ -5,9 +5,9 @@
         <div class="container-top">
           <div class="top-bar">
             <div class="bar-1">
-              <a href="#" class="shopping"
+              <router-link class="shopping" :to="{ name: 'shoppinglist' }"
                 >shopping list <i class="fas fa-shopping-cart"></i
-              ></a>
+              ></router-link>
               <a href="#">about us</a>
               <a href="#">contact</a>
               <a class="icon" href="#"><i class="fab fa-facebook"></i></a>

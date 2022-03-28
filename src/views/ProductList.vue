@@ -5,9 +5,9 @@
         <div class="container-top">
           <div class="top-bar">
             <div class="bar-1">
-              <a href="#" class="shopping"
+              <router-link class="shopping" :to="{ name: 'shoppinglist' }"
                 >shopping list <i class="fas fa-shopping-cart"></i
-              ></a>
+              ></router-link>
               <a href="#">about us</a>
               <a href="#">contact</a>
               <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
@@ -117,6 +117,7 @@
           Registered office; Bremont Watch Company, Manufacturing and Technology
           Centre, The Wing, Reading Road, Henley-on-Thames, Oxfordshire, RG9
           4GE.
+          {{message}}
         </div>
       </div>
     </div>
@@ -150,6 +151,7 @@ export default {
       ref: null,
       isPriceShow: true,
       imagePath: "p09",
+      priceFilter: '',
     };
   },
   mounted() {
@@ -173,6 +175,9 @@ export default {
     });
   },
 };
+
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
