@@ -1,5 +1,25 @@
 <template>
   <div class="hello">
+    <slider
+      class="rwd-bar"
+      :width="300"
+      format="full"
+      direction="left"
+      :opacity="0.6"
+      :links="[
+        { id: 1, text: `SHOPPING LIST`, url: '#' },
+        { id: 2, text: `ABOUT US`, url: '#' },
+        { id: 3, text: `CONTACT`, url: '#' },
+        { id: 4, text: `MEN'S WATCHES`, url: '#' },
+        { id: 5, text: `LADIES' WATCHES`, url: '#' },
+        { id: 6, text: `NEW RELEASES`, url: '#' },
+        { id: 7, text: `ACCESSORIES`, url: '#' },
+      ]"
+      :customStyles="{
+        navMenu: { 'background-color': 'red' },
+        navIcon: { color: 'red' },
+      }"
+    ></slider>
     <div class="header">
       <div class="nav">
         <div class="container-top">
@@ -21,7 +41,9 @@
           </div>
           <div class="logo">
             <div class="line"></div>
-            <div class="logo-box"><img src="../img/logo.png" alt="logo" style="width: 100px" /></div>
+            <div class="logo-box">
+              <img src="../img/logo.png" alt="logo" style="width: 100px" />
+            </div>
           </div>
         </div>
       </div>
@@ -37,18 +59,21 @@
         </div>
       </div>
       <div class="product-detail">
-        <div class="scroll">
-          <div class="arrow-up"></div>
-          <div class="photo">
-            <a href="#"><img src="../img/d01.jpg" alt="product" /></a>
-            <a href="#"><img src="../img/d02.jpg" alt="product" /></a>
-            <a href="#"><img src="../img/d04.jpg" alt="product" /></a>
+        <div class="product-main">
+          <div class="scroll">
+            <div class="arrow-up"></div>
+            <div class="photo">
+              <a href="#"><img src="../img/d01.jpg" alt="product" /></a>
+              <a href="#"><img src="../img/d02.jpg" alt="product" /></a>
+              <a href="#"><img src="../img/d04.jpg" alt="product" /></a>
+            </div>
+            <div class="arrow-down"></div>
           </div>
-          <div class="arrow-down"></div>
+          <div class="product-photo">
+            <img src="../img/p02.jpg" alt="product" />
+          </div>
         </div>
-        <div class="product-photo">
-          <a href="#"><img src="../img/p02.jpg" alt="product" /></a>
-        </div>
+
         <div class="product-info">
           <div class="series">1982</div>
           <h3>gmt world traveler</h3>
@@ -67,8 +92,9 @@
             Fuga ad dicta totam itaque consequuntur deserunt molestias qui sequi
             minima aut similique, natus hic sunt.
           </h4>
-          <router-link class="button" :to="{ name:'shoppinglist'}">ADD TO CART</router-link>
-          
+          <router-link class="button" :to="{ name: 'shoppinglist' }"
+            >ADD TO CART</router-link
+          >
         </div>
       </div>
       <div class="brand-story">
@@ -111,7 +137,7 @@
     <div class="footer">
       <div class="container">
         <div class="information">
-          <div class="info">
+          <div class="info logo">
             <img src="../img/logo-w.png" alt="logo" />
             <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
           </div>
@@ -176,6 +202,15 @@
 </template>
 
 <script>
+import Slider from "@jeremyhamm/vue-slider";
+
+export default {
+  name: "homerun",
+  data() {},
+  components: {
+    slider: Slider,
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -370,6 +405,9 @@ ul {
 .product-detail {
   width: 70%;
   display: flex;
+  .product-main {
+    display: flex;
+  }
   .scroll {
     padding-right: 30px;
     box-sizing: border-box;
@@ -636,6 +674,135 @@ a.button {
     }
     svg {
       padding-right: 10px;
+    }
+  }
+}
+
+//RWD
+
+.rwd-bar {
+  display: none;
+}
+
+@media screen and (max-width: 1100px) {
+  .product-detail {
+    flex-direction: column;
+    align-items: center;
+    
+    .product-info {
+      padding-top: 30px;
+      padding-left: 0;
+    }
+
+    .product-main {
+      .product-photo {
+        width: 50vw;
+      }
+    }
+  }
+
+  .brand-story {
+    .container {
+      flex-direction: column;
+    }
+    .word {
+      padding: 5%;
+      h4 {
+        width: 100%;
+      }
+    }
+  }
+
+  .pavement {
+    .title {
+      padding-left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .rwd-bar {
+    display: flex;
+    background-color: $brand-color;
+  }
+
+  .header {
+    .nav {
+      .container-top {
+        .top-bar {
+          display: none;
+        }
+        .nav.margin {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .main-list {
+    .container {
+      .left-info {
+        width: 70%;
+      }
+      .right-list {
+        width: 70%;
+      }
+    }
+  }
+
+  .footer {
+    padding: 50px 0;
+    .container {
+      display: flex;
+      align-items: flex-start;
+
+      .information {
+        flex: 1 1 0;
+        .info {
+          display: none;
+          img {
+            width: 60px;
+          }
+          &.logo {
+            display: flex;
+          }
+          h4 {
+            width: 100%;
+          }
+        }
+      }
+
+      .bottom-word {
+        display: flex;
+        width: 100%;
+        margin: 0;
+        flex: 3 1 0;
+      }
+    }
+  }
+
+  .pavement-bar {
+    .container {
+      flex-direction: column;
+    }
+    .pay {
+      margin: 0;
+    }
+    .information {
+      display: flex;
+      width: 40%;
+      margin: 10px 0;
+    }
+  }
+
+  .photo-bar {
+    padding-bottom: 30px;
+    .info.topic {
+      flex-direction: column;
+    }
+    .title {
+      padding-bottom: 2vh;
+      font-size: 13vw;
     }
   }
 }

@@ -228,7 +228,7 @@
     <div class="footer">
       <div class="container">
         <div class="information">
-          <div class="info">
+          <div class="info logo">
             <img src="../img/logo-w.png" alt="logo" />
             <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
           </div>
@@ -654,12 +654,11 @@ ul {
     margin-top: 60px;
     color: white;
     display: flex;
-    
+
     .title {
       flex: 1;
       font-size: 65px;
       text-align: left;
-      
     }
     .info {
       text-align: left;
@@ -946,14 +945,6 @@ ul {
   display: none;
 }
 
-#app {
-  .hello {
-    .navMenu {
-      background-color: wheat;
-    }
-  }
-}
-
 @media screen and (max-width: 1200px) {
   .product-bar {
     width: 80vw;
@@ -1015,11 +1006,48 @@ ul {
   }
 
   .footer {
-    display: none;
+    padding: 50px 0;
+    .container {
+      display: flex;
+      align-items: flex-start;
+
+      .information {
+        flex: 1 1 0;
+        .info {
+          display: none;
+          img {
+            width: 60px;
+          }
+          &.logo {
+            display: flex;
+          }
+          h4 {
+            width: 100%;
+          }
+        }
+      }
+
+      .bottom-word {
+        display: flex;
+        width: 100%;
+        margin: 0;
+        flex: 3 1 0;
+      }
+    }
   }
 
   .pavement-bar {
-    display: none;
+    .container {
+      flex-direction: column;
+    }
+    .pay {
+      margin: 0;
+    }
+    .information {
+      display: flex;
+      width: 40%;
+      margin: 10px 0;
+    }
   }
 
   .photo-bar {
@@ -1031,7 +1059,6 @@ ul {
       padding-bottom: 2vh;
       font-size: 13vw;
     }
-
   }
 }
 </style>

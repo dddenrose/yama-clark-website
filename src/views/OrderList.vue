@@ -1,5 +1,26 @@
 <template>
   <div class="hello">
+    <slider
+      class="rwd-bar"
+      :width="300"
+      format="full"
+      direction="left"
+      :opacity="0.6"
+      :links="[
+        { id: 1, text: `SHOPPING LIST`, url: '#' },
+        { id: 2, text: `ABOUT US`, url: '#' },
+        { id: 3, text: `CONTACT`, url: '#' },
+        { id: 4, text: `MEN'S WATCHES`, url: '#' },
+        { id: 5, text: `LADIES' WATCHES`, url: '#' },
+        { id: 6, text: `NEW RELEASES`, url: '#' },
+        { id: 7, text: `ACCESSORIES`, url: '#' },
+      ]"
+      :customStyles="{
+        navMenu: { 'background-color': 'red' },
+        navIcon: { color: 'red' },
+      }"
+    ></slider>
+
     <div class="header">
       <div class="nav">
         <div class="container-top">
@@ -115,7 +136,7 @@
     <div class="footer">
       <div class="container">
         <div class="information">
-          <div class="info">
+          <div class="info logo">
             <img src="../img/logo-w.png" alt="logo" />
             <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h4>
           </div>
@@ -182,6 +203,7 @@
 <script>
 import { initializeApp } from "firebase/app"; //SDK =>
 import { getDatabase, ref, onValue } from "firebase/database"; // {XXXXX}內的小東西都是firebase裡面寫的小功能，為了要避免import時要讀入整包檔案
+import Slider from "@jeremyhamm/vue-slider";
 
 export default {
   name: "homerun",
@@ -211,6 +233,9 @@ export default {
       const data = snapshot.val();
       this.webProductList = data.userList[0].cart;
     });
+  },
+  components: {
+    slider: Slider,
   },
 };
 </script>
@@ -705,6 +730,128 @@ ul {
     }
     svg {
       padding-right: 10px;
+    }
+  }
+}
+
+// RWD
+
+.rwd-bar {
+  display: none;
+}
+
+@media screen and (max-width: 1100px) {
+  .main-list {
+    .container {
+      flex-direction: column;
+      align-items: center;
+
+      .left-info {
+        width: 500px;
+        padding-right: 0;
+      }
+    }
+
+    .right-list {
+      margin-top: 50px;
+    }
+
+    .top-info {
+      border-top: 1px solid #d1d1d1;
+      padding-top: 30px;
+    }
+  }
+
+  .pavement {
+    .title {
+      padding-left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .rwd-bar {
+    display: flex;
+    background-color: $brand-color;
+  }
+
+  .header {
+    .nav {
+      .container-top {
+        .top-bar {
+          display: none;
+        }
+        .nav.margin {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .main-list {
+    .container {
+      .left-info {
+        width: 70%;
+      }
+      .right-list {
+        width: 70%;
+      }
+    }
+  }
+
+  .footer {
+    padding: 50px 0;
+    .container {
+      display: flex;
+      align-items: flex-start;
+
+      .information {
+        flex: 1 1 0;
+        .info {
+          display: none;
+          img {
+            width: 60px;
+          }
+          &.logo {
+            display: flex;
+          }
+          h4 {
+            width: 100%;
+          }
+        }
+      }
+
+      .bottom-word {
+        display: flex;
+        width: 100%;
+        margin: 0;
+        flex: 3 1 0;
+      }
+    }
+  }
+
+  .pavement-bar {
+    .container {
+      flex-direction: column;
+    }
+    .pay {
+      margin: 0;
+    }
+    .information {
+      display: flex;
+      width: 40%;
+      margin: 10px 0;
+    }
+  }
+
+  .photo-bar {
+    padding-bottom: 30px;
+    .info.topic {
+      flex-direction: column;
+    }
+    .title {
+      padding-bottom: 2vh;
+      font-size: 13vw;
     }
   }
 }
