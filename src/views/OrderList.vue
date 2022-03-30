@@ -29,8 +29,8 @@
               <router-link class="shopping" :to="{ name: 'shoppinglist' }"
                 >shopping list <i class="fas fa-shopping-cart"></i
               ></router-link>
-              <a href="#">about us</a>
-              <a href="#">contact</a>
+              <router-link :to="{ name: 'homerun' }">home</router-link>
+              <router-link :to="{ name: 'productlist' }">productlist</router-link>
               <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
               <a class="icon" href="#"
                 ><i class="fab fa-instagram-square"></i
@@ -38,7 +38,7 @@
               <a class="icon" href="#"><i class="fab fa-twitter-square"></i></a>
               <a class="icon" href="#"><i class="fab fa-youtube"></i></a>
             </div>
-            <div class="bar-2">login</div>
+            <div class="bar-2"><router-link :to="{ name: 'login' }">login</router-link></div>
           </div>
           <div class="logo">
             <div class="line"></div>
@@ -341,7 +341,9 @@ ul {
     }
 
     .bar-2 {
-      color: $brand-color;
+      a {
+        color: $brand-color;
+      }
       margin-right: 50px;
       text-transform: uppercase;
       font-size: 12px;
