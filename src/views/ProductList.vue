@@ -1,25 +1,5 @@
 <template>
   <div class="hello">
-    <slider
-      class="rwd-bar"
-      :width="300"
-      format="full"
-      direction="left"
-      :opacity="0.6"
-      :links="[
-        { id: 1, text: `SHOPPING LIST`, url: '#' },
-        { id: 2, text: `ABOUT US`, url: '#' },
-        { id: 3, text: `CONTACT`, url: '#' },
-        { id: 4, text: `MEN'S WATCHES`, url: '#' },
-        { id: 5, text: `LADIES' WATCHES`, url: '#' },
-        { id: 6, text: `NEW RELEASES`, url: '#' },
-        { id: 7, text: `ACCESSORIES`, url: '#' },
-      ]"
-      :customStyles="{
-        navMenu: { 'background-color': 'red' },
-        navIcon: { color: 'red' },
-      }"
-    ></slider>
     <div class="header">
       <div class="nav">
         <div class="container-top">
@@ -29,15 +9,23 @@
                 >shopping list <i class="fas fa-shopping-cart"></i
               ></router-link>
               <router-link :to="{ name: 'homerun' }">home</router-link>
-              <router-link :to="{ name: 'productlist' }">productlist</router-link>
-              <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
-              <a class="icon" href="#"
-                ><i class="fab fa-instagram-square"></i
-              ></a>
-              <a class="icon" href="#"><i class="fab fa-twitter-square"></i></a>
-              <a class="icon" href="#"><i class="fab fa-youtube"></i></a>
+              <router-link :to="{ name: 'productlist' }"
+                >productlist</router-link
+              >
+              <div class="social-media">
+                <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
+                <a class="icon" href="#"
+                  ><i class="fab fa-instagram-square"></i
+                ></a>
+                <a class="icon" href="#"
+                  ><i class="fab fa-twitter-square"></i
+                ></a>
+                <a class="icon" href="#"><i class="fab fa-youtube"></i></a>
+              </div>
             </div>
-            <div class="bar-2"><router-link :to="{ name: 'login' }">login</router-link></div>
+            <div class="bar-2">
+              <router-link :to="{ name: 'login' }">login</router-link>
+            </div>
           </div>
           <div class="logo">
             <div class="line"></div>
@@ -69,6 +57,11 @@
               <div class="product">
                 <a href="#" class="image-box">
                   <img v-bind:src="product.imagePath" alt="prodcut" />
+                  <div class="hover-box">
+                  <router-link class="info" :to="{ name: 'orderlist' }">
+                    ADD TO CART <i class="fas fa-shopping-cart"></i>
+                  </router-link>
+                </div>
                 </a>
                 <div class="info">
                   <h2>{{ product.series }}</h2>
@@ -162,7 +155,6 @@
 <script>
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue } from "firebase/database";
-import Slider from "@jeremyhamm/vue-slider";
 
 
 export default {
@@ -195,9 +187,6 @@ export default {
       const data = snapshot.val();
       this.webProductList = data.productList[0];
     });
-  },
-  components: {
-    slider: Slider,
   },
 };
 
@@ -285,12 +274,15 @@ ul {
     padding: 15px 0;
     flex: 1;
     background-color: $brand-color;
-    text-align: left;
+
     text-decoration: none;
+    align-items: center;
 
     .bar-1 {
       flex: 1;
       margin-left: 50px;
+      display: flex;
+      align-items: center;
     }
 
     .bar-2 {
@@ -468,6 +460,7 @@ ul {
     }
     .image-box {
       flex: 6 1 250px;
+      position: relative;
     }
     img {
       width: 100%;
@@ -493,6 +486,36 @@ ul {
       .name {
         margin-top: 10px;
         color: $brand-color;
+      }
+    }
+    .hover-box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba($color: white, $alpha: 0.8);
+      opacity: 0;
+      transition: 0.3s ease-in;
+      display: flex;
+      align-items: center;
+
+      a {
+        line-height: 2;
+        font-size: 14px;
+        border: 1px solid $brand-color;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: $brand-color;
+
+        padding-bottom: 5%;
+        box-sizing: border-box;
+      }
+
+      &:hover {
+        opacity: 1;
       }
     }
   }
@@ -625,19 +648,28 @@ ul {
 }
 
 @media screen and (max-width: 700px) {
-  .rwd-bar {
-    display: flex;
-    background-color: $brand-color;
-  }
-
-  .header {
+.header {
     .nav {
-      .container-top {
-        .top-bar {
-          display: none;
+      .top-bar {
+        align-items: flex-start;
+        .bar-1 {
+          display: flex;
+          flex-direction: column;
+          margin-left: 5%;
+          align-items: flex-start;
+          a {
+            margin: 5px 0;
+            border-bottom: 1px solid white;
+            padding-bottom: 2px;
+          }
+          svg {
+            margin-right: 5px;
+          }
         }
-        .nav.margin {
-          display: none;
+        .bar-2 {
+          height: 15px;
+          margin-right: 5%;
+          align-items: flex-start;
         }
       }
     }
