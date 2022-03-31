@@ -20,7 +20,6 @@
 </template>
 
 <style lang="scss" scoped>
-
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
@@ -68,29 +67,29 @@ $green-color: #3e5940;
 }
 
 @media screen and (max-width: 700px) {
-    .nav {
-      .top-bar {
+  .nav {
+    .top-bar {
+      align-items: flex-start;
+      .bar-1 {
+        display: flex;
+        flex-direction: column;
+        margin-left: 5%;
         align-items: flex-start;
-        .bar-1 {
-          display: flex;
-          flex-direction: column;
-          margin-left: 5%;
-          align-items: flex-start;
-          a {
-            margin: 5px 0;
-            border-bottom: 1px solid white;
-            padding-bottom: 2px;
-          }
-          svg {
-            margin-right: 5px;
-          }
+        a {
+          margin: 5px 0;
+          border-bottom: 1px solid white;
+          padding-bottom: 2px;
         }
-        .bar-2 {
-          height: 15px;
-          margin-right: 5%;
-          align-items: flex-start;
+        svg {
+          margin-right: 5px;
         }
       }
+      .bar-2 {
+        height: 15px;
+        margin-right: 5%;
+        align-items: flex-start;
+      }
     }
+  }
 }
 </style>

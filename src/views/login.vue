@@ -10,15 +10,7 @@
     </div>
     <div class="content">
       <div class="shop-title">ORDER LIST</div>
-      <div class="features">
-        <div class="goods">
-          <i class="fas fa-globe-americas"></i>global delivery free
-        </div>
-        <div class="goods"><i class="fas fa-user-shield"></i>warranty free</div>
-        <div class="goods">
-          <i class="fas fa-glass-martini"></i>traditional skills
-        </div>
-      </div>
+      <Features/>
       <div class="main-list">
         <div class="container">
           <div class="left-img">
@@ -50,6 +42,7 @@ import TopNav from "../components/TopNav.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
+import Features from "../components/Features.vue";
 
 export default {
   components: {
@@ -58,6 +51,7 @@ export default {
     Footer,
     Pavement,
     Logo,
+    Features,
   },
 };
 </script>
@@ -92,7 +86,6 @@ ul {
   font-size: 12px;
   color: #c0b094;
   padding-bottom: 10px;
-  border-bottom: 1px solid $brand-color;
   width: 70%;
 }
 

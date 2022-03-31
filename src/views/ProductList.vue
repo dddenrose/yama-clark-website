@@ -45,15 +45,7 @@
           </div>
         </div>
       </div>
-      <div class="features">
-        <div class="goods">
-          <i class="fas fa-globe-americas"></i>global delivery free
-        </div>
-        <div class="goods"><i class="fas fa-user-shield"></i>warranty free</div>
-        <div class="goods">
-          <i class="fas fa-glass-martini"></i>traditional skills
-        </div>
-      </div>
+      <Features/>
     </div>
     <Footer />
     <Pavement />
@@ -70,6 +62,7 @@ import TopNav from "../components/TopNav.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
+import Features from "../components/Features.vue";
 
 
 export default {
@@ -108,6 +101,7 @@ export default {
     Footer,
     Pavement,
     Logo,
+    Features,
   },
 };
 </script>
@@ -129,7 +123,6 @@ ul {
   padding: 0;
 }
 
-// header
 //content
 .content {
   margin-top: 60px;
@@ -144,23 +137,6 @@ ul {
 
 .features {
   margin-bottom: 60px;
-  display: flex;
-  text-transform: uppercase;
-  padding: 20px 0;
-  border-top: 1px solid $brand-color;
-  border-bottom: 1px solid $brand-color;
-  width: 70%;
-  justify-content: center;
-  font-size: 9px;
-  letter-spacing: 1px;
-  .goods {
-    color: $brand-color;
-    margin: 0 20px;
-  }
-  svg {
-    padding-right: 10px;
-    font-size: 18px;
-  }
 }
 
 .total-container {

@@ -42,8 +42,7 @@ import Logo from "../components/Logo.vue";
 
 export default {
   name: "homerun",
-  data() {
-  },
+  data() {},
   components: {
     Gotop,
     TopNav,
@@ -57,7 +56,6 @@ export default {
 
 
 <style scoped lang="scss">
-
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
@@ -91,6 +89,17 @@ ul {
         border-bottom: 1px solid $brand-color;
       }
     }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .nav.margin {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .shape-ex1 {
+    padding: 5px 0;
   }
 }
 </style>

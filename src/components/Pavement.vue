@@ -66,6 +66,7 @@ $green-color: #3e5940;
     }
     .pay {
       margin: 0;
+      flex-wrap: wrap
     }
     .information {
       display: flex;

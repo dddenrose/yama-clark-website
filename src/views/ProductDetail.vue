@@ -9,15 +9,7 @@
       </div>
     </div>
     <div class="content">
-      <div class="features">
-        <div class="goods">
-          <i class="fas fa-globe-americas"></i>global delivery free
-        </div>
-        <div class="goods"><i class="fas fa-user-shield"></i>warranty free</div>
-        <div class="goods">
-          <i class="fas fa-glass-martini"></i>traditional skills
-        </div>
-      </div>
+      <Features/>
       <div class="product-detail">
         <div class="product-main">
           <div class="scroll">
@@ -107,6 +99,7 @@ import TopNav from "../components/TopNav.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
+import Features from "../components/Features.vue";
 
 export default {
   components: {
@@ -115,6 +108,7 @@ export default {
     Footer,
     Pavement,
     Logo,
+    Features,
   },
 };
 </script>
@@ -203,6 +197,9 @@ ul {
 
   .product-photo {
     flex: 2 1 0;
+    img {
+      width: 100%;
+    }
   }
 
   .product-info {
@@ -384,8 +381,6 @@ a.button {
 }
 
 @media screen and (max-width: 700px) {
-  
-
   .main-list {
     .container {
       .left-info {

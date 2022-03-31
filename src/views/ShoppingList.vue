@@ -10,15 +10,8 @@
     </div>
     <div class="content">
       <div class="shop-title">SHOPPING LIST</div>
-      <div class="features">
-        <div class="goods">
-          <i class="fas fa-globe-americas"></i>global delivery free
-        </div>
-        <div class="goods"><i class="fas fa-user-shield"></i>warranty free</div>
-        <div class="goods">
-          <i class="fas fa-glass-martini"></i>traditional skills
-        </div>
-      </div>
+      <Features />
+
       <div class="main-list">
         <div class="container">
           <div class="top-info">
@@ -90,13 +83,14 @@
 </template>
 
 <script>
-import { initializeApp } from "firebase/app"; //SDK =>
-import { getDatabase, ref, onValue } from "firebase/database"; // {XXXXX}內的小東西都是firebase裡面寫的小功能，為了要避免import時要讀入整包檔案
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, onValue } from "firebase/database";
 import Gotop from "../components/Gotop.vue";
 import TopNav from "../components/TopNav.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
+import Features from "../components/Features.vue";
 
 export default {
   data() {
@@ -142,6 +136,7 @@ export default {
     Footer,
     Pavement,
     Logo,
+    Features,
   },
 };
 </script>
@@ -152,77 +147,7 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
-.hide {
-  display: none !important;
-}
-.arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
 
-  border-bottom: 5px solid $brand-color;
-}
-
-.arrow-down {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-
-  border-top: 5px solid $brand-color;
-}
-
-.right {
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
-
-.left {
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
-}
-
-.up {
-  transform: rotate(-135deg);
-  -webkit-transform: rotate(-135deg);
-}
-
-.down {
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-}
-
-.title {
-  &.topic {
-    display: flex;
-    .line {
-      position: relative;
-      top: 20px;
-      width: 350px;
-      border-top: 1px solid $brand-color;
-    }
-
-    .info {
-      margin: 0 50px;
-    }
-
-    h2 {
-      font-weight: 100;
-      font-size: 18px;
-      letter-spacing: 2px;
-      color: $brand-color;
-    }
-
-    h4 {
-      font-weight: 100;
-      letter-spacing: 0.5px;
-      font-size: 10px;
-      margin-top: 10px;
-      color: $gray-color;
-    }
-  }
-}
 
 img {
   vertical-align: top;
@@ -234,85 +159,6 @@ ul {
 }
 
 // header
-.header {
-  .top-bar {
-    display: flex;
-    padding: 15px 0;
-    flex: 1;
-    background-color: $brand-color;
-
-    text-decoration: none;
-    align-items: center;
-
-    .bar-1 {
-      flex: 1;
-      margin-left: 50px;
-      display: flex;
-      align-items: center;
-    }
-
-    .bar-2 {
-      a {
-        color: $brand-color;
-      }
-      margin-right: 50px;
-      text-transform: uppercase;
-      font-size: 12px;
-      background-color: white;
-      padding: 5px 10px;
-      border-radius: 20px;
-    }
-
-    a {
-      text-decoration: none;
-      color: white;
-      text-transform: uppercase;
-      font-size: 12px;
-      margin: 10px;
-      letter-spacing: 1px;
-    }
-    a.icon {
-      margin: 5px;
-      font-size: 14px;
-    }
-  }
-
-  .logo {
-    justify-content: center;
-    display: flex;
-    margin-top: 60px;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-
-    .line {
-      width: 70%;
-      border-top: 1px solid $brand-color;
-      position: relative;
-    }
-
-    img {
-      margin: 0 40px;
-    }
-    .logo-box {
-      background-color: white;
-      position: absolute;
-    }
-  }
-
-  .nav {
-    &.margin {
-      margin-top: 30px;
-      a {
-        text-decoration: none;
-        color: $gray-color;
-        font-size: 10px;
-        margin: 0 20px;
-        letter-spacing: 1.5px;
-      }
-    }
-  }
-}
 
 //content
 .content {
@@ -327,35 +173,13 @@ ul {
   letter-spacing: 2px;
   font-size: 12px;
   color: $brand-color;
-
   padding-bottom: 10px;
-  border-bottom: 1px solid $brand-color;
-  width: 70%;
-}
-
-.features {
-  display: flex;
-  text-transform: uppercase;
-  padding: 20px 0;
-  border-bottom: 1px solid $brand-color;
-  width: 70%;
-  justify-content: center;
-  font-size: 9px;
-  letter-spacing: 1px;
-  .goods {
-    color: $brand-color;
-    margin: 0 20px;
-  }
-  svg {
-    padding-right: 10px;
-    font-size: 18px;
-  }
 }
 
 .main-list {
   margin-top: 60px;
   .container {
-    width: 900px;
+    width: 70vw;
   }
   .top-info {
     display: flex;
@@ -494,104 +318,6 @@ ul {
   }
 }
 
-.footer {
-  background-color: #c0b094;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 0;
-
-  .container {
-    width: 80%;
-  }
-
-  .information {
-    display: flex;
-  }
-
-  .info {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    text-align: left;
-    text-decoration: none;
-    letter-spacing: 0.5px;
-    img {
-      width: 40%;
-    }
-    h4 {
-      margin-top: 5px;
-      color: white;
-      font-weight: 100;
-      font-size: 10px;
-      width: 60%;
-    }
-    a {
-      font-size: 12px;
-      color: white;
-      margin-bottom: 5px;
-      text-decoration: none;
-    }
-  }
-
-  .footer-title {
-    padding-bottom: 5px;
-    color: $green-color;
-    border-bottom: 1px solid $green-color;
-    width: 70%;
-    margin-bottom: 15px;
-  }
-
-  .bottom-word {
-    margin-top: 50px;
-    width: 80%;
-    text-align: left;
-    margin-left: 20%;
-    color: white;
-    font-size: 10px;
-    letter-spacing: 1px;
-  }
-}
-
-.pavement-bar {
-  background-color: $green-color;
-  padding: 30px 0;
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  .container {
-    display: flex;
-    width: 80%;
-    text-align: left;
-  }
-  .pay {
-    flex: 1;
-    display: flex;
-    text-align: left;
-    margin-left: 20%;
-    font-size: 30px;
-  }
-  .card {
-    color: white;
-    margin-right: 20px;
-  }
-  .information {
-    padding: 8px;
-    border: 1px solid white;
-    border-radius: 20px;
-    a {
-      color: white;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-size: 12px;
-    }
-    svg {
-      padding-right: 10px;
-    }
-  }
-}
 
 // RWD
 @media screen and (max-width: 1100px) {
@@ -600,7 +326,7 @@ ul {
       display: flex;
       justify-content: center;
       .container {
-        width: 70%;
+        width: 70vw;
         .top-info {
           h3.product {
             padding-left: 0;
@@ -624,6 +350,12 @@ ul {
 }
 
 @media screen and (max-width: 700px) {
+  .pavement {
+    flex-direction: column;
+    .price-detail {
+      margin-top: 10px;
+    }
+  }
   
   .main-list {
     .container {

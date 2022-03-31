@@ -10,15 +10,7 @@
     </div>
     <div class="content">
       <div class="shop-title">ORDER LIST</div>
-      <div class="features">
-        <div class="goods">
-          <i class="fas fa-globe-americas"></i>global delivery free
-        </div>
-        <div class="goods"><i class="fas fa-user-shield"></i>warranty free</div>
-        <div class="goods">
-          <i class="fas fa-glass-martini"></i>traditional skills
-        </div>
-      </div>
+      <Features/>
       <div class="main-list">
         <div class="container">
           <div class="left-info">
@@ -100,13 +92,14 @@
 </template>
 
 <script>
-import { initializeApp } from "firebase/app"; //SDK =>
-import { getDatabase, ref, onValue } from "firebase/database"; // {XXXXX}內的小東西都是firebase裡面寫的小功能，為了要避免import時要讀入整包檔案
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, onValue } from "firebase/database";
 import Gotop from "../components/Gotop.vue";
 import TopNav from "../components/TopNav.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
+import Features from "../components/Features.vue";
 
 export default {
   data() {
@@ -116,7 +109,6 @@ export default {
     };
   },
   mounted() {
-    //在頁面打開時會直接執行mounted的動作(只有打開頁面時作動)
     const firebaseConfig = {
       apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
       authDomain: "yama-website.firebaseapp.com",
@@ -142,13 +134,13 @@ export default {
     Footer,
     Pavement,
     Logo,
+    Features,
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-//全域設定
+
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
@@ -163,7 +155,6 @@ ul {
   padding: 0;
 }
 
-// header
 //content
 .content {
   margin-top: 60px;
@@ -178,7 +169,6 @@ ul {
   font-size: 12px;
   color: #c0b094;
   padding-bottom: 10px;
-  border-bottom: 1px solid $brand-color;
   width: 70%;
 }
 
