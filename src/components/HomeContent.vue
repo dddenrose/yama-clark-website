@@ -183,7 +183,6 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue } from "firebase/database";
 
 export default {
-  name: "homerun",
   data() {
     return {
       webProductList: [],

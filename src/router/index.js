@@ -6,27 +6,11 @@ import ProductDetail from '../views/ProductDetail.vue'
 import ShoppingList from '../views/ShoppingList.vue'
 import OrderList from '../views/OrderList.vue'
 import Login from '../views/Login.vue'
-import LoginPage from '../components/LoginPage'
-import Register from '../components/Register'
-import Dashboard from '../components/Dashboard'
 
 
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home
-  // },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
   {
     path: '/',
     name: 'homerun',
@@ -56,21 +40,6 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
-  },
-  {
-    path: '/loginpage',
-    name: 'loginpage',
-    component: LoginPage,
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: Register,
-  },
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: Dashboard,
   },
 ]
 
