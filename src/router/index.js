@@ -6,6 +6,9 @@ import ProductDetail from '../views/ProductDetail.vue'
 import ShoppingList from '../views/ShoppingList.vue'
 import OrderList from '../views/OrderList.vue'
 import Login from '../views/Login.vue'
+import LoginPage from '../components/LoginPage'
+import Register from '../components/Register'
+import Dashboard from '../components/Dashboard'
 
 
 Vue.use(VueRouter)
@@ -53,6 +56,21 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
+  },
+  {
+    path: '/loginpage',
+    name: 'loginpage',
+    component: LoginPage,
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register,
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Dashboard,
   },
 ]
 

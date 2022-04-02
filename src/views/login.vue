@@ -10,14 +10,14 @@
     </div>
     <div class="content">
       <div class="shop-title">ORDER LIST</div>
-      <Features/>
+      <Features />
       <div class="main-list">
         <div class="container">
           <div class="left-img">
             <img src="../img/s04.jpg" alt="image" />
           </div>
           <div class="right-login">
-            <input type="text" placeholder="account" v-model="login" />
+            <input type="text" placeholder="account" />
             <input type="text" placeholder="password" />
             <div class="login"><a href="#">login</a></div>
             <h4>or</h4>
@@ -43,6 +43,7 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+
 
 export default {
   components: {
@@ -184,7 +185,6 @@ ul {
   }
 }
 
-
 //RWD
 
 @media screen and (max-width: 1100px) {
@@ -207,8 +207,6 @@ ul {
 }
 
 @media screen and (max-width: 700px) {
-  
-
   .main-list {
     .container {
       .left-info {
@@ -219,6 +217,5 @@ ul {
       }
     }
   }
-
 }
 </style>

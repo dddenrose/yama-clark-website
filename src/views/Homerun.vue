@@ -44,8 +44,6 @@ import HomeContent from "../components/HomeContent.vue";
 import Logo from "../components/Logo.vue";
 
 export default {
-  name: "homerun",
-  data() {},
   components: {
     Gotop,
     TopNav,
