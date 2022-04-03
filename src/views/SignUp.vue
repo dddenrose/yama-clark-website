@@ -16,23 +16,43 @@
           <div class="left-img">
             <img src="../img/s04.jpg" alt="image" />
           </div>
-          <form @submit.prevent="userLogin" class="right-login">
-            <h3>LOGIN</h3>
+          <form @submit.prevent="userRegistration" class="right-login">
+            <h3>Sign Up</h3>
 
             <div class="form-group">
-                <label>Email address</label>
-                <input type="email" class="form-control form-control-lg" v-model="user.email" />
+              <label>Name</label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                v-model="user.name"
+              />
             </div>
 
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control form-control-lg" v-model="user.password" />
+              <label>Email</label>
+              <input
+                type="email"
+                class="form-control form-control-lg"
+                v-model="user.email"
+              />
             </div>
 
-            <button type="submit" class="btn btn-dark btn-lg btn-block">LOGIN</button>
+            <div class="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                class="form-control form-control-lg"
+                v-model="user.password"
+              />
+            </div>
 
-            <p class="forgot-password text-right mt-2 mb-4">
-                <router-link to="/forgot-password">Forgot password ?</router-link>
+            <button type="submit" class="btn btn-dark btn-lg btn-block">
+              Sign Up
+            </button>
+
+            <p class="forgot-password text-right">
+              Already registered
+              <router-link :to="{ name: 'loginpage' }">sign in?</router-link>
             </p>
           </form>
         </div>
@@ -59,20 +79,27 @@ export default {
   data() {
     return {
       user: {
+        name: "",
         email: "",
         password: "",
       },
     };
   },
   methods: {
-    userLogin() {
+    userRegistration() {
       firebase
         .auth()
-        .signInWithEmailAndPassword(this.user.email, this.user.password)
-        .then(() => {
-          this.$router.push("/home").catch((err) => {
-            err;
-          });
+        .createUserWithEmailAndPassword(this.user.email, this.user.password)
+        .then((res) => {
+          res.user
+            .updateProfile({
+              displayName: this.user.name,
+            })
+            .then(() => {
+              this.$router.push("/loginpage").catch((err) => {
+                err;
+              });
+            });
         })
         .catch((error) => {
           alert(error.message);

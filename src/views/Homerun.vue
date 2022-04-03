@@ -29,9 +29,6 @@
     <Footer />
     <Pavement />
     <Gotop />
-    <router-link to="/login">Test1</router-link>
-    <router-link to="/test2">Test2</router-link>
-    <router-view/>
   </div>
 </template>
 

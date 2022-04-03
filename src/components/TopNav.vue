@@ -14,7 +14,8 @@
       </div>
     </div>
     <div class="bar-2">
-      <router-link :to="{ name: 'login' }">login</router-link>
+      <router-link :to="{ name: 'signup' }">SIGN UP</router-link>
+      <router-link :to="{ name: 'login' }" class="login">login</router-link>
     </div>
   </div>
 </template>
@@ -41,15 +42,16 @@ $green-color: #3e5940;
   }
 
   .bar-2 {
-    a {
+    a.login {
       color: $brand-color;
-    }
-    margin-right: 50px;
+      margin-right: 50px;
     text-transform: uppercase;
     font-size: 12px;
     background-color: white;
     padding: 5px 10px;
     border-radius: 20px;
+    }
+    
   }
 
   a {
