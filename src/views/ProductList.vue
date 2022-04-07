@@ -29,7 +29,7 @@
                 <router-link :to="{ name: 'productdetail' }" class="image-box">
                   <img v-bind:src="product.imagePath" alt="prodcut" />
                   <div class="hover-box">
-                    <router-link class="info" :to="{ name: 'orderlist' }">
+                    <router-link class="info" :to="{ name: 'shoppinglist' }">
                       ADD TO CART <i class="fas fa-shopping-cart"></i>
                     </router-link>
                   </div>
@@ -69,10 +69,6 @@ export default {
   data() {
     return {
       webProductList: [],
-      ref: null,
-      isPriceShow: true,
-      imagePath: "p09",
-      priceFilter: "",
     };
   },
   mounted() {

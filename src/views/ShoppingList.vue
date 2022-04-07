@@ -32,14 +32,14 @@
               </h3>
               <div class="count">
                 <div class="counting">
-                  <span @click="add">+</span>
+                  <button @click="add(product)">+</button>
                   <span> {{ product.count }} </span>
-                  <span>-</span>
+                  <button @click="minus(product)">-</button>
                 </div>
-                <a href="#">DELET</a>
+                <button @click="delet">DELET</button>
               </div>
               <div class="price">
-                {{ product.price }}
+                ${{ product.price * product.count }}
               </div>
             </div>
           </div>
@@ -58,15 +58,15 @@
             <div class="price-detail">
               <div class="total">
                 <h3 class="left-title">total</h3>
-                <h3 class="price">$40,850</h3>
+                <h3 class="price">${{ totalPrice }}</h3>
               </div>
               <div class="coupon">
                 <h3 class="left-title">coupon</h3>
-                <h3 class="price gold">-$2,850</h3>
+                <h3 class="price gold">-$0</h3>
               </div>
               <div class="price-title">
                 <h3 class="left-title">price</h3>
-                <h3 class="price">$38,000</h3>
+                <h3 class="price"> ${{ totalPrice }} </h3>
               </div>
               <router-link class="confirm" :to="{ name: 'orderlist' }"
                 >confirm</router-link
@@ -96,16 +96,9 @@ export default {
   data() {
     return {
       webProductList: [],
-      ref: null,
-      count:{
-        0:1,
-        1:1,
-        2:1,
-      },
     };
   },
   mounted() {
-    //在頁面打開時會直接執行mounted的動作(只有打開頁面時作動)
     const firebaseConfig = {
       apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
       authDomain: "yama-website.firebaseapp.com",
@@ -126,9 +119,27 @@ export default {
     });
   },
   methods: {
-    add: function() {
-      this.product.count++;
-    }
+    add: function(product) {
+      product.count++;
+    },
+    minus: function(product) {
+      if (product.count > 1) {
+        product.count--;
+      }
+    },
+    delet: function(index) {
+      this.webProductList.splice(index,1);
+    },
+    
+  },
+  computed: {
+    totalPrice: function() {
+      let result = 0;
+      this.webProductList.forEach(element => {
+        result += element.price * element.count;
+      });
+      return result;
+    },
   },
   components: {
     Gotop,
@@ -138,6 +149,7 @@ export default {
     Logo,
     Features,
   },
+  
 };
 </script>
 

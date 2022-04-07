@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="content">
-      <div class="shop-title">ORDER LIST</div>
+      <div class="shop-title">SIGN UP</div>
       <Features />
       <div class="main-list">
         <div class="container">
@@ -17,7 +17,7 @@
             <img src="../img/s04.jpg" alt="image" />
           </div>
           <form @submit.prevent="userRegistration" class="right-login">
-            <h3>Sign Up</h3>
+            <h3>SIGN UP</h3>
 
             <div class="form-group">
               <label>Name</label>
@@ -46,13 +46,10 @@
               />
             </div>
 
-            <button type="submit" class="btn btn-dark btn-lg btn-block">
-              Sign Up
-            </button>
-
-            <p class="forgot-password text-right">
-              Already registered
-              <router-link :to="{ name: 'loginpage' }">sign in?</router-link>
+            <button type="submit" class="signup">Sign Up</button>
+            <p class="info-signin">Already registered</p>
+            <p>
+              <router-link :to="{ name: 'login' }">sign in?</router-link>
             </p>
           </form>
         </div>
@@ -197,10 +194,41 @@ ul {
   width: 550px;
   letter-spacing: 1px;
   color: $brand-color;
-  input {
+  h3 {
+    border-bottom: 1px solid;
+    padding-bottom: 10px;
+  }
+
+  .form-group {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 2;
+  }
+
+  .signup {
+    margin-top: 20px;
+    border: none;
+    text-decoration: none;
+    color: white;
     width: 100%;
     height: 45px;
-    margin-bottom: 25px;
+    background-color: #bfb094;
+    display: block;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  .info-signin {
+    
+    text-transform: uppercase;
+    font-size: 12px;
+    margin: 20px 0;
+  }
+
+  input {
+    width: 100%;
+    margin-bottom: 10px;
     box-sizing: border-box;
     padding: 10px;
   }
@@ -220,28 +248,6 @@ ul {
     line-height: 3.5;
     text-transform: uppercase;
     font-size: 9px;
-  }
-  h4 {
-    margin: 20px 0;
-    text-transform: uppercase;
-    font-size: 9px;
-    font-weight: 100;
-  }
-
-  .info {
-    display: flex;
-    margin-top: 20px;
-    .info-box {
-      text-transform: uppercase;
-      font-size: 9px;
-    }
-  }
-
-  .con {
-    text-transform: uppercase;
-    font-size: 9px;
-    flex: 1;
-    text-align: left;
   }
 }
 
