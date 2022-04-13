@@ -20,8 +20,7 @@
             <h3 class="price">price</h3>
           </div>
           <div class="lists">
-            <div class="imageWrapper"></div>
-            <div
+            <!-- <div
               class="selling-product"
               v-for="(product, index) in webProductList"
               :key="index"
@@ -40,6 +39,28 @@
               </div>
               <div class="price">
                 ${{ product.price * product.count }}
+              </div>
+            </div> -->
+
+            <div
+              class="selling-product"
+              v-for="(item, index) in userList"
+              :key="index"
+            >
+              <img v-bind:src="item.imagePath" alt="product" />
+              <h3>
+                {{ item.seriesName }}
+              </h3>
+              <div class="count">
+                <div class="counting">
+                  <button @click="add(item)">+</button>
+                  <span> {{ item.series }} </span>
+                  <button @click="minus(item)">-</button>
+                </div>
+                <button @click="delet">DELET</button>
+              </div>
+              <div class="price">
+                ${{ item.price}}
               </div>
             </div>
           </div>
@@ -83,14 +104,16 @@
 </template>
 
 <script>
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue } from "firebase/database";
+// import { initializeApp } from "firebase/app";
+// import { getDatabase, ref, onValue } from "firebase/database";
 import Gotop from "../components/Gotop.vue";
 import TopNav from "../components/TopNav.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+import { mapActions } from "vuex";
+
 
 export default {
   data() {
@@ -99,26 +122,30 @@ export default {
     };
   },
   mounted() {
-    const firebaseConfig = {
-      apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
-      authDomain: "yama-website.firebaseapp.com",
-      databaseURL: "https://yama-website-default-rtdb.firebaseio.com",
-      projectId: "yama-website",
-      storageBucket: "yama-website.appspot.com",
-      messagingSenderId: "1094650287749",
-      appId: "1:1094650287749:web:b011ea45db8ec625e5bbec",
-      measurementId: "G-6TTRYFGB6X",
-    };
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    const starCountRef = ref(database, "/");
-    this.ref = starCountRef;
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      this.webProductList = data.userList[0].cart;
-    });
+    // const firebaseConfig = {
+    //   apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
+    //   authDomain: "yama-website.firebaseapp.com",
+    //   databaseURL: "https://yama-website-default-rtdb.firebaseio.com",
+    //   projectId: "yama-website",
+    //   storageBucket: "yama-website.appspot.com",
+    //   messagingSenderId: "1094650287749",
+    //   appId: "1:1094650287749:web:b011ea45db8ec625e5bbec",
+    //   measurementId: "G-6TTRYFGB6X",
+    // };
+    // const app = initializeApp(firebaseConfig);
+    // const database = getDatabase(app);
+    // const starCountRef = ref(database, "/");
+    // this.ref = starCountRef;
+    // onValue(starCountRef, (snapshot) => {
+    //   const data = snapshot.val();
+    //   this.webProductList = data.userList[0].cart;
+    // });
+
+    this.authAction()
   },
+
   methods: {
+    ...mapActions(["authAction","getUserList"]),
     add: function(product) {
       product.count++;
     },
@@ -130,9 +157,12 @@ export default {
     delet: function(index) {
       this.webProductList.splice(index,1);
     },
-    
   },
   computed: {
+    userList() {
+      return this.$store.state.userList;
+    },
+
     totalPrice: function() {
       let result = 0;
       this.webProductList.forEach(element => {

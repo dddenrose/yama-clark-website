@@ -18,7 +18,7 @@
           <a href="#">Accessories</a>
           <a href="#">Other</a>
         </div>
-        <div class="trending-products">
+        <!-- <div class="trending-products">
           <div class="total-container">
             <div
               class="product-bar"
@@ -34,6 +34,30 @@
                     </router-link>
                   </div>
                 </router-link>
+                <div class="info">
+                  <h2>{{ product.series }}</h2>
+                  <h3 class="name">{{ product.seriesName }}</h3>
+                  <h3>{{ product.color }}</h3>
+                  <h3>{{ product.price }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="trending-products">
+          <div class="total-container">
+            <div
+              class="product-bar"
+              v-for="(product, index) in webProductList"
+              :key="index"
+            >
+              <div class="product">
+                <div class="image-box">
+                  <img v-bind:src="product.imagePath" alt="prodcut" />
+                  <div class="hover-box">
+                    <button @click="addProduct(product, index)">ADD TO CART</button>
+                  </div>
+                </div>
                 <div class="info">
                   <h2>{{ product.series }}</h2>
                   <h3 class="name">{{ product.seriesName }}</h3>
@@ -63,6 +87,7 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+import { mapActions} from "vuex";
 
 
 export default {
@@ -90,7 +115,20 @@ export default {
       const data = snapshot.val();
       this.webProductList = data.productList[0];
     });
+
+    this.authAction();
+
   },
+  methods: {
+        ...mapActions(["addProduct","authAction"]),
+  },
+
+  computed: {
+    isUserAuth() {
+      return this.$store.getters.isUserAuth;
+    }
+  },
+
   components: {
     Gotop,
     TopNav,
@@ -99,6 +137,7 @@ export default {
     Logo,
     Features,
   },
+  
 };
 </script>
 

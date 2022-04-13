@@ -13,27 +13,29 @@
       <Features />
       <div class="main-list">
         <div class="container">
-          <div class="left-img">
-            <img src="../img/s04.jpg" alt="image" />
-          </div>
-          <form @submit.prevent="userRegistration" class="right-login">
-            <h3>SIGN UP</h3>
-
-            <div class="form-group">
-              <label>Name</label>
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                v-model="user.name"
-              />
+          <!-- 錯誤提示 error class 待新增 -->
+          <div v-if="validationErrors.length" class="error">
+            <button @click="resetError()" class="delete"></button>
+            <div class="content">
+              Please resolve the following error(s) before proceeding.
+              <ul style="margin-top: 0.3em; margin-left: 1em">
+                <li
+                  v-for="(error, index) in validationErrors"
+                  :key="`error-${index}`"
+                  v-html="error"
+                />
+              </ul>
             </div>
+          </div>
 
+          <form @submit.prevent="validate" class="right-login">
+            <h3>SIGN UP</h3>
             <div class="form-group">
               <label>Email</label>
               <input
                 type="email"
                 class="form-control form-control-lg"
-                v-model="user.email"
+                v-model="email"
               />
             </div>
 
@@ -42,7 +44,7 @@
               <input
                 type="password"
                 class="form-control form-control-lg"
-                v-model="user.password"
+                v-model="password"
               />
             </div>
 
@@ -68,39 +70,54 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
+import { mapActions } from "vuex";
 
 export default {
   data() {
     return {
-      user: {
-        name: "",
-        email: "",
-        password: "",
-      },
+      name: "",
+      email: "",
+      password: "",
+      validationErrors: [],
     };
   },
   methods: {
-    userRegistration() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.user.email, this.user.password)
-        .then((res) => {
-          res.user
-            .updateProfile({
-              displayName: this.user.name,
-            })
-            .then(() => {
-              this.$router.push("/loginpage").catch((err) => {
-                err;
-              });
-            });
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
+    ...mapActions(["signUpAction"]),
+
+    // 提示錯誤資訊方法
+    resetError() {
+      this.validationErrors = [];
+    },
+    validate() {
+      // Clear the errors before we validate again
+      this.resetError();
+      // email validation
+      if (!this.email) {
+        this.validationErrors.push("<strong>E-mail</strong> cannot be empty.");
+      }
+      if (/.+@.+/.test(this.email) != true) {
+        this.validationErrors.push("<strong>E-mail</strong> must be valid.");
+      }
+      // password validation
+      if (!this.password) {
+        this.validationErrors.push("<strong>Password</strong> cannot be empty");
+      }
+      if (/.{6,}/.test(this.password) != true) {
+        this.validationErrors.push(
+          "<strong>Password</strong> must be at least 6 characters long"
+        );
+      }
+      // when valid then sign in
+      if (this.validationErrors.length <= 0) {
+        this.signUp();
+      }
+    },
+    signUp() {
+      this.signUpAction({ email: this.email, password: this.password })
+      .then(() => {
+        this.$router.push("/login");
+      });
+      console.log("Success!")
     },
   },
   components: {
@@ -220,7 +237,6 @@ ul {
   }
 
   .info-signin {
-    
     text-transform: uppercase;
     font-size: 12px;
     margin: 20px 0;

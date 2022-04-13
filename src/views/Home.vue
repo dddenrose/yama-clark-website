@@ -13,19 +13,27 @@
       <Features />
       <div class="main-list">
         <div class="container">
-          <div class="left-img">
-            <img src="../img/s04.jpg" alt="image" />
-          </div>
+          
+          <section v-if="isUserAuth" class="section">
+            <div class="columns">
+              <div class="column is-half is-offset-one-quarter">
+                Welcome {{ getUser.email }}
+              </div>
+            </div>
+          </section>
+
+
           <div class="right-login">
             <h3>Welcome</h3>
-           <p>{{user.displayName}}</p>
-           <p>{{user.email}}</p>
-        <button 
-        type="submit" 
-        class="btn btn-dark btn-lg btn-block"
-        @click="logOut()">
-            Log out
-        </button>
+            <p>{{ user.displayName }}</p>
+            <p>{{ user.email }}</p>
+            <button
+              type="submit"
+              class="btn btn-dark btn-lg btn-block"
+              @click="logOut()"
+            >
+              Log out
+            </button>
           </div>
         </div>
       </div>
@@ -46,13 +54,15 @@ import Features from "../components/Features.vue";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      user: ""
+      user: "",
     };
   },
+
   created() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -62,15 +72,26 @@ export default {
       }
     });
   },
+
   methods: {
     logOut() {
-      firebase.auth().signOut().then(() => {
-        firebase.auth().onAuthStateChanged(() => {
-          this.$router.push('/login').catch(err => {err})
-        })
-      })
-    }
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          firebase.auth().onAuthStateChanged(() => {
+            this.$router.push("/login").catch((err) => {
+              err;
+            });
+          });
+        });
+    },
   },
+
+  computed: {
+    ...mapGetters(["getUser", "isUserAuth"]),
+  },
+
   components: {
     Gotop,
     TopNav,

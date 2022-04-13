@@ -13,28 +13,53 @@
       <Features />
       <div class="main-list">
         <div class="container">
-          <div class="left-img">
-            <img src="../img/s04.jpg" alt="image" />
+          <section v-if="isUserAuth" class="section">
+            <div class="columns">
+              <div class="column is-half is-offset-one-quarter">
+                Welcome, {{ getUser.email }}
+              </div>
+            </div>
+          </section>
+
+          <!-- 提示錯誤資訊 -->
+          <div v-if="validationErrors.length" class="error">
+            <button @click="resetError()"></button>
+            <div class="content">
+              Please resolve the following error(s) before proceeding.
+              <ul style="margin-top: 0.3em; margin-left: 1em">
+                <li
+                  v-for="(error, index) in validationErrors"
+                  :key="`error-${index}`"
+                  v-html="error"
+                />
+              </ul>
+            </div>
           </div>
-          <form @submit.prevent="userLogin" class="right-login">
+
+          <form
+            @submit.prevent="validate"
+            v-if="!isUserAuth"
+            class="right-login"
+          >
             <h3>LOGIN</h3>
 
             <div class="form-group">
-                <label>Email address</label>
-                <input type="email" class="form-control form-control-lg" v-model="user.email" />
+              <label>Email address</label>
+              <input type="email" v-model="email" />
             </div>
 
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control form-control-lg" v-model="user.password" />
+              <label>Password</label>
+              <input type="password" v-model="password" />
             </div>
 
-            <button type="submit" class="btn btn-dark btn-lg btn-block">LOGIN</button>
+            <button type="submit">LOGIN</button>
 
             <p class="forgot-password text-right mt-2 mb-4">
-                <router-link to="/forgot-password">Forgot password ?</router-link>
+              <router-link to="/forgot-password">Forgot password ?</router-link>
             </p>
           </form>
+          <button v-if="isUserAuth" @click="signOut">LOGOUT</button>
         </div>
       </div>
     </div>
@@ -51,34 +76,66 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      user: {
-        email: "",
-        password: "",
-      },
+      email: "",
+      password: "",
+      validationErrors: [],
     };
   },
+
+  mounted() {
+  this.authAction();
+  },
+
   methods: {
-    userLogin() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.user.email, this.user.password)
-        .then(() => {
-          this.$router.push("/home").catch((err) => {
-            err;
-          });
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
+    ...mapActions(["signInAction","signOutAction","authAction"]),
+
+    // 提示錯誤資訊方法
+    resetError() {
+      this.validationErrors = [];
+    },
+    validate() {
+      // Clear the errors before we validate again
+      this.resetError();
+      // email validation
+      if (!this.email) {
+        this.validationErrors.push("<strong>E-mail</strong> cannot be empty.");
+      }
+      if (/.+@.+/.test(this.email) != true) {
+        this.validationErrors.push("<strong>E-mail</strong> must be valid.");
+      }
+      // password validation
+      if (!this.password) {
+        this.validationErrors.push("<strong>Password</strong> cannot be empty");
+      }
+      if (/.{6,}/.test(this.password) != true) {
+        this.validationErrors.push(
+          "<strong>Password</strong> must be at least 6 characters long"
+        );
+      }
+      // when valid then sign in
+      if (this.validationErrors.length <= 0) {
+        this.signIn();
+      }
+    },
+
+    signIn() {
+      this.signInAction({ email: this.email, password: this.password });
+    },
+
+    signOut() {
+      this.signOutAction();
     },
   },
+
+  computed: {
+    ...mapGetters(["getUser", "isUserAuth"]),
+  },
+
   components: {
     Gotop,
     TopNav,
