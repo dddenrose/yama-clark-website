@@ -10,6 +10,7 @@ import SignUpPage from '../components/SignUpPage.vue'
 import LoginPage from '../components/LoginPage.vue'
 import Home from '../views/Home.vue'
 import SignUp from '../views/SignUp.vue'
+// import store from '@/store/index.js'
 
 
 Vue.use(VueRouter)
@@ -34,6 +35,9 @@ const routes = [
     path: '/shoppinglist',
     name: 'shoppinglist',
     component: ShoppingList,
+    // meta: {
+    //   isUserAuth: true
+    // }
   },
   {
     path: '/orderlist',
@@ -72,5 +76,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some(record => record.meta.isUserAuth)) {
+//       if (store.state.user === null) {
+//           next({
+//               path: '/login'
+//           });
+//       } else {
+//           next();
+//       }
+//   } else {
+//       next();
+//   }
+// });
 
 export default router

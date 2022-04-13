@@ -20,28 +20,6 @@
             <h3 class="price">price</h3>
           </div>
           <div class="lists">
-            <!-- <div
-              class="selling-product"
-              v-for="(product, index) in webProductList"
-              :key="index"
-            >
-              <img v-bind:src="product.img" alt="product" />
-              <h3>
-                {{ product.productName }}
-              </h3>
-              <div class="count">
-                <div class="counting">
-                  <button @click="add(product)">+</button>
-                  <span> {{ product.count }} </span>
-                  <button @click="minus(product)">-</button>
-                </div>
-                <button @click="delet">DELET</button>
-              </div>
-              <div class="price">
-                ${{ product.price * product.count }}
-              </div>
-            </div> -->
-
             <div
               class="selling-product"
               v-for="(item, index) in userList"
@@ -54,14 +32,12 @@
               <div class="count">
                 <div class="counting">
                   <button @click="add(item)">+</button>
-                  <span> {{ item.series }} </span>
+                  <span> {{ item.count }} </span>
                   <button @click="minus(item)">-</button>
                 </div>
                 <button @click="delet">DELET</button>
               </div>
-              <div class="price">
-                ${{ item.price}}
-              </div>
+              <div class="price">${{ item.price * item.count }}</div>
             </div>
           </div>
           <div class="pavement">
@@ -87,7 +63,7 @@
               </div>
               <div class="price-title">
                 <h3 class="left-title">price</h3>
-                <h3 class="price"> ${{ totalPrice }} </h3>
+                <h3 class="price">${{ totalPrice }}</h3>
               </div>
               <router-link class="confirm" :to="{ name: 'orderlist' }"
                 >confirm</router-link
@@ -104,16 +80,13 @@
 </template>
 
 <script>
-// import { initializeApp } from "firebase/app";
-// import { getDatabase, ref, onValue } from "firebase/database";
 import Gotop from "../components/Gotop.vue";
 import TopNav from "../components/TopNav.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
-import { mapActions } from "vuex";
-
+import { mapActions, mapState } from "vuex";
 
 export default {
   data() {
@@ -122,55 +95,41 @@ export default {
     };
   },
   mounted() {
-    // const firebaseConfig = {
-    //   apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
-    //   authDomain: "yama-website.firebaseapp.com",
-    //   databaseURL: "https://yama-website-default-rtdb.firebaseio.com",
-    //   projectId: "yama-website",
-    //   storageBucket: "yama-website.appspot.com",
-    //   messagingSenderId: "1094650287749",
-    //   appId: "1:1094650287749:web:b011ea45db8ec625e5bbec",
-    //   measurementId: "G-6TTRYFGB6X",
-    // };
-    // const app = initializeApp(firebaseConfig);
-    // const database = getDatabase(app);
-    // const starCountRef = ref(database, "/");
-    // this.ref = starCountRef;
-    // onValue(starCountRef, (snapshot) => {
-    //   const data = snapshot.val();
-    //   this.webProductList = data.userList[0].cart;
-    // });
-
-    this.authAction()
+    this.authAction();
   },
 
   methods: {
-    ...mapActions(["authAction","getUserList"]),
-    add: function(product) {
+    ...mapActions(["authAction", "getUserList"]),
+    add: function (product) {
       product.count++;
     },
-    minus: function(product) {
+    minus: function (product) {
       if (product.count > 1) {
         product.count--;
       }
     },
-    delet: function(index) {
-      this.webProductList.splice(index,1);
+    delet: function (index) {
+      this.webProductList.splice(index, 1);
     },
   },
+
   computed: {
-    userList() {
-      return this.$store.state.userList;
-    },
+    ...mapState(['userList','user']),
 
     totalPrice: function() {
-      let result = 0;
-      this.webProductList.forEach(element => {
-        result += element.price * element.count;
-      });
-      return result;
+      if(this.$store.user) {
+        let result = 0;
+        this.$store.userList.forEach(element => {
+          result += element.price;
+        })
+        return result;
+      }
+      console.log(this.$store.user);
+      console.log(this.$store.userList);
+      return 100;
     },
   },
+
   components: {
     Gotop,
     TopNav,
@@ -179,7 +138,6 @@ export default {
     Logo,
     Features,
   },
-  
 };
 </script>
 
@@ -189,7 +147,6 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
-
 
 img {
   vertical-align: top;
@@ -360,7 +317,6 @@ ul {
   }
 }
 
-
 // RWD
 @media screen and (max-width: 1100px) {
   .content {
@@ -375,12 +331,12 @@ ul {
           }
         }
         .lists {
-            .selling-product {
-              h3 {
-                padding-right: 0;
-              }
+          .selling-product {
+            h3 {
+              padding-right: 0;
             }
           }
+        }
         .pavement {
           .title {
             padding-left: 0;
@@ -398,7 +354,7 @@ ul {
       margin-top: 10px;
     }
   }
-  
+
   .main-list {
     .container {
       .left-info {
@@ -409,6 +365,5 @@ ul {
       }
     }
   }
-
 }
 </style>

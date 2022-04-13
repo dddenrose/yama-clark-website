@@ -34,6 +34,7 @@ export default new Vuex.Store({
           dispatch('getUserList');
         } else {
           commit("setUser", null);
+          commit("setUserList", null)
         }
       });
     },

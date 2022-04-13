@@ -18,32 +18,6 @@
           <a href="#">Accessories</a>
           <a href="#">Other</a>
         </div>
-        <!-- <div class="trending-products">
-          <div class="total-container">
-            <div
-              class="product-bar"
-              v-for="(product, index) in webProductList"
-              :key="index"
-            >
-              <div class="product">
-                <router-link :to="{ name: 'productdetail' }" class="image-box">
-                  <img v-bind:src="product.imagePath" alt="prodcut" />
-                  <div class="hover-box">
-                    <router-link class="info" :to="{ name: 'shoppinglist' }">
-                      ADD TO CART <i class="fas fa-shopping-cart"></i>
-                    </router-link>
-                  </div>
-                </router-link>
-                <div class="info">
-                  <h2>{{ product.series }}</h2>
-                  <h3 class="name">{{ product.seriesName }}</h3>
-                  <h3>{{ product.color }}</h3>
-                  <h3>{{ product.price }}</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
         <div class="trending-products">
           <div class="total-container">
             <div
@@ -115,7 +89,7 @@ export default {
       const data = snapshot.val();
       this.webProductList = data.productList[0];
     });
-
+    
     this.authAction();
 
   },
