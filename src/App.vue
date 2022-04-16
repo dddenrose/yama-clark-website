@@ -8,6 +8,25 @@
   </div>
 </template>
 
+<script>
+import { mapActions } from "vuex";
+
+
+export default {
+  data() {
+    return {
+    }
+  },
+  methods: {
+    ...mapActions(["authAction","getAllProduct"]),
+  },
+  mounted() {
+      this.authAction();
+      this.getAllProduct();
+  },
+}
+</script>
+
 <style lang="scss">
 *{margin:0;padding:0};
 

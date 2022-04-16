@@ -22,14 +22,22 @@
           <div class="total-container">
             <div
               class="product-bar"
-              v-for="(product, index) in webProductList"
+              v-for="(product, index) in allProduct"
               :key="index"
             >
               <div class="product">
                 <div class="image-box">
                   <img v-bind:src="product.imagePath" alt="prodcut" />
                   <div class="hover-box">
-                    <button @click="addProduct(product, index)">ADD TO CART</button>
+                    <button @click="addProduct(product)">
+                      ADD TO CART <i class="fas fa-shopping-cart"></i>
+                    </button>
+                    <button
+                      @click="routerToDetail({index})"
+                      class="information"
+                    >
+                      MORE INFORMATION
+                    </button>
                   </div>
                 </div>
                 <div class="info">
@@ -43,64 +51,33 @@
           </div>
         </div>
       </div>
-      <Features/>
+      <Features />
     </div>
     <Footer />
     <Pavement />
     <Gotop />
-
   </div>
 </template>
 
 <script>
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue } from "firebase/database";
 import Gotop from "../components/Gotop.vue";
 import TopNav from "../components/TopNav.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
-import { mapActions} from "vuex";
-
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      webProductList: [],
     };
-  },
-  mounted() {
-    const firebaseConfig = {
-      apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
-      authDomain: "yama-website.firebaseapp.com",
-      databaseURL: "https://yama-website-default-rtdb.firebaseio.com",
-      projectId: "yama-website",
-      storageBucket: "yama-website.appspot.com",
-      messagingSenderId: "1094650287749",
-      appId: "1:1094650287749:web:b011ea45db8ec625e5bbec",
-      measurementId: "G-6TTRYFGB6X",
-    };
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    const starCountRef = ref(database, "/");
-    this.ref = starCountRef;
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      this.webProductList = data.productList[0];
-    });
-    
-    this.authAction();
-
   },
   methods: {
-        ...mapActions(["addProduct","authAction"]),
+    ...mapActions(["addProduct","routerToDetail"]),
   },
-
   computed: {
-    isUserAuth() {
-      return this.$store.getters.isUserAuth;
-    }
+    ...mapGetters(["allProduct"]),
   },
 
   components: {
@@ -111,7 +88,6 @@ export default {
     Logo,
     Features,
   },
-  
 };
 </script>
 
@@ -121,7 +97,6 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
-
 
 img {
   vertical-align: top;
@@ -266,19 +241,29 @@ ul {
       transition: 0.3s ease-in;
       display: flex;
       align-items: center;
+      justify-content: center;
+      flex-direction: column;
 
-      a {
-        line-height: 2;
-        font-size: 14px;
-        border: 1px solid $brand-color;
-        border-radius: 20px;
-        display: flex;
-        flex-direction: column;
+      .information {
         text-decoration: none;
-        color: $brand-color;
+        color: grey;
+        font-size: 12px;
+        margin-top: 10px;
+        letter-spacing: 1px;
+      }
 
-        padding-bottom: 5%;
-        box-sizing: border-box;
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        line-height: 1.5;
+        border: 1px solid $brand-color;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: $brand-color;
+        padding: 10px;
+        border-radius: 30px;
+        cursor: pointer;
       }
 
       &:hover {
@@ -287,7 +272,6 @@ ul {
     }
   }
 }
-
 
 //RWD
 @media screen and (max-width: 1100px) {
@@ -312,8 +296,6 @@ ul {
 }
 
 @media screen and (max-width: 700px) {
-  
-
   .main-list {
     .container {
       .left-info {
@@ -355,6 +337,5 @@ ul {
       }
     }
   }
-
 }
 </style>

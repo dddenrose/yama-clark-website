@@ -5,6 +5,7 @@
         <div class="container-top">
           <TopNav />
           <Logo />
+          
         </div>
       </div>
     </div>
@@ -100,8 +101,30 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+import { mapActions } from 'vuex';
 
 export default {
+  mounted() {
+    this.getProductId();
+  },
+  data() {
+    return {
+      productId: null,
+    }
+  },
+  computed: {
+    // currentProduct: function () {
+    //   return firebase
+    //     .database()
+    //     .ref('productList/' + '0')
+    //     .on('value', snapshot => {
+    //       commit('setAllProduct', snapshot.val());
+    //     })
+    // }
+  },
+  methods: {
+    ...mapActions(["getProductId"])
+  },
   components: {
     Gotop,
     TopNav,

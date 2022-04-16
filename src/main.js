@@ -7,6 +7,9 @@ import '@fortawesome/fontawesome-free/js/all.js'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import 'firebase/compat/database';
+// import vuetify from '@/plugins/vuetify' // path to vuetify export
+
 
 Vue.config.productionTip = false
 
@@ -27,5 +30,6 @@ firebase.initializeApp(firebaseConfig);
 new Vue({
   router,
   store,
+  // vuetify,
   render: h => h(App)
 }).$mount('#app')

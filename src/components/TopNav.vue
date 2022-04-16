@@ -13,12 +13,33 @@
         <a class="icon" href="#"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
-    <div class="bar-2">
+    <div class="bar-2" v-if="isUserAuth">
+      <button @click="signOutAction" class="login">logout</button>
+    </div>
+    <div class="bar-2" v-if="!isUserAuth">
       <router-link :to="{ name: 'signup' }">SIGN UP</router-link>
       <router-link :to="{ name: 'login' }" class="login">login</router-link>
     </div>
   </div>
 </template>
+
+<script>
+import { mapActions, mapGetters } from "vuex";
+
+export default {
+  data() {
+    return {};
+  },
+
+  methods: {
+    ...mapActions(["signOutAction"]),
+  },
+
+  computed: {
+    ...mapGetters(["isUserAuth"]),
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 $brand-color: #bfb094;
@@ -42,16 +63,19 @@ $green-color: #3e5940;
   }
 
   .bar-2 {
-    a.login {
+    .login {
       color: $brand-color;
       margin-right: 50px;
-    text-transform: uppercase;
-    font-size: 12px;
-    background-color: white;
-    padding: 5px 10px;
-    border-radius: 20px;
+      text-transform: uppercase;
+      font-size: 12px;
+      background-color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
     }
-    
+    button {
+      border: none;
+      cursor: pointer;
+    }
   }
 
   a {

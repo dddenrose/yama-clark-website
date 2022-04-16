@@ -58,17 +58,23 @@
           <div class="product-bar">
             <div
               class="product"
-              v-for="(product, index) in webProductList"
+              v-for="(product, index) in homeProduct"
               :key="index"
             >
-              <router-link class="image-box" :to="{ name: 'productdetail' }">
-                <img v-bind:src="product.imagePath" alt="product" />
-                <div class="hover-box">
-                  <router-link class="info" :to="{ name: 'productdetail' }">
-                    ADD TO CART <i class="fas fa-shopping-cart"></i>
-                  </router-link>
+              <div class="image-box">
+                  <img v-bind:src="product.imagePath" alt="prodcut" />
+                  <div class="hover-box">
+                    <button @click="addProduct(product)">
+                      ADD TO CART <i class="fas fa-shopping-cart"></i>
+                    </button>
+                    <router-link
+                      class="information"
+                      :to="{ name: 'productlist' }"
+                    >
+                      MORE INFORMATION
+                    </router-link>
+                  </div>
                 </div>
-              </router-link>
               <div class="info">
                 <h2>{{ product.series }}</h2>
                 <h3 class="name">{{ product.seriesName }}</h3>
@@ -118,10 +124,10 @@
           <div class="product-bar">
             <div
               class="product"
-              v-for="(product, index) in webBestSelling"
+              v-for="(product, index) in bestSellingProduct"
               :key="index"
             >
-              <router-link class="image-box" :to="{ name: 'productdetail' }">
+              <router-link class="image-box" :to="{ name: 'productlist' }">
                 <img v-bind:src="product.imagePath" alt="product" />
               </router-link>
               <div class="info">
@@ -179,38 +185,19 @@
 </template>
 
 <script>
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      webProductList: [],
-      webBestSelling: [],
-      ref: null,
     };
   },
-  mounted() {
-    const firebaseConfig = {
-      apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
-      authDomain: "yama-website.firebaseapp.com",
-      databaseURL: "https://yama-website-default-rtdb.firebaseio.com",
-      projectId: "yama-website",
-      storageBucket: "yama-website.appspot.com",
-      messagingSenderId: "1094650287749",
-      appId: "1:1094650287749:web:b011ea45db8ec625e5bbec",
-      measurementId: "G-6TTRYFGB6X",
-    };
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    const starCountRef = ref(database, "/");
-    this.ref = starCountRef;
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      this.webProductList = data.trendingProduct[0];
-      this.webBestSelling = data.bestSelling[0];
-    });
+  methods: {
+    ...mapActions(["addProduct"]),
   },
+  computed: {
+    ...mapGetters(["homeProduct","bestSellingProduct"]),
+  }
 };
 </script>
 
@@ -421,19 +408,29 @@ $green-color: #3e5940;
       transition: 0.3s ease-in;
       display: flex;
       align-items: center;
+      justify-content: center;
+      flex-direction: column;
 
-      a {
-        line-height: 2;
-        font-size: 14px;
-        border: 1px solid $brand-color;
-        border-radius: 20px;
-        display: flex;
-        flex-direction: column;
+      .information {
         text-decoration: none;
-        color: $brand-color;
+        color: grey;
+        font-size: 12px;
+        margin-top: 10px;
+        letter-spacing: 1px;
+      }
 
-        padding-bottom: 5%;
-        box-sizing: border-box;
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        line-height: 1.5;
+        border: 1px solid $brand-color;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: $brand-color;
+        padding: 10px;
+        border-radius: 30px;
+        cursor: pointer;
       }
 
       &:hover {

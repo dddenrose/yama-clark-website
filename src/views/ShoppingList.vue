@@ -11,7 +11,6 @@
     <div class="content">
       <div class="shop-title">SHOPPING LIST</div>
       <Features />
-
       <div class="main-list">
         <div class="container">
           <div class="top-info">
@@ -31,11 +30,17 @@
               </h3>
               <div class="count">
                 <div class="counting">
-                  <button @click="add(item)">+</button>
+                  <button @click="minusCount({ item: item, index: index })">
+                    -
+                  </button>
                   <span> {{ item.count }} </span>
-                  <button @click="minus(item)">-</button>
+                  <button @click="addCount({ item: item, index: index })">
+                    +
+                  </button>
                 </div>
-                <button @click="delet">DELET</button>
+                <button @click="deleteProduct({ item: item, index: index })">
+                  DELET
+                </button>
               </div>
               <div class="price">${{ item.price * item.count }}</div>
             </div>
@@ -86,7 +91,7 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   data() {
@@ -94,40 +99,28 @@ export default {
       webProductList: [],
     };
   },
-  mounted() {
-    this.authAction();
-  },
 
   methods: {
-    ...mapActions(["authAction", "getUserList"]),
-    add: function (product) {
-      product.count++;
-    },
+    ...mapActions([
+      "getUserList",
+      "deleteProduct",
+      "fbDeleteTask",
+      "addCount",
+      "minusCount",
+    ]),
+    // add: function (product) {
+    //   product.count++;
+    // },
     minus: function (product) {
       if (product.count > 1) {
         product.count--;
       }
     },
-    delet: function (index) {
-      this.webProductList.splice(index, 1);
-    },
   },
 
   computed: {
-    ...mapState(['userList','user']),
-
-    totalPrice: function() {
-      if(this.$store.user) {
-        let result = 0;
-        this.$store.userList.forEach(element => {
-          result += element.price;
-        })
-        return result;
-      }
-      console.log(this.$store.user);
-      console.log(this.$store.userList);
-      return 100;
-    },
+    ...mapState(["userList", "user"]),
+    ...mapGetters(["totalPrice"]),
   },
 
   components: {
@@ -194,7 +187,7 @@ ul {
     }
     h3.count {
       flex: 2 1 0;
-      text-align: left;
+      text-align: center;
       font-size: 12px;
       font-weight: 100;
     }
@@ -202,7 +195,7 @@ ul {
       flex: 1 1 0;
       font-size: 12px;
       font-weight: 100;
-      text-align: left;
+      text-align: center;
     }
   }
   .pay {
@@ -239,25 +232,47 @@ ul {
     }
     .count {
       flex: 2 1 0;
-      text-align: left;
+      display: flex;
       flex-direction: column;
+      text-align: center;
+      align-items: center;
       a {
         display: block;
         text-decoration: none;
-        color: gray;
         margin: 18px 0 0 18px;
         font-size: 10px;
       }
+
+      button {
+        width: 70px;
+        border: none;
+        color: white;
+        background-color: #d1d1d1;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        cursor: pointer;
+      }
     }
     .counting {
-      padding: 10px 20px;
+      display: flex;
       display: inline-block;
-      border: 1px solid #d1d1d1;
-      color: #d1d1d1;
+      color: white;
+      margin-bottom: 10px;
+
+      span {
+        color:black;
+        font-size: 14px;
+      }
+
+      button {
+        width: 15px;
+        margin: 0 10px;
+        background-color: $brand-color;
+      }
     }
     .price {
       flex: 1 1 0;
-      text-align: left;
+      text-align: center;
       font-size: 9px;
     }
   }

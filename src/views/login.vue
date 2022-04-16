@@ -15,9 +15,15 @@
         <div class="container">
           <section v-if="isUserAuth" class="section">
             <div class="columns">
-              <div class="column is-half is-offset-one-quarter">
-                Welcome, {{ getUser.email }}
-              </div>
+              <h5>Welcome</h5>
+              <h4>{{ getUser.email }}</h4>
+              <router-link :to="{ name: 'shoppinglist' }"
+                >TO MY SHOPPING LIST</router-link
+              >
+              <router-link :to="{ name: 'productlist' }"
+                >PRODUCT LIST</router-link
+              >
+              <router-link :to="{ name: 'homerun' }">HOME</router-link>
             </div>
           </section>
 
@@ -59,7 +65,7 @@
               <router-link to="/forgot-password">Forgot password ?</router-link>
             </p>
           </form>
-          <button v-if="isUserAuth" @click="signOut">LOGOUT</button>
+          <!-- <button v-if="isUserAuth" @click="signOut">LOGOUT</button> -->
         </div>
       </div>
     </div>
@@ -87,12 +93,8 @@ export default {
     };
   },
 
-  mounted() {
-  this.authAction();
-  },
-
   methods: {
-    ...mapActions(["signInAction","signOutAction","authAction"]),
+    ...mapActions(["signInAction", "signOutAction"]),
 
     // 提示錯誤資訊方法
     resetError() {
@@ -207,6 +209,20 @@ ul {
     width: 80%;
     display: flex;
     align-items: center;
+  }
+  .columns {
+    display: flex;
+    flex-direction: column;
+    line-height: 2;
+    a {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-decoration: none;
+      color: $brand-color;
+    }
+    h4 {
+      border-bottom: 1px solid;
+    }
   }
 }
 

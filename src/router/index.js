@@ -27,7 +27,7 @@ const routes = [
     component: ProductList,
   },
   {
-    path: '/productdetail',
+    path: '/productdetail/:id',
     name: 'productdetail',
     component: ProductDetail,
   },
@@ -35,9 +35,9 @@ const routes = [
     path: '/shoppinglist',
     name: 'shoppinglist',
     component: ShoppingList,
-    // meta: {
-    //   isUserAuth: true
-    // }
+    meta: {
+      isUserAuth: true
+    }
   },
   {
     path: '/orderlist',
@@ -72,22 +72,23 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: "hash",
-  base: process.env.BASE_URL,
+  // mode: "hash",
+  // base: process.env.BASE_URL,
   routes
 });
 
+
 // router.beforeEach((to, from, next) => {
 //   if (to.matched.some(record => record.meta.isUserAuth)) {
-//       if (store.state.user === null) {
-//           next({
-//               path: '/login'
-//           });
-//       } else {
-//           next();
-//       }
-//   } else {
+//     if (!store.getters.isUserAuth) {
+//       next({
+//         path: '/login'
+//       });
+//     } else {
 //       next();
+//     }
+//   } else {
+//     next();
 //   }
 // });
 
