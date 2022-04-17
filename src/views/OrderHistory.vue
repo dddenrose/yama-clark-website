@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="content">
-      <div class="shop-title">SHOPPING LIST</div>
+      <div class="shop-title">ORDER HISTORY</div>
       <Features />
       <div class="main-list">
         <div class="container">
@@ -30,50 +30,14 @@
               </h3>
               <div class="count">
                 <div class="counting">
-                  <button @click="minusCount({ item: item, index: index })">
-                    -
-                  </button>
-                  <span> {{ item.count }} </span>
-                  <button @click="addCount({ item: item, index: index })">
-                    +
-                  </button>
+                  <span> {{ item.count }} pic</span>
                 </div>
-                <button @click="deleteProduct({ item: item, index: index })">
-                  DELET
-                </button>
               </div>
               <div class="price">${{ item.price * item.count }}</div>
             </div>
           </div>
           <div class="pavement">
-            <div class="title">
-              PAVEMENT
-              <div class="pay">
-                <div class="card"><i class="fab fa-cc-visa"></i></div>
-                <div class="card"><i class="fab fa-cc-mastercard"></i></div>
-                <div class="card"><i class="fab fa-cc-jcb"></i></div>
-                <div class="card"><i class="fab fa-cc-paypal"></i></div>
-                <div class="card"><i class="fab fa-cc-apple-pay"></i></div>
-                <div class="card"><i class="fab fa-cc-amazon-pay"></i></div>
-              </div>
-            </div>
-            <div class="price-detail">
-              <div class="total">
-                <h3 class="left-title">total</h3>
-                <h3 class="price">${{ totalPrice }}</h3>
-              </div>
-              <div class="coupon">
-                <h3 class="left-title">coupon</h3>
-                <h3 class="price gold">-$0</h3>
-              </div>
-              <div class="price-title">
-                <h3 class="left-title">price</h3>
-                <h3 class="price">${{ totalPrice }}</h3>
-              </div>
-              <router-link class="confirm" :to="{ name: 'orderlist' }"
-                >confirm</router-link
-              >
-            </div>
+
           </div>
         </div>
       </div>
@@ -265,7 +229,7 @@ ul {
     .price {
       flex: 1 1 0;
       text-align: center;
-      font-size: 9px;
+      font-size: 14px;
     }
   }
 }

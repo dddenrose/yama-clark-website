@@ -44,7 +44,7 @@
                   <h2>{{ product.series }}</h2>
                   <h3 class="name">{{ product.seriesName }}</h3>
                   <h3>{{ product.color }}</h3>
-                  <h3>{{ product.price }}</h3>
+                  <h3>${{ product.price }}</h3>
                 </div>
               </div>
             </div>
@@ -66,7 +66,7 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   data() {
@@ -77,7 +77,8 @@ export default {
     ...mapActions(["addProduct","routerToDetail"]),
   },
   computed: {
-    ...mapGetters(["allProduct"]),
+    // ...mapGetters(["allProduct"]),
+    ...mapState(["allProduct"])
   },
 
   components: {

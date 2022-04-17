@@ -2,10 +2,14 @@
   <div class="top-bar">
     <div class="bar-1">
       <router-link class="shopping" :to="{ name: 'shoppinglist' }"
-        >shopping list <i class="fas fa-shopping-cart"></i
-      ></router-link>
+        >shopping list <i class="fas fa-shopping-cart"></i>
+        <div class="count" v-if="this.shoppingCount">
+          <span> {{ shoppingCount }} </span>
+        </div></router-link
+      >
       <router-link :to="{ name: 'homerun' }">home</router-link>
       <router-link :to="{ name: 'productlist' }">productlist</router-link>
+
       <div class="social-media">
         <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
         <a class="icon" href="#"><i class="fab fa-instagram-square"></i></a>
@@ -14,6 +18,7 @@
       </div>
     </div>
     <div class="bar-2" v-if="isUserAuth">
+      <router-link :to="{ name: 'login' }" class="profile">PROFILE</router-link>
       <button @click="signOutAction" class="login">logout</button>
     </div>
     <div class="bar-2" v-if="!isUserAuth">
@@ -36,7 +41,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["isUserAuth"]),
+    ...mapGetters(["isUserAuth", "shoppingCount"]),
   },
 };
 </script>
@@ -60,35 +65,65 @@ $green-color: #3e5940;
     margin-left: 50px;
     display: flex;
     align-items: center;
+    a.shopping {
+      display: flex;
+    }
+    .shopping {
+      svg {
+        margin-left: 5px;
+      }
+    }
+    .count {
+      position: relative;
+      margin-left: 5px;
+      width: 15px;
+      height: 15px;
+      background-color: white;
+      border-radius: 10px;
+    }
+
+    span {
+      color: $brand-color;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin: 10px;
+      letter-spacing: 1px;
+    }
+    a.icon {
+      margin: 5px;
+      font-size: 14px;
+    }
   }
 
   .bar-2 {
+    margin-right: 50px;
+
     .login {
       color: $brand-color;
-      margin-right: 50px;
       text-transform: uppercase;
       font-size: 12px;
       background-color: white;
       padding: 5px 10px;
       border-radius: 20px;
+      letter-spacing: 1px;
+      margin-left: 5px;
     }
     button {
       border: none;
       cursor: pointer;
     }
-  }
-
-  a {
-    text-decoration: none;
-    color: white;
-    text-transform: uppercase;
-    font-size: 12px;
-    margin: 10px;
-    letter-spacing: 1px;
-  }
-  a.icon {
-    margin: 5px;
-    font-size: 14px;
+    .profile {
+      text-align: right;
+      font-size: 12px;
+      color: white;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
   }
 }
 
@@ -113,7 +148,14 @@ $green-color: #3e5940;
       .bar-2 {
         height: 15px;
         margin-right: 5%;
-        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+        align-items: center;
+        .login {
+          margin-left: 0px;
+          margin-top: 5px;
+        }
       }
     }
   }

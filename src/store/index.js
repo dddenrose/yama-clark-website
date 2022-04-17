@@ -15,7 +15,8 @@ export default new Vuex.Store({
     error: null,
     userList: [],
     allProduct: [],
-    currentProduct:[],
+    currentProduct: [],
+    orderHistory: [],
   },
 
   mutations: {
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     },
     setCurrentProduct(state, payload) {
       state.currentProduct = payload;
+    },
+    setOrderHistory(state, payload) {
+      state.orderHistory = payload;
     }
   },
 
@@ -86,7 +90,14 @@ export default new Vuex.Store({
         .ref("users")
         .child(state.user.uid)
         .push(payload);
-      console.log(payload)
+    },
+
+    addProductDetail({ state }) {
+      firebase
+        .database()
+        .ref("users")
+        .child(state.user.uid)
+        .push(state.currentProduct);
     },
 
     getUserList({ state, commit }) {
@@ -98,12 +109,23 @@ export default new Vuex.Store({
         })
     },
 
+    // getAllProduct({ commit }) {
+    //   return firebase
+    //     .database()
+    //     .ref('productList/' + '0')
+    //     .on('value', snapshot => {
+    //       commit('setAllProduct', snapshot.val());
+    //     })
+    // },
+
     getAllProduct({ commit }) {
       return firebase
         .database()
         .ref('productList/' + '0')
         .on('value', snapshot => {
-          commit('setAllProduct', snapshot.val());
+          let obj = snapshot.val()
+          let allProduct = Object.keys(obj).map(function (_) { return obj[_]; });
+          commit('setAllProduct', allProduct);
         })
     },
 
@@ -140,19 +162,53 @@ export default new Vuex.Store({
 
     routerToDetail({ getters }, { index }) {
       console.log(getters)
-      router.push({name:"productdetail", params:{id: index}})
-      // dispatch('currentProduct', index)
+      router.push({ name: "productdetail", params: { id: index } })
     },
 
-    getProductId({ dispatch }) {
+    setCurrentProduct({ commit }) {
       const id = router.currentRoute.params.id;
       let productId = id;
-      dispatch('currentProduct', productId)
-      
+      return firebase
+        .database()
+        .ref('productList/' + '0' + '/' + productId)
+        .on('value', snapshot => {
+          commit('setCurrentProduct', snapshot.val());
+        })
     },
-    currentProduct({getters, commit}, productId) {
-      let currentProduct = getters.allProduct[productId]
-      commit('setCurrentProduct', currentProduct)
+
+    confirmOrder({ state, commit }) {
+      firebase
+        .database()
+        .ref('history')
+        .child(state.user.uid)
+        .push(state.userList)
+      commit('setUserList', null)
+
+      let userId = firebase.auth().currentUser.uid
+      let userProducts = firebase.database().ref('users/' + userId)
+      userProducts.remove();
+    },
+
+    getOrderHistory({ state }) {
+      firebase
+      .database()
+      .ref('history' + '/' + state.user.uid)
+      .child("users")
+      .once("value")
+      .then(function (snapshot) {
+        let snap = snapshot.val();
+        let key = Object.keys(snap)[0]
+        console.log(key);
+      })
+
+      // return firebase
+      //   .database()
+      //   .ref('history' + '/' + state.user.uid)
+      //   .on('value', snapshot => {
+      //     let obj = snapshot.val()
+      //     let product = Object.keys(obj).map(function (_) { return obj[_]; });
+      //     commit('setOrderHistory', product);
+      //   })
     },
   },
 
@@ -173,19 +229,26 @@ export default new Vuex.Store({
       }
       return result
     },
-    allProduct(state) {
-      let obj = Object.keys(state.allProduct).map(function(_) { return state.allProduct[_]; });
+    allProductGetter(state) {
+      let obj = Object.keys(state.allProduct).map(function (_) { return state.allProduct[_]; });
       return obj;
     },
     homeProduct(state) {
-      let obj = Object.keys(state.allProduct).map(function(_) { return state.allProduct[_]; });
+      let obj = Object.keys(state.allProduct).map(function (_) { return state.allProduct[_]; });
       let homeProduct = obj.slice(0, 8);
       return homeProduct;
     },
     bestSellingProduct(state) {
-      let obj = Object.keys(state.allProduct).map(function(_) { return state.allProduct[_]; });
+      let obj = Object.keys(state.allProduct).map(function (_) { return state.allProduct[_]; });
       let homeProduct = obj.slice(0, 4);
       return homeProduct;
+    },
+    shoppingCount(state) {
+      if (state.userList) {
+        let obj = Object.keys(state.userList).map(function (_) { return state.userList[_]; });
+        let shoppingCount = obj.length;
+        return shoppingCount;
+      }
     }
   },
 })

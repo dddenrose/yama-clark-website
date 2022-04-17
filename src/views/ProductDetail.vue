@@ -5,33 +5,33 @@
         <div class="container-top">
           <TopNav />
           <Logo />
-          
         </div>
       </div>
     </div>
     <div class="content">
-      <Features/>
+      <Features />
       <div class="product-detail">
         <div class="product-main">
           <div class="scroll">
-            <div class="arrow-up"></div>
-            <div class="photo">
-              <a href="#"><img src="../img/d01.jpg" alt="product" /></a>
-              <a href="#"><img src="../img/d02.jpg" alt="product" /></a>
-              <a href="#"><img src="../img/d04.jpg" alt="product" /></a>
+            <div
+              class="photo"
+              v-for="(img, index) in currentProduct.introImg"
+              :key="index"
+            >
+              <div class="img-box" >
+                <img @click="changePhoto(img)" v-bind:src="img" alt="product"/>
+              </div>
             </div>
-            <div class="arrow-down"></div>
           </div>
           <div class="product-photo">
-            <img src="../img/p02.jpg" alt="product" />
+            <img v-bind:src="this.changePhotoUrl ? this.changePhotoUrl : `${ currentProduct.imagePath }`  " alt="product" />
           </div>
         </div>
 
         <div class="product-info">
-          <div class="series">1982</div>
-          <h3>gmt world traveler</h3>
-          <h3>steel / dark blue off white</h3>
-          <h3 class="price">$10,800</h3>
+          <div class="series"> {{ currentProduct.series }} </div>
+          <h3>{{ currentProduct.seriesName }}</h3>
+          <h3 class="price">${{ currentProduct.price }}</h3>
           <h4>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam
             quam aliquam maiores, rem odio velit et quod a? Assumenda ut impedit
@@ -45,9 +45,7 @@
             Fuga ad dicta totam itaque consequuntur deserunt molestias qui sequi
             minima aut similique, natus hic sunt.
           </h4>
-          <router-link class="button" :to="{ name: 'shoppinglist' }"
-            >ADD TO CART</router-link
-          >
+          <button class="button" @click="addProductDetail">ADD TO CART</button>
         </div>
       </div>
       <div class="brand-story">
@@ -90,7 +88,6 @@
     <Footer />
     <Pavement />
     <Gotop />
-    
   </div>
 </template>
 
@@ -101,18 +98,21 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from "vuex";
 
 export default {
   mounted() {
-    this.getProductId();
+    this.setCurrentProduct();
+    this.toTop();
   },
   data() {
     return {
       productId: null,
-    }
+      changePhotoUrl: "",
+    };
   },
   computed: {
+    ...mapState(["currentProduct"]),
     // currentProduct: function () {
     //   return firebase
     //     .database()
@@ -123,7 +123,17 @@ export default {
     // }
   },
   methods: {
-    ...mapActions(["getProductId"])
+    ...mapActions(["setCurrentProduct","addProductDetail"]),
+    changePhoto: function(img) {
+      console.log(img)
+      let imgUrl = img;
+      this.changePhotoUrl = imgUrl;
+    },
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+      });
+    },
   },
   components: {
     Gotop,
@@ -138,7 +148,6 @@ export default {
 
 
 <style scoped lang="scss">
-
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
@@ -196,23 +205,26 @@ ul {
     align-items: center;
     flex-direction: column;
     flex: 1 1 0;
-  }
-  .arrow-up {
-    margin-bottom: 10px;
+    .border {
+      border: 3px solid black;
+    }
   }
   .photo {
     margin-bottom: 10px;
     flex: 1 1 0;
     display: flex;
     flex-direction: column;
-    a {
+    width: 100%;
+    .img-box {
       height: 150px;
       box-sizing: border-box;
       flex: 1 1 0;
       display: flex;
-      padding-bottom: 10px;
+      width: 100%;
+      cursor: pointer;
     }
     img {
+      vertical-align: top;
       width: 100%;
       object-fit: cover;
     }
@@ -222,6 +234,7 @@ ul {
     flex: 2 1 0;
     img {
       width: 100%;
+      max-width: 350px;
     }
   }
 
@@ -272,11 +285,14 @@ ul {
   }
 }
 
-a.button {
+button {
   text-decoration: none;
   color: white;
   background-color: $brand-color;
   padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1.5px;
 }
 
 .brand-story {
@@ -366,12 +382,11 @@ a.button {
 
 //RWD
 
-
 @media screen and (max-width: 1100px) {
   .product-detail {
     flex-direction: column;
     align-items: center;
-    
+
     .product-info {
       padding-top: 30px;
       padding-left: 0;
@@ -414,6 +429,5 @@ a.button {
       }
     }
   }
-
 }
 </style>

@@ -9,21 +9,22 @@
       </div>
     </div>
     <div class="content">
-      <div class="shop-title">ORDER LIST</div>
+      <div class="shop-title">LOGIN</div>
       <Features />
       <div class="main-list">
         <div class="container">
           <section v-if="isUserAuth" class="section">
             <div class="columns">
-              <h5>Welcome</h5>
-              <h4>{{ getUser.email }}</h4>
+              
+              <h4>Welcome,<span>{{ getUser.email }}</span></h4>
               <router-link :to="{ name: 'shoppinglist' }"
-                >TO MY SHOPPING LIST</router-link
+                >SHOPPING LIST <i class="fas fa-shopping-cart"></i></router-link
               >
-              <router-link :to="{ name: 'productlist' }"
-                >PRODUCT LIST</router-link
+              <router-link :to="{ name: 'homerun' }">HOME <i class="fas fa-home"></i></router-link>
+              <router-link :to="{ name: 'productlist' }" 
+                >PRODUCT LIST <i class="fas fa-clock"></i></router-link
               >
-              <router-link :to="{ name: 'homerun' }">HOME</router-link>
+              <router-link :to="{ name: 'homerun' }" class="border">HISTORY LIST</router-link>
             </div>
           </section>
 
@@ -59,16 +60,20 @@
               <input type="password" v-model="password" />
             </div>
 
-            <button type="submit">LOGIN</button>
+            <button type="submit" class="login">LOGIN</button>
 
-            <p class="forgot-password text-right mt-2 mb-4">
+            <p>
               <router-link to="/forgot-password">Forgot password ?</router-link>
             </p>
           </form>
           <!-- <button v-if="isUserAuth" @click="signOut">LOGOUT</button> -->
         </div>
       </div>
+      
     </div>
+    <div class="bottom-img">
+        <img src="../img/s14.jpg" alt="image">
+      </div>
     <Footer />
     <Pavement />
     <Gotop />
@@ -206,22 +211,31 @@ ul {
   margin-top: 60px;
   justify-content: center;
   .container {
-    width: 80%;
     display: flex;
     align-items: center;
   }
   .columns {
     display: flex;
     flex-direction: column;
-    line-height: 2;
+    line-height: 3;
     a {
-      font-size: 10px;
+      font-size: 15px;
       letter-spacing: 1px;
       text-decoration: none;
       color: $brand-color;
     }
-    h4 {
-      border-bottom: 1px solid;
+    h4{
+      font-size: 14px;
+      font-weight: 100;
+      letter-spacing: 1px;
+      color: grey;
+      border-bottom: 1px solid $brand-color;
+    }
+    span {
+      color: $brand-color;
+    }
+    .border {
+      border-bottom: 1px solid $brand-color;
     }
   }
 }
@@ -267,6 +281,22 @@ ul {
     text-transform: uppercase;
     font-size: 9px;
   }
+  .login {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    height: 45px;
+    background-color: $brand-color;
+    display: block;
+    line-height: 3.5;
+    text-transform: uppercase;
+    font-size: 9px;
+    border: none;
+    margin-bottom: 30px;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+
   h4 {
     margin: 20px 0;
     text-transform: uppercase;
@@ -288,6 +318,16 @@ ul {
     font-size: 9px;
     flex: 1;
     text-align: left;
+  }
+}
+
+.bottom-img {
+  width: 100%;
+  img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    margin-top: 50px;
   }
 }
 

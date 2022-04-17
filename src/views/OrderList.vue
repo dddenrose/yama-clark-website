@@ -36,7 +36,6 @@
               <div class="square"></div>
               <div class="word">SAVE THE INFORMATION</div>
             </div>
-            <a href="#" class="confirm">confirm</a>
           </div>
           <div class="right-list">
             <div class="top-info">
@@ -44,41 +43,52 @@
               <h3 class="count">count</h3>
               <h3 class="price">price</h3>
             </div>
+
             <div class="lists">
-              <div
-                class="selling-product"
-                v-for="(product, index) in webProductList"
-                :key="index"
-              >
-                <img v-bind:src="product.img" alt="product" />
-                <h3>
-                  {{ product.productName }}
-                </h3>
-                <div class="count">
-                  <div class="counting">+ 1 -</div>
-                  <a href="#">DELET</a>
+            <div
+              class="selling-product"
+              v-for="(item, index) in userList"
+              :key="index"
+            >
+              <img v-bind:src="item.imagePath" alt="product" />
+              <h3>
+                {{ item.seriesName }}
+              </h3>
+              <div class="count">
+                <div class="counting">
+                  <button @click="minusCount({ item: item, index: index })">
+                    -
+                  </button>
+                  <span> {{ item.count }} </span>
+                  <button @click="addCount({ item: item, index: index })">
+                    +
+                  </button>
                 </div>
-                <div class="price">
-                  {{ product.price }}
-                </div>
+                <button @click="deleteProduct({ item: item, index: index })">
+                  DELET
+                </button>
               </div>
+              <div class="price">${{ item.price * item.count }}</div>
             </div>
+
+          </div>
             <div class="pavement">
               <div class="title">PAVEMENT</div>
               <div class="price-detail">
-                <div class="total">
-                  <h3 class="left-title">total</h3>
-                  <h3 class="price">$40,850</h3>
-                </div>
-                <div class="coupon">
-                  <h3 class="left-title">coupon</h3>
-                  <h3 class="price gold">-$2,850</h3>
-                </div>
-                <div class="price-title">
-                  <h3 class="left-title">price</h3>
-                  <h3 class="price">$38,000</h3>
-                </div>
+              <div class="total">
+                <h3 class="left-title">total</h3>
+                <h3 class="price">${{ totalPrice }}</h3>
               </div>
+              <div class="coupon">
+                <h3 class="left-title">coupon</h3>
+                <h3 class="price gold">-$0</h3>
+              </div>
+              <div class="price-title">
+                <h3 class="left-title">price</h3>
+                <h3 class="price">${{ totalPrice }}</h3>
+              </div>
+              <button class="confirm" @click="confirmOrder()">confirm</button>
+            </div>
             </div>
           </div>
         </div>
@@ -92,41 +102,34 @@
 </template>
 
 <script>
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue } from "firebase/database";
 import Gotop from "../components/Gotop.vue";
 import TopNav from "../components/TopNav.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+import { mapActions, mapGetters, mapState } from "vuex";
+
 
 export default {
   data() {
     return {
-      webProductList: [],
-      ref: null,
     };
   },
-  mounted() {
-    const firebaseConfig = {
-      apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",
-      authDomain: "yama-website.firebaseapp.com",
-      databaseURL: "https://yama-website-default-rtdb.firebaseio.com",
-      projectId: "yama-website",
-      storageBucket: "yama-website.appspot.com",
-      messagingSenderId: "1094650287749",
-      appId: "1:1094650287749:web:b011ea45db8ec625e5bbec",
-      measurementId: "G-6TTRYFGB6X",
-    };
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    const starCountRef = ref(database, "/");
-    this.ref = starCountRef;
-    onValue(starCountRef, (snapshot) => {
-      const data = snapshot.val();
-      this.webProductList = data.userList[0].cart;
-    });
+  methods: {
+    ...mapActions([
+      "getUserList",
+      "deleteProduct",
+      "fbDeleteTask",
+      "addCount",
+      "minusCount",
+      "confirmOrder"
+    ]),
+  },
+
+  computed: {
+    ...mapState(["userList", "user"]),
+    ...mapGetters(["totalPrice"]),
   },
   components: {
     Gotop,
@@ -207,7 +210,7 @@ ul {
     }
     h3.count {
       flex: 2 1 0;
-      text-align: left;
+      text-align: center;
       font-size: 12px;
       font-weight: 100;
     }
@@ -215,7 +218,7 @@ ul {
       flex: 1 1 0;
       font-size: 12px;
       font-weight: 100;
-      text-align: left;
+      text-align: center;
     }
   }
 }
@@ -241,21 +244,43 @@ ul {
     }
     .count {
       flex: 2 1 0;
-      text-align: left;
+      display: flex;
       flex-direction: column;
+      text-align: center;
+      align-items: center;
       a {
         display: block;
         text-decoration: none;
-        color: gray;
-        margin: 11px 0 0 7px;
+        margin: 18px 0 0 18px;
         font-size: 10px;
+      }
+
+      button {
+        width: 70px;
+        border: none;
+        color: white;
+        background-color: #d1d1d1;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        cursor: pointer;
       }
     }
     .counting {
-      padding: 6px 8px;
+      display: flex;
       display: inline-block;
-      border: 1px solid;
-      color: gray;
+      color: white;
+      margin-bottom: 10px;
+
+      span {
+        color:black;
+        font-size: 14px;
+      }
+
+      button {
+        width: 15px;
+        margin: 0 10px;
+        background-color: $brand-color;
+      }
     }
     .price {
       flex: 1 1 0;

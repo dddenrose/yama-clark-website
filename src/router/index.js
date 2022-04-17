@@ -10,6 +10,7 @@ import SignUpPage from '../components/SignUpPage.vue'
 import LoginPage from '../components/LoginPage.vue'
 import Home from '../views/Home.vue'
 import SignUp from '../views/SignUp.vue'
+import OrderHistory from '../views/OrderHistory.vue'
 // import store from '@/store/index.js'
 
 
@@ -68,6 +69,11 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignUp,
+  },
+  {
+    path: '/orderhistory',
+    name: 'orderhistory',
+    component: OrderHistory,
   },
 ]
 
