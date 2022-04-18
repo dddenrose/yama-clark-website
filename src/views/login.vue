@@ -22,9 +22,9 @@
               >
               <router-link :to="{ name: 'homerun' }">HOME <i class="fas fa-home"></i></router-link>
               <router-link :to="{ name: 'productlist' }" 
-                >PRODUCT LIST <i class="fas fa-clock"></i></router-link
+                >PRODUCT LIST </router-link
               >
-              <router-link :to="{ name: 'homerun' }" class="border">HISTORY LIST</router-link>
+              <router-link :to="{ name: 'orderhistory' }" class="border">HISTORY LIST <i class="fas fa-clock"></i></router-link>
             </div>
           </section>
 

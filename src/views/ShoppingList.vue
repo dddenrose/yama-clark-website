@@ -18,7 +18,8 @@
             <h3 class="count">count</h3>
             <h3 class="price">price</h3>
           </div>
-          <div class="lists">
+          <Loading v-if="loading"/>
+          <div class="lists" v-if="userList !== null">
             <div
               class="selling-product"
               v-for="(item, index) in userList"
@@ -91,6 +92,7 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+import Loading from "../components/Loading.vue";
 import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
@@ -111,8 +113,8 @@ export default {
   },
 
   computed: {
-    ...mapState(["userList", "user"]),
-    ...mapGetters(["totalPrice"]),
+    ...mapState(["userList", "user","loading"]),
+    ...mapGetters(["totalPrice", "tempUserList"]),
   },
 
   components: {
@@ -122,6 +124,7 @@ export default {
     Pavement,
     Logo,
     Features,
+    Loading,
   },
 };
 </script>
@@ -247,12 +250,11 @@ ul {
     }
     .counting {
       display: flex;
-      display: inline-block;
       color: white;
       margin-bottom: 10px;
 
       span {
-        color:black;
+        color: black;
         font-size: 14px;
       }
 
@@ -370,6 +372,13 @@ ul {
       .right-list {
         width: 70%;
       }
+    }
+  }
+
+  .pavement {
+    span {
+      margin-left: 0px;
+      margin-top: 5px;
     }
   }
 }

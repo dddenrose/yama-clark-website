@@ -267,7 +267,6 @@ ul {
     }
     .counting {
       display: flex;
-      display: inline-block;
       color: white;
       margin-bottom: 10px;
 

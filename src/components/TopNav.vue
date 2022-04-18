@@ -17,12 +17,15 @@
         <a class="icon" href="#"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
+
     <div class="bar-2" v-if="isUserAuth">
       <router-link :to="{ name: 'login' }" class="profile">PROFILE</router-link>
       <button @click="signOutAction" class="login">logout</button>
     </div>
     <div class="bar-2" v-if="!isUserAuth">
-      <router-link :to="{ name: 'signup' }">SIGN UP</router-link>
+      <router-link :to="{ name: 'signup' }" class="profile"
+        >SIGN UP</router-link
+      >
       <router-link :to="{ name: 'login' }" class="login">login</router-link>
     </div>
   </div>
@@ -30,6 +33,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+// import Loading from "../components/Loading.vue";
 
 export default {
   data() {
@@ -43,6 +47,9 @@ export default {
   computed: {
     ...mapGetters(["isUserAuth", "shoppingCount"]),
   },
+  components: {
+    // Loading,
+  },
 };
 </script>
 
@@ -51,12 +58,16 @@ $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
 
+a {
+  text-decoration: none;
+}
+
+
 .top-bar {
   display: flex;
   padding: 15px 0;
   flex: 1;
   background-color: $brand-color;
-
   text-decoration: none;
   align-items: center;
 

@@ -8,10 +8,9 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/database';
-// import vuetify from '@/plugins/vuetify' // path to vuetify export
-
 
 Vue.config.productionTip = false
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAbYLUVJYoITGNvgeEJiLWKwlvEZEgsn7M",

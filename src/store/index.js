@@ -17,6 +17,7 @@ export default new Vuex.Store({
     allProduct: [],
     currentProduct: [],
     orderHistory: [],
+    loading: false,
   },
 
   mutations: {
@@ -37,11 +38,15 @@ export default new Vuex.Store({
     },
     setOrderHistory(state, payload) {
       state.orderHistory = payload;
+    },
+    setLoading(state, payload) {
+      state.loading = payload;
     }
   },
 
   actions: {
     authAction({ commit, dispatch }) {
+      commit('setLoading', true)
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           commit("setUser", user);
@@ -85,13 +90,12 @@ export default new Vuex.Store({
         });
     },
 
-    addProduct({ state, getters }, { product, index }) {
+    addProduct({ state }, { product }) {
       let newProduct = [];
       newProduct.push(product);
-      let userId = firebase.auth().currentUser.uid
-      let userProducts = firebase.database().ref('users/' + userId + '/' + index)
-      console.log(userProducts, 'userProducts')
-      let oldList = getters.userListArray;
+      let userId = firebase.auth().currentUser.uid;
+      
+      let oldList = state.userList;
       let sameImage = false;
       if (oldList) {
         for (let i = 0; i < oldList.length; i++) {
@@ -100,13 +104,6 @@ export default new Vuex.Store({
           }
         }
       }
-
-      // let count = firebase.database().ref('users/' + userId + '/' + index);
-      // count.on("value", (snap)=> {
-      //   let countResult = snap.val();
-      //   console.log(countResult.count, 'countResult')
-      //   return countResult.count
-      // });
 
       if (state.userList == null) {
         firebase
@@ -118,15 +115,14 @@ export default new Vuex.Store({
         if (sameImage) {
           for (let i = 0; i < oldList.length; i++) {
             if (oldList[i].imagePath === newProduct[0].imagePath) {
-              // let userProducts = firebase.database().ref('users/' + userId + '/' + index);
-              // userProducts.on("value", (snap) => {
-              //   let countResult = snap.val();
-              //   let payload = {
-              //     count: countResult.count + 1
-              //   }
-              //   userProducts.update(payload)
-              // });
-              console.log('++')
+              let userProducts = firebase.database().ref('users/' + userId + '/' + i);
+              userProducts.once("value", (snap) => {
+                let countResult = snap.val();
+                let payload = {
+                  count: countResult.count + 1
+                }
+                userProducts.update(payload)
+              });
             }
           }
         } else {
@@ -155,6 +151,7 @@ export default new Vuex.Store({
         .ref('users/' + state.user.uid)
         .on('value', snapshot => {
           commit('setUserList', snapshot.val());
+          commit('setLoading', false)
         })
     },
 
@@ -169,13 +166,13 @@ export default new Vuex.Store({
         })
     },
 
-    deleteProduct({ getters }, { item, index }) {
-      let userId = firebase.auth().currentUser.uid
-      let userProducts = firebase.database().ref('users/' + userId + '/' + index)
-      userProducts.remove();
-
-      console.log(getters)
-      console.log(item, 'item')
+    deleteProduct({ state }, { index }) {
+      state.userList.splice(index, 1);
+      firebase
+        .database()
+        .ref("users")
+        .child(state.user.uid)
+        .set(state.userList)
     },
 
     addCount({ getters }, { item, index }) {
@@ -225,9 +222,9 @@ export default new Vuex.Store({
         })
     },
 
-    confirmOrder({ getters, state }) {
+    confirmOrder({ state }) {
       if (state.orderHistory != null) {
-        let newHistroy = state.orderHistory.concat(getters.userListArray);
+        let newHistroy = state.orderHistory.concat(state.userList);
         firebase
           .database()
           .ref("history")
@@ -242,8 +239,7 @@ export default new Vuex.Store({
           .database()
           .ref("history")
           .child(state.user.uid)
-          .set(getters.userListArray)
-
+          .set(state.userList)
         let userId = firebase.auth().currentUser.uid
         let userProducts = firebase.database().ref('users/' + userId)
         userProducts.remove();
@@ -269,10 +265,6 @@ export default new Vuex.Store({
       }
       return result
     },
-    allProductGetter(state) {
-      let obj = Object.keys(state.allProduct).map(function (_) { return state.allProduct[_]; });
-      return obj;
-    },
     shoppingCount(state) {
       if (state.userList) {
         let obj = Object.keys(state.userList).map(function (_) { return state.userList[_]; });
@@ -280,8 +272,11 @@ export default new Vuex.Store({
         return shoppingCount;
       }
     },
-    userListArray(state) {
-      if (state.userList) {
+    tempUserList(state) {
+      if (state.userList === null) {
+        let tempUserList = [0]
+        return tempUserList
+      } else {
         let obj = Object.keys(state.userList).map(function (_) { return state.userList[_]; });
         return obj;
       }

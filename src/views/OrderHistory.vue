@@ -13,18 +13,29 @@
       <Features />
       <div class="main-list">
         <div class="container">
+          <div class="intro" v-if="orderHistory">
+            <h4>Thank you for your purchase.</h4>
+            <h4>You can see your order history here.</h4>
+          </div>
+          <div class="intro" v-if="!orderHistory">
+            <h4>There is no order history.</h4>
+            <h4>Click here to product list.</h4>
+          </div>
           <div class="top-info">
-            <h3 class="product">product</h3>
+            <div class="product">
+              <h3>order history <i class="fas fa-clock"></i></h3>
+            </div>
             <h3 class="count">count</h3>
             <h3 class="price">price</h3>
           </div>
-          <div class="lists">
+          <Loading v-if="loading"/>
+          <div class="lists" v-if="orderHistory !== null">
             <div
-              class="selling-product"
               v-for="(item, index) in orderHistory"
               :key="index"
             >
-              <img v-bind:src="item.imagePath" alt="product" />
+              <div v-if="index < loadCount" class="selling-product">
+                <img v-bind:src="item.imagePath" alt="product" />
               <h3>
                 {{ item.seriesName }}
               </h3>
@@ -34,10 +45,16 @@
                 </div>
               </div>
               <div class="price">${{ item.price * item.count }}</div>
+              </div>
+              
             </div>
           </div>
+          <div class="load">
+            <button @click="loadMore()" class="load-button">loading more</button>
+          </div>
           <div class="pavement">
-
+            <button>clear all</button>
+            <span>Click button to clean all order history.</span>
           </div>
         </div>
       </div>
@@ -55,16 +72,21 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+import Loading from "../components/Loading.vue";
 import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   data() {
     return {
-      webProductList: [],
+      loadCount: 3,
+      show: true,
     };
   },
 
   methods: {
+    loadMore() {
+      this.loadCount = this.loadCount + 3;
+    },
     ...mapActions([
       "getUserList",
       "deleteProduct",
@@ -75,7 +97,12 @@ export default {
   },
 
   computed: {
-    ...mapState(["orderHistory", "user"]),
+    // showProduct() {
+    //   if (this.loadCount >= this.orderHistory.length) {
+    //     this.show = false;
+    //   }
+    // },
+    ...mapState(["orderHistory", "user","loading"]),
     ...mapGetters(["totalPrice"]),
   },
 
@@ -86,6 +113,7 @@ export default {
     Pavement,
     Logo,
     Features,
+    Loading,
   },
 };
 </script>
@@ -106,9 +134,25 @@ ul {
   padding: 0;
 }
 
-// header
+button {
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+  background-color: $brand-color;
+  color: white;
+  padding: 10px 10px;
+  cursor: pointer;
+}
 
-//content
+.load {
+  display: flex;
+}
+
+.load-button {
+  background-color: grey;
+}
+
 .content {
   margin-top: 60px;
   display: flex;
@@ -128,18 +172,30 @@ ul {
   margin-top: 60px;
   .container {
     width: 70vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .intro {
+    width: 70vw;
+    text-align: left;
+    margin-bottom: 30px;
+    color: grey;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    line-height: 1.5;
   }
   .top-info {
     display: flex;
+    width: 70vw;
     text-transform: uppercase;
     border-bottom: 1px solid #d1d1d1;
     padding-bottom: 30px;
-    h3.product {
+    .product {
       flex: 7 1 0;
       text-align: left;
-      padding-left: 30px;
-      font-weight: 100;
-      font-size: 12px;
+      display: flex;
+      color: $brand-color;
     }
     h3.count {
       flex: 2 1 0;
@@ -167,6 +223,7 @@ ul {
 }
 
 .lists {
+  width: 70vw;
   .selling-product {
     display: flex;
     align-items: center;
@@ -198,32 +255,14 @@ ul {
         margin: 18px 0 0 18px;
         font-size: 10px;
       }
-
-      button {
-        width: 70px;
-        border: none;
-        color: white;
-        background-color: #d1d1d1;
-        border-radius: 10px;
-        letter-spacing: 1px;
-        cursor: pointer;
-      }
     }
     .counting {
       display: flex;
-      display: inline-block;
       color: white;
-      margin-bottom: 10px;
 
       span {
-        color:black;
+        color: black;
         font-size: 14px;
-      }
-
-      button {
-        width: 15px;
-        margin: 0 10px;
-        background-color: $brand-color;
       }
     }
     .price {
@@ -235,56 +274,20 @@ ul {
 }
 
 .pavement {
+  width: 70vw;
   margin: 30px 0;
   display: flex;
   border-top: 1px solid #d1d1d1;
   padding-top: 30px;
+  display: flex;
+  align-items: center;
 
-  .title {
-    padding-left: 30px;
-    text-align: left;
-    flex: 7 1 0;
-    letter-spacing: 1px;
+  span {
+    margin-left: 10px;
+
     font-size: 12px;
-  }
-  .price-detail {
-    flex: 3 1 0;
-    text-align: right;
-    font-size: 9px;
     letter-spacing: 1px;
-    text-transform: uppercase;
-    h3 {
-      font-weight: 200;
-      &.gold {
-        color: $brand-color;
-      }
-      &.left-title {
-        flex: 1;
-        text-align: left;
-      }
-    }
-  }
-  .total {
-    display: flex;
-    margin-bottom: 10px;
-  }
-  .coupon {
-    display: flex;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #d1d1d1;
-    margin-bottom: 10px;
-  }
-  .price-title {
-    display: flex;
-    margin-bottom: 20px;
-  }
-
-  .confirm {
-    display: inline-block;
-    text-decoration: none;
-    color: white;
-    background-color: #c0b094;
-    padding: 10px 15px;
+    color: grey;
   }
 }
 
@@ -321,6 +324,11 @@ ul {
 @media screen and (max-width: 700px) {
   .pavement {
     flex-direction: column;
+    align-items: flex-start;
+    span {
+      margin-left: 0px;
+      margin-top: 5px;
+    }
     .price-detail {
       margin-top: 10px;
     }
