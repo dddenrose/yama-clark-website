@@ -340,6 +340,10 @@ ul {
     color: white;
     background-color: #c0b094;
     padding: 10px 15px;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
   }
 }
 

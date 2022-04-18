@@ -18,12 +18,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["authAction","getAllProduct","getOrderHistory"]),
+    ...mapActions(["authAction","getAllProduct",]),
   },
   mounted() {
       this.authAction();
       this.getAllProduct();
-      this.getOrderHistory();
   },
 }
 </script>

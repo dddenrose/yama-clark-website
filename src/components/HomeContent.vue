@@ -125,9 +125,11 @@
         </div>
         <div class="product-bar">
           <div
-            class="product"
-            v-for="(product, index) in bestSellingProduct"
-            :key="index"
+          
+            v-for="(product, index) in allProduct"
+            :key="index">
+            <div
+            class="product" v-if="index <= 3"
           >
             <router-link class="image-box" :to="{ name: 'productlist' }">
               <img v-bind:src="product.imagePath" alt="product" />
@@ -139,6 +141,8 @@
               <h3>{{ product.price }}</h3>
             </div>
           </div>
+          </div>
+          
         </div>
         <div class="circle">. . . . .</div>
       </div>
@@ -197,7 +201,7 @@ export default {
     ...mapActions(["addProduct", "routerToDetail"]),
   },
   computed: {
-    ...mapGetters(["homeProduct", "bestSellingProduct"]),
+    ...mapGetters(["homeProduct",]),
     ...mapState(["allProduct"]),
   },
 };

@@ -29,7 +29,7 @@
                 <div class="image-box">
                   <img v-bind:src="product.imagePath" alt="prodcut" />
                   <div class="hover-box">
-                    <button @click="addProduct(product)">
+                    <button @click="addProduct({ product:product, index:index })">
                       ADD TO CART <i class="fas fa-shopping-cart"></i>
                     </button>
                     <button

@@ -21,7 +21,7 @@
           <div class="lists">
             <div
               class="selling-product"
-              v-for="(item, index) in userList"
+              v-for="(item, index) in orderHistory"
               :key="index"
             >
               <img v-bind:src="item.imagePath" alt="product" />
@@ -75,7 +75,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["userList", "user"]),
+    ...mapState(["orderHistory", "user"]),
     ...mapGetters(["totalPrice"]),
   },
 
