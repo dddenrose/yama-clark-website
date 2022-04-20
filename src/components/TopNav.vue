@@ -1,15 +1,39 @@
 <template>
   <div class="top-bar">
     <div class="bar-1">
-      <router-link class="shopping" :to="{ name: 'shoppinglist' }"
-        >shopping list <i class="fas fa-shopping-cart"></i>
-        <div class="count" v-if="this.shoppingCount">
-          <span> {{ shoppingCount }} </span>
-        </div></router-link
-      >
+      <div class="shopping">
+        <router-link class="list" :to="{ name: 'shoppinglist' }"
+          >shopping list <i class="fas fa-shopping-cart"></i>
+          <div class="circle-count" v-if="this.shoppingCount">
+            <span> {{ shoppingCount }} </span>
+          </div>
+        </router-link>
+        <div class="lists" v-if="userList">
+          <div
+              class="selling-product"
+              v-for="(item, index) in userList"
+              :key="index"
+            >
+              <img v-bind:src="item.imagePath" alt="product" />
+              <div class="name">
+                <h3>
+                  {{ item.seriesName }}
+                </h3>
+              </div>
+              <div class="count">
+                <div class="counting">
+                  <span> {{ item.count }} pic </span>
+                </div>
+                <button @click="deleteProduct({ item: item, index: index })">
+                  X
+                </button>
+              </div>
+              <div class="price">${{ item.price * item.count }}</div>
+            </div>
+        </div>
+      </div>
       <router-link :to="{ name: 'homerun' }">home</router-link>
       <router-link :to="{ name: 'productlist' }">productlist</router-link>
-
       <div class="social-media">
         <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
         <a class="icon" href="#"><i class="fab fa-instagram-square"></i></a>
@@ -19,7 +43,9 @@
     </div>
 
     <div class="bar-2" v-if="isUserAuth">
-      <router-link :to="{ name: 'login' }" class="profile">PROFILE</router-link>
+      <router-link :to="{ name: 'profile' }" class="profile"
+        >PROFILE</router-link
+      >
       <button @click="signOutAction" class="login">logout</button>
     </div>
     <div class="bar-2" v-if="!isUserAuth">
@@ -32,7 +58,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 // import Loading from "../components/Loading.vue";
 
 export default {
@@ -41,10 +67,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(["signOutAction"]),
+    ...mapActions(["signOutAction","deleteProduct"]),
   },
 
   computed: {
+    ...mapState(["userList"]),
     ...mapGetters(["isUserAuth", "shoppingCount"]),
   },
   components: {
@@ -62,8 +89,87 @@ a {
   text-decoration: none;
 }
 
+.shopping {
+  &:hover {
+    .lists {
+      display: block;
+    }
+  }
+}
+
+.lists {
+  display: none;
+  position: absolute;
+  background-color: white;
+  // top: 65px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  padding: 10px;
+  .selling-product {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    img {
+      height: 60px;
+      flex: 2 1 0;
+      object-fit: contain;
+    }
+    .name {
+      flex: 3 1 0;
+      color: $brand-color;
+    }
+    
+    h3 {
+      text-transform: uppercase;
+      font-size: 12px;
+      line-height: 1.5;
+      font-weight: 100;
+      text-align: left;
+    }
+    h3.id {
+      color: rgb(182, 182, 182);
+    }
+    .count {
+      text-transform: uppercase;
+      flex: 3 1 0;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+
+      button {
+        width: 20px;
+        border: none;
+        color: white;
+        background-color: #d1d1d1;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        cursor: pointer;
+      }
+    }
+    .counting {
+      display: flex;
+      color: white;
+
+      span {
+        color: black;
+        font-size: 12px;
+      }
+    }
+    .price {
+      flex: 1 1 0;
+      text-align: center;
+      font-size: 9px;
+    }
+  }
+}
+
 
 .top-bar {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100%;
   display: flex;
   padding: 15px 0;
   flex: 1;
@@ -76,6 +182,10 @@ a {
     margin-left: 50px;
     display: flex;
     align-items: center;
+
+    .list {
+      display: flex;
+    }
     a.shopping {
       display: flex;
     }
@@ -84,7 +194,7 @@ a {
         margin-left: 5px;
       }
     }
-    .count {
+    .circle-count {
       position: relative;
       margin-left: 5px;
       width: 15px;

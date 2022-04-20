@@ -48,7 +48,7 @@
               />
             </div>
 
-            <button type="submit" class="signup">Sign Up</button>
+            <button type="submit" class="login">Sign Up</button>
             <p class="info-signin">Already registered</p>
             <p>
               <router-link :to="{ name: 'login' }">sign in?</router-link>
@@ -188,7 +188,6 @@ ul {
   margin-top: 60px;
   justify-content: center;
   .container {
-    width: 80%;
     display: flex;
     align-items: center;
   }
@@ -211,40 +210,13 @@ ul {
   width: 550px;
   letter-spacing: 1px;
   color: $brand-color;
-  h3 {
-    border-bottom: 1px solid;
-    padding-bottom: 10px;
-  }
-
-  .form-group {
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    line-height: 2;
-  }
-
-  .signup {
-    margin-top: 20px;
-    border: none;
-    text-decoration: none;
-    color: white;
-    width: 100%;
-    height: 45px;
-    background-color: #bfb094;
-    display: block;
-    text-transform: uppercase;
-    font-size: 12px;
-  }
-
   .info-signin {
-    text-transform: uppercase;
-    font-size: 12px;
-    margin: 20px 0;
+    margin-bottom: 30px;
   }
-
   input {
     width: 100%;
-    margin-bottom: 10px;
+    height: 45px;
+    margin-bottom: 25px;
     box-sizing: border-box;
     padding: 10px;
   }
@@ -264,6 +236,44 @@ ul {
     line-height: 3.5;
     text-transform: uppercase;
     font-size: 9px;
+  }
+  .login {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    height: 45px;
+    background-color: $brand-color;
+    display: block;
+    line-height: 3.5;
+    text-transform: uppercase;
+    font-size: 9px;
+    border: none;
+    margin-bottom: 30px;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+
+  h4 {
+    margin: 20px 0;
+    text-transform: uppercase;
+    font-size: 9px;
+    font-weight: 100;
+  }
+
+  .info {
+    display: flex;
+    margin-top: 20px;
+    .info-box {
+      text-transform: uppercase;
+      font-size: 9px;
+    }
+  }
+
+  .con {
+    text-transform: uppercase;
+    font-size: 9px;
+    flex: 1;
+    text-align: left;
   }
 }
 

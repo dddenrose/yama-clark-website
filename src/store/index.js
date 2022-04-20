@@ -18,6 +18,8 @@ export default new Vuex.Store({
     currentProduct: [],
     orderHistory: [],
     loading: false,
+    tag: [],
+    search: "",
   },
 
   mutations: {
@@ -41,6 +43,12 @@ export default new Vuex.Store({
     },
     setLoading(state, payload) {
       state.loading = payload;
+    },
+    setTag(state, payload) {
+      state.tag = payload;
+    },
+    setSearch(state, payload) {
+      state.search = payload;
     }
   },
 
@@ -55,6 +63,7 @@ export default new Vuex.Store({
         } else {
           commit("setUser", null);
           commit("setUserList", null)
+          commit('setLoading', false)
         }
       });
     },
@@ -94,7 +103,7 @@ export default new Vuex.Store({
       let newProduct = [];
       newProduct.push(product);
       let userId = firebase.auth().currentUser.uid;
-      
+
       let oldList = state.userList;
       let sameImage = false;
       if (oldList) {
@@ -132,11 +141,11 @@ export default new Vuex.Store({
             .ref("users")
             .child(state.user.uid)
             .set(newList)
-          console.log("concat")
         }
       }
     },
 
+    
     addProductDetail({ state }) {
       firebase
         .database()
@@ -155,15 +164,41 @@ export default new Vuex.Store({
         })
     },
 
-    getAllProduct({ commit }) {
-      return firebase
-        .database()
-        .ref('productList/' + '0')
-        .on('value', snapshot => {
-          let obj = snapshot.val()
-          let allProduct = Object.keys(obj).map(function (_) { return obj[_]; });
-          commit('setAllProduct', allProduct);
+    getAllProduct({ state, commit }) {
+      if (state.tag.length >= 1) {
+        let result = [];
+        state.allProduct.forEach((e) => {
+          if (state.tag.every(element => {
+            return e.tag.includes(element);
+          })) {
+            result.push(e);
+          }
         })
+        commit('setAllProduct', result);
+      } else {
+        return firebase
+          .database()
+          .ref('productList/' + '0')
+          .on('value', snapshot => {
+            let obj = snapshot.val()
+            let allProduct = Object.keys(obj).map(function (_) { return obj[_]; });
+            commit('setAllProduct', allProduct);
+          })
+      }
+    },
+
+    searchlProduct({ state, commit, dispatch }) {
+      let search = [];
+      if (state.search !== "") {
+        state.allProduct.forEach((e) => {
+          if (e.productId === state.search) {
+            search.push(e);
+            commit('setAllProduct', search)
+          }
+        })
+      } else {
+        dispatch("getAllProduct")
+      }
     },
 
     deleteProduct({ state }, { index }) {
@@ -234,6 +269,7 @@ export default new Vuex.Store({
         let userId = firebase.auth().currentUser.uid
         let userProducts = firebase.database().ref('users/' + userId)
         userProducts.remove();
+        router.push({ name: "orderhistory" })
       } else {
         firebase
           .database()
@@ -243,9 +279,27 @@ export default new Vuex.Store({
         let userId = firebase.auth().currentUser.uid
         let userProducts = firebase.database().ref('users/' + userId)
         userProducts.remove();
+        router.push({ name: "orderhistory" })
       }
     },
 
+    clearHistory() {
+      let userId = firebase.auth().currentUser.uid
+      let userProducts = firebase.database().ref('history/' + userId)
+      userProducts.remove();
+    },
+
+    bigToSmall({ state }) {
+      state.allProduct.sort((a, b) => {
+        return b.price - a.price;
+      })
+    },
+
+    smallToBig({ state }) {
+      state.allProduct.sort((a, b) => {
+        return a.price - b.price;
+      })
+    },
   },
 
   getters: {

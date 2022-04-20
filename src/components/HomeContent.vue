@@ -123,28 +123,36 @@
           </div>
           <div class="line"></div>
         </div>
-        <div class="product-bar">
+        <div class="product-bar" v-if="true">
           <div
-          
-            v-for="(product, index) in allProduct"
-            :key="index">
-            <div
-            class="product" v-if="index <= 3"
+            v-for="(product, index) in allProduct.slice(0,4)"
+            :key="index"
+            class="product"
           >
-            <router-link class="image-box" :to="{ name: 'productlist' }">
-              <img v-bind:src="product.imagePath" alt="product" />
-            </router-link>
-            <div class="info">
-              <h2>{{ product.series }}</h2>
-              <h3 class="name">{{ product.seriesName }}</h3>
-              <h3>{{ product.color }}</h3>
-              <h3>{{ product.price }}</h3>
-            </div>
+            <template v-if="index <= 3">
+              <div class="image-box">
+                <img v-bind:src="product.imagePath" alt="prodcut" />
+                <div class="hover-box">
+                  <button @click="addProduct(product)">
+                    ADD TO CART <i class="fas fa-shopping-cart"></i>
+                  </button>
+                  <button
+                    @click="routerToDetail({ index })"
+                    class="information"
+                  >
+                    MORE INFORMATION
+                  </button>
+                </div>
+              </div>
+              <div class="info">
+                <h2>{{ product.series }}</h2>
+                <h3 class="name">{{ product.seriesName }}</h3>
+                <h3>{{ product.color }}</h3>
+                <h3>${{ product.price }}</h3>
+              </div>
+            </template >
           </div>
-          </div>
-          
         </div>
-        <div class="circle">. . . . .</div>
       </div>
     </div>
     <div class="brand-story">
@@ -451,8 +459,8 @@ $green-color: #3e5940;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 60px;
-  background-color: $green-color;
+  padding-top: 100px;
+  background-color: $brand-color;
   .container {
     display: flex;
     flex-direction: column;
@@ -508,19 +516,18 @@ $green-color: #3e5940;
 }
 
 .best-selling {
-  padding-bottom: 60px;
+  padding-bottom: 100px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: $green-color;
-  padding-top: 60px;
+  background-color:  $brand-color;
+  padding-top: 100px;
   margin-bottom: 60px;
   .container {
     width: 70%;
     background-color: white;
     padding: 50px 100px;
-    border-radius: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -558,8 +565,9 @@ $green-color: #3e5940;
   .product-bar {
     display: flex;
     margin-top: 60px;
-    align-items: center;
+    width: 100%;
     justify-content: space-around;
+    flex-wrap: wrap;
     .product {
       display: flex;
       flex-direction: column;
@@ -568,6 +576,7 @@ $green-color: #3e5940;
     }
     .image-box {
       flex: 6 1 250px;
+      position: relative;
     }
     img {
       width: 100%;
@@ -597,21 +606,46 @@ $green-color: #3e5940;
         color: $brand-color;
       }
     }
-  }
-  .arr {
-    height: 25px;
-    background-color: $brand-color;
-    width: 25px;
-    border-radius: 25px;
-  }
-  .arrow {
-    position: relative;
-    left: 2px;
-    top: 1.5px;
-  }
-  .arr-right {
-    .arrow {
-      left: -1.5px;
+
+    .hover-box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba($color: white, $alpha: 0.8);
+      opacity: 0;
+      transition: 0.3s ease-in;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .information {
+        text-decoration: none;
+        color: grey;
+        font-size: 12px;
+        margin-top: 10px;
+        letter-spacing: 1px;
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        line-height: 1.5;
+        border: 1px solid $brand-color;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: $brand-color;
+        padding: 10px;
+        border-radius: 30px;
+        cursor: pointer;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }
@@ -625,7 +659,6 @@ $green-color: #3e5940;
   }
   img {
     width: 70%;
-    border-radius: 200px;
   }
   .article {
     width: 50%;

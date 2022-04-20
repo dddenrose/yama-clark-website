@@ -11,6 +11,7 @@ import LoginPage from '../components/LoginPage.vue'
 import Home from '../views/Home.vue'
 import SignUp from '../views/SignUp.vue'
 import OrderHistory from '../views/OrderHistory.vue'
+import Profile from '../views/Profile.vue'
 // import store from '@/store/index.js'
 
 
@@ -75,6 +76,11 @@ const routes = [
     name: 'orderhistory',
     component: OrderHistory,
   },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
+  }
 ]
 
 const router = new VueRouter({

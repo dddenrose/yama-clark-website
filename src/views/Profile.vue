@@ -9,50 +9,31 @@
       </div>
     </div>
     <div class="content">
-      <div class="shop-title">LOGIN</div>
+      <div class="shop-title">PROFILE</div>
       <Features />
       <div class="main-list">
         <div class="container">
-          <div v-if="validationErrors.length" class="error">
-            <button @click="resetError()"></button>
-            <div class="content">
-              Please resolve the following error(s) before proceeding.
-              <ul style="margin-top: 0.3em; margin-left: 1em">
-                <li
-                  v-for="(error, index) in validationErrors"
-                  :key="`error-${index}`"
-                  v-html="error"
-                />
-              </ul>
+          <section v-if="!isUserAuth" class="section">
+            <div class="columns">
+              <h4>You have already logout.</h4>
+              <router-link :to="{ name: 'login' }">CLICK HERE TO LOGIN</router-link>
             </div>
-          </div>
-          <form
-            @submit.prevent="validate"
-            v-if="!isUserAuth"
-            class="right-login"
-          >
-            <h3>LOGIN</h3>
-
-            <div class="form-group">
-              <label>Email address</label>
-              <input type="email" v-model="email" />
+          </section>
+          <section v-if="isUserAuth" class="section">
+            <div class="columns">
+              <h4>Welcome,<span>{{ getUser.email }}</span></h4>
+              <router-link :to="{ name: 'shoppinglist' }"
+                >SHOPPING LIST <i class="fas fa-shopping-cart"></i></router-link
+              >
+              <router-link :to="{ name: 'homerun' }">HOME <i class="fas fa-home"></i></router-link>
+              <router-link :to="{ name: 'productlist' }" 
+                >PRODUCT LIST </router-link
+              >
+              <router-link :to="{ name: 'orderhistory' }" class="border">HISTORY LIST <i class="fas fa-clock"></i></router-link>
             </div>
-
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" v-model="password" />
-            </div>
-
-            <button type="submit" class="login">LOGIN</button>
-
-            <p>
-              <router-link to="/forgot-password">Forgot password ?</router-link>
-            </p>
-          </form>
-          <!-- <button v-if="isUserAuth" @click="signOut">LOGOUT</button> -->
+          </section>
         </div>
       </div>
-      
     </div>
     <div class="bottom-img">
         <img src="../img/s14.jpg" alt="image">
@@ -70,7 +51,7 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 
 
 export default {
@@ -84,49 +65,11 @@ export default {
 
   methods: {
     ...mapActions(["signInAction", "signOutAction"]),
-
-    // 提示錯誤資訊方法
-    resetError() {
-      this.validationErrors = [];
-    },
-    validate() {
-      // Clear the errors before we validate again
-      this.resetError();
-      // email validation
-      if (!this.email) {
-        this.validationErrors.push("<strong>E-mail</strong> cannot be empty.");
-      }
-      if (/.+@.+/.test(this.email) != true) {
-        this.validationErrors.push("<strong>E-mail</strong> must be valid.");
-      }
-      // password validation
-      if (!this.password) {
-        this.validationErrors.push("<strong>Password</strong> cannot be empty");
-      }
-      if (/.{6,}/.test(this.password) != true) {
-        this.validationErrors.push(
-          "<strong>Password</strong> must be at least 6 characters long"
-        );
-      }
-      // when valid then sign in
-      if (this.validationErrors.length <= 0) {
-        this.signIn();
-      }
-    },
-
-    signIn() {
-      this.signInAction({ email: this.email, password: this.password });
-      this.$router.push({ name: "profile" });
-    },
-
-    signOut() {
-      this.signOutAction();
-    },
   },
 
   computed: {
     ...mapGetters(["getUser", "isUserAuth",]),
-    
+    ...mapState(["loading"])
   },
 
   components: {
@@ -136,7 +79,6 @@ export default {
     Pavement,
     Logo,
     Features,
-    
   },
 };
 </script>
@@ -195,10 +137,12 @@ ul {
 
 .main-list {
   display: flex;
+  flex-direction: column;
   margin-top: 60px;
   justify-content: center;
   .container {
     display: flex;
+    flex-direction: column;
     align-items: center;
   }
   .columns {

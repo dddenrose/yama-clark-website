@@ -19,7 +19,9 @@
           </div>
           <div class="intro" v-if="!orderHistory">
             <h4>There is no order history.</h4>
-            <h4>Click here to product list.</h4>
+            <router-link :to="{ name: 'productlist' }"
+              >Click here to product list.</router-link
+            >
           </div>
           <div class="top-info">
             <div class="product">
@@ -28,32 +30,34 @@
             <h3 class="count">count</h3>
             <h3 class="price">price</h3>
           </div>
-          <Loading v-if="loading"/>
+          <Loading v-if="loading" />
           <div class="lists" v-if="orderHistory !== null">
-            <div
-              v-for="(item, index) in orderHistory"
-              :key="index"
-            >
+            <div v-for="(item, index) in orderHistory" :key="index">
               <div v-if="index < loadCount" class="selling-product">
                 <img v-bind:src="item.imagePath" alt="product" />
-              <h3>
-                {{ item.seriesName }}
-              </h3>
-              <div class="count">
-                <div class="counting">
-                  <span> {{ item.count }} pic</span>
+                <h3>
+                  {{ item.seriesName }}
+                </h3>
+                <div class="count">
+                  <div class="counting">
+                    <span> {{ item.count }} pic</span>
+                  </div>
                 </div>
+                <div class="price">${{ item.price * item.count }}</div>
               </div>
-              <div class="price">${{ item.price * item.count }}</div>
-              </div>
-              
             </div>
           </div>
           <div class="load">
-            <button @click="loadMore()" class="load-button">loading more</button>
+            <button
+              @click="loadMore()"
+              v-if="orderHistory !== null"
+              class="load-button"
+            >
+              loading more
+            </button>
           </div>
           <div class="pavement">
-            <button>clear all</button>
+            <button @click="clearHistory()">clear all</button>
             <span>Click button to clean all order history.</span>
           </div>
         </div>
@@ -87,13 +91,7 @@ export default {
     loadMore() {
       this.loadCount = this.loadCount + 3;
     },
-    ...mapActions([
-      "getUserList",
-      "deleteProduct",
-      "fbDeleteTask",
-      "addCount",
-      "minusCount",
-    ]),
+    ...mapActions(["clearHistory"]),
   },
 
   computed: {
@@ -102,7 +100,7 @@ export default {
     //     this.show = false;
     //   }
     // },
-    ...mapState(["orderHistory", "user","loading"]),
+    ...mapState(["orderHistory", "user", "loading"]),
     ...mapGetters(["totalPrice"]),
   },
 
@@ -184,6 +182,11 @@ button {
     font-size: 12px;
     letter-spacing: 0.5px;
     line-height: 1.5;
+    a {
+      text-decoration: none;
+      color: grey;
+      font-weight: bold;
+    }
   }
   .top-info {
     display: flex;

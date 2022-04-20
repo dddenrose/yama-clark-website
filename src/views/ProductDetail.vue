@@ -18,19 +18,27 @@
               v-for="(img, index) in currentProduct.introImg"
               :key="index"
             >
-              <div class="img-box" >
-                <img @click="changePhoto(img)" v-bind:src="img" alt="product"/>
+              <div class="img-box">
+                <img @click="changePhoto(img)" v-bind:src="img" alt="product" />
               </div>
             </div>
           </div>
           <div class="product-photo">
-            <img v-bind:src="this.changePhotoUrl ? this.changePhotoUrl : `${ currentProduct.imagePath }`  " alt="product" />
+            <img
+              v-bind:src="
+                this.changePhotoUrl
+                  ? this.changePhotoUrl
+                  : `${currentProduct.imagePath}`
+              "
+              alt="product"
+            />
           </div>
         </div>
 
         <div class="product-info">
-          <div class="series"> {{ currentProduct.series }} </div>
+          <div class="series">{{ currentProduct.series }}</div>
           <h3>{{ currentProduct.seriesName }}</h3>
+          <h3 class="id">productid: {{ currentProduct.productId }}</h3>
           <h3 class="price">${{ currentProduct.price }}</h3>
           <h4>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam
@@ -45,7 +53,7 @@
             Fuga ad dicta totam itaque consequuntur deserunt molestias qui sequi
             minima aut similique, natus hic sunt.
           </h4>
-          <button class="button" @click="addProductDetail">ADD TO CART</button>
+          <button class="button" @click="addProduct({ product: currentProduct })">ADD TO CART</button>
         </div>
       </div>
       <div class="brand-story">
@@ -123,9 +131,9 @@ export default {
     // }
   },
   methods: {
-    ...mapActions(["setCurrentProduct","addProductDetail"]),
-    changePhoto: function(img) {
-      console.log(img)
+    ...mapActions(["setCurrentProduct", "addProductDetail","addProduct"]),
+    changePhoto: function (img) {
+      console.log(img);
       let imgUrl = img;
       this.changePhotoUrl = imgUrl;
     },
@@ -273,6 +281,9 @@ ul {
       margin-bottom: 15px;
       color: $brand-color;
     }
+  }
+  h3.id {
+      color: rgb(182, 182, 182);
   }
   h4 {
     font-size: 10px;

@@ -18,7 +18,13 @@
             <h3 class="count">count</h3>
             <h3 class="price">price</h3>
           </div>
-          <Loading v-if="loading"/>
+          <Loading v-if="loading" />
+          <div class="error" v-if="userList === null">
+            <p>{{ error }}</p>
+            <router-link :to="{ name: 'productlist' }"
+              >Go to productlist</router-link
+            >
+          </div>
           <div class="lists" v-if="userList !== null">
             <div
               class="selling-product"
@@ -26,9 +32,14 @@
               :key="index"
             >
               <img v-bind:src="item.imagePath" alt="product" />
-              <h3>
-                {{ item.seriesName }}
-              </h3>
+              <div class="name">
+                <h3>
+                  {{ item.seriesName }}
+                </h3>
+                <h3 class="id">
+                  ProductId: {{ item.productId }}
+                </h3>
+              </div>
               <div class="count">
                 <div class="counting">
                   <button @click="minusCount({ item: item, index: index })">
@@ -63,17 +74,15 @@
                 <h3 class="left-title">total</h3>
                 <h3 class="price">${{ totalPrice }}</h3>
               </div>
-              <div class="coupon">
+              <!-- <div class="coupon">
                 <h3 class="left-title">coupon</h3>
                 <h3 class="price gold">-$0</h3>
               </div>
               <div class="price-title">
                 <h3 class="left-title">price</h3>
                 <h3 class="price">${{ totalPrice }}</h3>
-              </div>
-              <router-link class="confirm" :to="{ name: 'orderlist' }"
-                >confirm</router-link
-              >
+              </div> -->
+              <button class="confirm" @click="goToOrderList">confirm</button>
             </div>
           </div>
         </div>
@@ -98,7 +107,7 @@ import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   data() {
     return {
-      webProductList: [],
+      error: "There is no products",
     };
   },
 
@@ -110,10 +119,15 @@ export default {
       "addCount",
       "minusCount",
     ]),
+    goToOrderList: function () {
+      if (this.$store.state.userList !== null) {
+        this.$router.push({ name: "orderlist" });
+      }
+    },
   },
 
   computed: {
-    ...mapState(["userList", "user","loading"]),
+    ...mapState(["userList", "user", "loading"]),
     ...mapGetters(["totalPrice", "tempUserList"]),
   },
 
@@ -165,6 +179,21 @@ ul {
 
 .main-list {
   margin-top: 60px;
+  .error {
+    font-size: 14px;
+    margin-top: 30px;
+    color: $gray-color;
+    letter-spacing: 1px;
+    line-height: 2;
+    text-transform: uppercase;
+    a {
+      background-color: $brand-color;
+      color: white;
+      text-decoration: none;
+      padding: 5px;
+      border: 1px solid $brand-color;
+    }
+  }
   .container {
     width: 70vw;
   }
@@ -215,15 +244,19 @@ ul {
       flex: 2 1 0;
       object-fit: contain;
     }
-    h3 {
+    .name {
       flex: 5 1 0;
+    }
+    
+    h3 {
       text-transform: uppercase;
       font-size: 12px;
-      box-sizing: border-box;
-      padding-right: 50px;
       line-height: 2;
       font-weight: 100;
       text-align: left;
+    }
+    h3.id {
+      color: rgb(182, 182, 182);
     }
     .count {
       flex: 2 1 0;
@@ -318,11 +351,12 @@ ul {
   }
 
   .confirm {
-    display: inline-block;
-    text-decoration: none;
     color: white;
     background-color: #c0b094;
     padding: 10px 15px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
   }
 }
 
@@ -367,10 +401,10 @@ ul {
   .main-list {
     .container {
       .left-info {
-        width: 70%;
+        width: 70vw;
       }
       .right-list {
-        width: 70%;
+        width: 70vw;
       }
     }
   }

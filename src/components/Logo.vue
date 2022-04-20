@@ -13,6 +13,7 @@ $gray-color: #5b5b5b;
 $green-color: #3e5940;
 
 .logo {
+    padding-top: 70px;
     justify-content: center;
     display: flex;
     margin-top: 60px;
