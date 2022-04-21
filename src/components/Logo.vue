@@ -35,4 +35,11 @@ $green-color: #3e5940;
       position: absolute;
     }
   }
+
+@media screen and (max-width: 700px) {
+  .logo{
+    margin-top: 120px;
+  }
+  
+}
 </style>

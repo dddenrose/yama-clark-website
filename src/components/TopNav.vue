@@ -10,26 +10,28 @@
         </router-link>
         <div class="lists" v-if="userList">
           <h4 class="title">products</h4>
-          <div
-            class="selling-product"
-            v-for="(item, index) in userList"
-            :key="index"
-          >
-            <img v-bind:src="item.imagePath" alt="product" />
-            <div class="name">
-              <h3>
-                {{ item.seriesName }}
-              </h3>
-            </div>
-            <div class="count">
-              <div class="counting">
-                <span> {{ item.count }} pic </span>
+          <div class="product-main">
+            <div
+              class="selling-product"
+              v-for="(item, index) in userList"
+              :key="index"
+            >
+              <img v-bind:src="item.imagePath" alt="product" />
+              <div class="name">
+                <h3>
+                  {{ item.seriesName }}
+                </h3>
               </div>
-              <button @click="deleteProduct({ item: item, index: index })">
-                <i class="far fa-trash-alt"></i>
-              </button>
+              <div class="count">
+                <div class="counting">
+                  <span> {{ item.count }} pic </span>
+                </div>
+                <button @click="deleteProduct({ item: item, index: index })">
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </div>
+              <div class="price">${{ item.price * item.count }}</div>
             </div>
-            <div class="price">${{ item.price * item.count }}</div>
           </div>
         </div>
       </div>
@@ -90,26 +92,57 @@ a {
   text-decoration: none;
 }
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  height: 6px; /* height of horizontal scrollbar ← You're missing this */
+  width: 6px; /* width of vertical scrollbar */
+}
+
 .shopping {
   &:hover {
     .lists {
-      display: block;
+      max-height: 300px;
+      max-width: 300px;
+      opacity: 1;
+      padding: 10px;
+    }
+    .title {
+      display: flex;
     }
   }
 }
 
 .lists {
-  display: none;
+  opacity: 0;
   position: absolute;
   background-color: white;
-  
   border-radius: 10px;
-  // top: 65px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  padding: 10px;
+  padding: 0px;
+  -webkit-transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s ease-in;
+  max-height: 0;
+  max-width: 0;
+
+  .product-main {
+    overflow: auto;
+    height: 250px;
+  }
 
   .title {
+    display: none;
     border-bottom: 1px solid $brand-color;
     padding-bottom: 10px;
     font-size: 12px;
@@ -117,12 +150,13 @@ a {
     letter-spacing: 1px;
     color: grey;
     text-align: left;
+    margin-bottom: 5px;
   }
   .selling-product {
     display: flex;
     align-items: center;
     padding: 20px 0;
-    
+
     img {
       height: 60px;
       flex: 2 1 0;
@@ -173,6 +207,7 @@ a {
       flex: 1 1 0;
       text-align: center;
       font-size: 9px;
+      margin-right: 5px;
     }
   }
 }

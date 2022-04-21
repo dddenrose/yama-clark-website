@@ -449,27 +449,30 @@ ul {
 //RWD
 @media screen and (max-width: 1100px) {
   .content {
+    .tag {
+      max-width: 0;
+      max-height: 0;
+      overflow: hidden;
+      -webkit-transition: max-height 0.5s ease-in;
+      transition: max-height 0.5s ease-in;
+    }
+
     .container {
       width: 80vw;
       flex-direction: column;
     }
     .left-info {
+      margin-bottom: 30px;
       text-align: center;
       align-items: center;
+    
       &:hover {
         .tag {
-          display: block;
+          width: 50vw;
+          max-width: 70vw;
+          max-height: 200px;
         }
       }
-    }
-
-    .left-title {
-      width: 30vw;
-    }
-
-    .tag {
-      width: 30vw;
-      display: none;
     }
 
     .trending-products {
@@ -486,10 +489,10 @@ ul {
   .main-list {
     .container {
       .left-info {
-        width: 70vw;
+        width: 100%;
       }
       .right-list {
-        width: 70vw;
+        width: 100%;
       }
     }
   }

@@ -1,40 +1,46 @@
 <template>
   <div>
     <div class="show-button" v-if="!showChat">
-      <button @click="setShowChat(true)"><i class="fas fa-comment-dots"></i></button>
+      <button @click="setShowChat(true)">
+        <i class="fas fa-comment-dots"></i>
+      </button>
     </div>
-    <div class="main-chat" v-if="showChat">
-      <div class="info">
-        <div class="title">custom service</div>
-        <div @click="deleteChat" class="delete"><i class="far fa-trash-alt"></i></div>
-        <div @click="setShowChat(false)" class="delete">
-          <i class="far fa-times-circle"></i>
-        </div>
-      </div>
-      <div class="chat-box" v-if="chatList !== [] ">
-        <div v-for="(chat, index) in chatList" :key="index" class="text-box">
-          <div class="text">
-            <div class="time">
-              {{ new Date(chat.time).toLocaleDateString() }}
-              {{ new Date(chat.time).toLocaleTimeString() }}
-            </div>
-            <div class="chat">{{ chat.chat }}</div>
+    <transition>
+      <div class="main-chat" v-if="showChat">
+        <div class="info">
+          <div class="title">custom service</div>
+          <div @click="deleteChat" class="delete">
+            <i class="far fa-trash-alt"></i>
+          </div>
+          <div @click="setShowChat(false)" class="delete">
+            <i class="far fa-times-circle"></i>
           </div>
         </div>
+        <div class="chat-box" v-if="chatList !== []">
+          <div v-for="(chat, index) in chatList" :key="index" class="text-box">
+            <div class="text">
+              <div class="time">
+                {{ new Date(chat.time).toLocaleDateString() }}
+                {{ new Date(chat.time).toLocaleTimeString() }}
+              </div>
+              <div class="chat">{{ chat.chat }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="error" v-if="chatError !== null">
+          {{ chatError }}
+        </div>
+        <div class="enter">
+          <input
+            type="text"
+            v-model="chat"
+            @keyup.enter="chatEnter"
+            placeholder="Input something"
+          />
+          <button @click="chatEnter"><i class="fas fa-paper-plane"></i></button>
+        </div>
       </div>
-      <div class="error" v-if="chatError !== null">
-        {{ chatError }}
-      </div>
-      <div class="enter">
-        <input
-          type="text"
-          v-model="chat"
-          @keyup.enter="chatEnter"
-          placeholder="Input something"
-        />
-        <button @click="chatEnter"><i class="fas fa-paper-plane"></i></button>
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -44,12 +50,12 @@ import { mapActions, mapMutations, mapState } from "vuex";
 
 export default {
   methods: {
-    ...mapActions(["chatEnter","deleteChat"]),
+    ...mapActions(["chatEnter", "deleteChat"]),
     ...mapMutations(["setShowChat"]),
   },
 
   computed: {
-    ...mapState(["chatList", "showChat","user","chatError"]),
+    ...mapState(["chatList", "showChat", "user", "chatError"]),
     chat: {
       get() {
         return this.$store.state.chat;
@@ -85,21 +91,40 @@ $green-color: #3e5940;
   width: 6px; /* width of vertical scrollbar */
 }
 
+.v-leave {
+  opacity: 1;
+}
+.v-leave-active {
+  transition: opacity 0.5s;
+}
+.v-leave-to {
+  opacity: 0;
+}
+.v-enter {
+  opacity: 0;
+}
+.v-enter-active {
+  transition: opacity 0.5s;
+}
+.v-enter-to {
+  opacity: 1;
+}
+
 .show-button {
   position: fixed;
   z-index: 1;
   bottom: 0;
   right: 10vw;
-  
+
   button {
-  box-sizing: border-box;
-  padding: 5px 15px;
-  background-color: $brand-color;
-  border: none;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  box-shadow: 5px 10px 10px 3px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
+    box-sizing: border-box;
+    padding: 5px 15px;
+    background-color: $brand-color;
+    border: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 5px 10px 10px 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
   }
   svg {
     font-size: 20px;
