@@ -206,7 +206,7 @@ a {
     .price {
       flex: 1 1 0;
       text-align: center;
-      font-size: 9px;
+      font-size: 12px;
       margin-right: 5px;
     }
   }

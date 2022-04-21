@@ -101,9 +101,12 @@ export default new Vuex.Store({
       firebase
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
+        .then(() => {
+          router.push({ name: "profile" })
+        })
         .catch(error => {
           commit("setError", error.message);
-          console.log(error);
+          alert(error.message)
         });
     },
 
@@ -119,49 +122,65 @@ export default new Vuex.Store({
         });
     },
 
+    forgetPassword({ payload }) {
+      firebase
+        .auth()
+        .sendPasswordResetEmail(payload.email)
+        .then(() => {
+          alert('Check your registered email to reset the password!')
+        }).catch((error) => {
+          alert(error)
+        })
+    },
+
     addProduct({ state }, { product }) {
-      let newProduct = [];
-      newProduct.push(product);
-      let userId = firebase.auth().currentUser.uid;
+      if (state.user) {
+        let newProduct = [];
+        newProduct.push(product);
+        let userId = firebase.auth().currentUser.uid;
 
-      let oldList = state.userList;
-      let sameImage = false;
-      if (oldList) {
-        for (let i = 0; i < oldList.length; i++) {
-          if (oldList[i].imagePath === newProduct[0].imagePath) {
-            sameImage = true;
-          }
-        }
-      }
-
-      if (state.userList == null) {
-        firebase
-          .database()
-          .ref("users")
-          .child(state.user.uid)
-          .set(newProduct)
-      } else {
-        if (sameImage) {
+        let oldList = state.userList;
+        let sameImage = false;
+        if (oldList) {
           for (let i = 0; i < oldList.length; i++) {
             if (oldList[i].imagePath === newProduct[0].imagePath) {
-              let userProducts = firebase.database().ref('users/' + userId + '/' + i);
-              userProducts.once("value", (snap) => {
-                let countResult = snap.val();
-                let payload = {
-                  count: countResult.count + 1
-                }
-                userProducts.update(payload)
-              });
+              sameImage = true;
             }
           }
-        } else {
-          let newList = oldList.concat(newProduct);
+        }
+
+        if (state.userList == null) {
           firebase
             .database()
             .ref("users")
             .child(state.user.uid)
-            .set(newList)
+            .set(newProduct)
+        } else {
+          if (sameImage) {
+            for (let i = 0; i < oldList.length; i++) {
+              if (oldList[i].imagePath === newProduct[0].imagePath) {
+                let userProducts = firebase.database().ref('users/' + userId + '/' + i);
+                userProducts.once("value", (snap) => {
+                  let countResult = snap.val();
+                  let payload = {
+                    count: countResult.count + 1
+                  }
+                  userProducts.update(payload)
+                });
+              }
+            }
+          } else {
+            let newList = oldList.concat(newProduct);
+            firebase
+              .database()
+              .ref("users")
+              .child(state.user.uid)
+              .set(newList)
+          }
         }
+
+      } else {
+        alert("You can continue to shop after login.")
       }
     },
 
@@ -324,14 +343,14 @@ export default new Vuex.Store({
     chatEnter({ state, commit }) {
       if (state.user) {
         let userId = firebase.auth().currentUser.uid
-      let chatList = firebase.database().ref('chat/' + userId)
-      const key = chatList.push().key;
-      if (state.chat !== "")
-        chatList.child(key).set({
-          chat: state.chat,
-          time: Date.now(),
-        });
-      state.chat = "";
+        let chatList = firebase.database().ref('chat/' + userId)
+        const key = chatList.push().key;
+        if (state.chat !== "")
+          chatList.child(key).set({
+            chat: state.chat,
+            time: Date.now(),
+          });
+        state.chat = "";
       } else {
         commit('setChatError', "You have to login")
       }

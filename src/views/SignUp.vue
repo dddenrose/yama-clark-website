@@ -120,7 +120,7 @@ export default {
     signUp() {
       this.signUpAction({ email: this.email, password: this.password })
       .then(() => {
-        this.$router.push("/login");
+        this.$router.push("/profile");
       });
       console.log("Success!")
     },
@@ -196,6 +196,7 @@ ul {
   .container {
     display: flex;
     align-items: center;
+    flex-direction: column;
   }
 }
 
@@ -211,8 +212,6 @@ ul {
 .right-login {
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
-  box-sizing: border-box;
   width: 550px;
   letter-spacing: 1px;
   color: $brand-color;
@@ -241,7 +240,7 @@ ul {
     display: block;
     line-height: 3.5;
     text-transform: uppercase;
-    font-size: 9px;
+    font-size: 12px;
   }
   .login {
     text-decoration: none;
@@ -252,7 +251,7 @@ ul {
     display: block;
     line-height: 3.5;
     text-transform: uppercase;
-    font-size: 9px;
+    font-size: 12px;
     border: none;
     margin-bottom: 30px;
     cursor: pointer;

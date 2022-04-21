@@ -44,11 +44,8 @@
             </div>
 
             <button type="submit" class="login">LOGIN</button>
-
-            <p>
-              <router-link to="/forgot-password">Forgot password ?</router-link>
-            </p>
           </form>
+          <button class="login" v-if="!isUserAuth">Forgot password ?</button>
           <!-- <button v-if="isUserAuth" @click="signOut">LOGOUT</button> -->
         </div>
       </div>
@@ -118,7 +115,7 @@ export default {
 
     signIn() {
       this.signInAction({ email: this.email, password: this.password });
-      this.$router.push({ name: "profile" });
+      
     },
 
     signOut() {
@@ -202,6 +199,7 @@ ul {
   .container {
     display: flex;
     align-items: center;
+    flex-direction: column;
   }
   .columns {
     display: flex;
@@ -227,6 +225,21 @@ ul {
       border-bottom: 1px solid $brand-color;
     }
   }
+  button {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    height: 45px;
+    background-color: $brand-color;
+    display: block;
+    line-height: 3.5;
+    text-transform: uppercase;
+    font-size: 12px;
+    border: none;
+    margin-bottom: 30px;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
 }
 
 .left-img {
@@ -241,11 +254,11 @@ ul {
 .right-login {
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
-  box-sizing: border-box;
   width: 550px;
   letter-spacing: 1px;
   color: $brand-color;
+
+  
   input {
     width: 100%;
     height: 45px;
@@ -268,7 +281,7 @@ ul {
     display: block;
     line-height: 3.5;
     text-transform: uppercase;
-    font-size: 9px;
+    font-size: 12px;
   }
   .login {
     text-decoration: none;
@@ -279,12 +292,14 @@ ul {
     display: block;
     line-height: 3.5;
     text-transform: uppercase;
-    font-size: 9px;
+    font-size: 12px;
     border: none;
     margin-bottom: 30px;
     cursor: pointer;
     letter-spacing: 1px;
   }
+
+  
 
   h4 {
     margin: 20px 0;

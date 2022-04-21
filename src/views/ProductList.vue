@@ -276,11 +276,10 @@ ul {
 .tag {
   display: flex;
   flex-direction: column;
-
   color: $brand-color;
   padding-bottom: 10px;
   line-height: 1.5;
-  font-size: 1px;
+  font-size: 12px;
   letter-spacing: 1px;
   color: $gray-color;
   h4 {
@@ -450,6 +449,7 @@ ul {
 @media screen and (max-width: 1100px) {
   .content {
     .tag {
+      
       max-width: 0;
       max-height: 0;
       overflow: hidden;
