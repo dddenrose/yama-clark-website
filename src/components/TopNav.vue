@@ -9,27 +9,28 @@
           </div>
         </router-link>
         <div class="lists" v-if="userList">
+          <h4 class="title">products</h4>
           <div
-              class="selling-product"
-              v-for="(item, index) in userList"
-              :key="index"
-            >
-              <img v-bind:src="item.imagePath" alt="product" />
-              <div class="name">
-                <h3>
-                  {{ item.seriesName }}
-                </h3>
-              </div>
-              <div class="count">
-                <div class="counting">
-                  <span> {{ item.count }} pic </span>
-                </div>
-                <button @click="deleteProduct({ item: item, index: index })">
-                  X
-                </button>
-              </div>
-              <div class="price">${{ item.price * item.count }}</div>
+            class="selling-product"
+            v-for="(item, index) in userList"
+            :key="index"
+          >
+            <img v-bind:src="item.imagePath" alt="product" />
+            <div class="name">
+              <h3>
+                {{ item.seriesName }}
+              </h3>
             </div>
+            <div class="count">
+              <div class="counting">
+                <span> {{ item.count }} pic </span>
+              </div>
+              <button @click="deleteProduct({ item: item, index: index })">
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </div>
+            <div class="price">${{ item.price * item.count }}</div>
+          </div>
         </div>
       </div>
       <router-link :to="{ name: 'homerun' }">home</router-link>
@@ -67,7 +68,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["signOutAction","deleteProduct"]),
+    ...mapActions(["signOutAction", "deleteProduct"]),
   },
 
   computed: {
@@ -101,14 +102,27 @@ a {
   display: none;
   position: absolute;
   background-color: white;
+  
+  border-radius: 10px;
   // top: 65px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   padding: 10px;
+
+  .title {
+    border-bottom: 1px solid $brand-color;
+    padding-bottom: 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: grey;
+    text-align: left;
+  }
   .selling-product {
     display: flex;
     align-items: center;
     padding: 20px 0;
+    
     img {
       height: 60px;
       flex: 2 1 0;
@@ -117,8 +131,9 @@ a {
     .name {
       flex: 3 1 0;
       color: $brand-color;
+      margin-left: 10px;
     }
-    
+
     h3 {
       text-transform: uppercase;
       font-size: 12px;
@@ -133,15 +148,13 @@ a {
       text-transform: uppercase;
       flex: 3 1 0;
       display: flex;
-      flex-direction: column;
       text-align: center;
       align-items: center;
 
       button {
         width: 20px;
         border: none;
-        color: white;
-        background-color: #d1d1d1;
+        background-color: white;
         border-radius: 10px;
         letter-spacing: 1px;
         cursor: pointer;
@@ -163,7 +176,6 @@ a {
     }
   }
 }
-
 
 .top-bar {
   position: fixed;

@@ -25,7 +25,9 @@
         </div>
       </div>
     </div>
+    
     <HomeContent />
+    <Chat />
     <Footer />
     <Pavement />
     <Gotop />
@@ -39,6 +41,7 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import HomeContent from "../components/HomeContent.vue";
 import Logo from "../components/Logo.vue";
+import Chat from "../components/Chat.vue";
 
 export default {
   components: {
@@ -48,6 +51,7 @@ export default {
     Pavement,
     HomeContent,
     Logo,
+    Chat
   },
 };
 </script>

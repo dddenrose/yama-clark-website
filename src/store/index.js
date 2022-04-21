@@ -20,6 +20,10 @@ export default new Vuex.Store({
     loading: false,
     tag: [],
     search: "",
+    chat: [],
+    chatList: [],
+    showChat: false,
+    chatError: null,
   },
 
   mutations: {
@@ -49,7 +53,20 @@ export default new Vuex.Store({
     },
     setSearch(state, payload) {
       state.search = payload;
+    },
+    setChat(state, payload) {
+      state.chat = payload;
+    },
+    setChatList(state, payload) {
+      state.chatList = payload;
+    },
+    setShowChat(state, payload) {
+      state.showChat = payload;
+    },
+    setChatError(state, payload) {
+      state.chatError = payload;
     }
+
   },
 
   actions: {
@@ -60,10 +77,13 @@ export default new Vuex.Store({
           commit("setUser", user);
           dispatch('getUserList');
           dispatch('getOrderHistory');
+          dispatch('getChat');
         } else {
           commit("setUser", null);
           commit("setUserList", null)
           commit('setLoading', false)
+          commit('setChatList', [])
+          commit('setShowChat', false)
         }
       });
     },
@@ -145,7 +165,7 @@ export default new Vuex.Store({
       }
     },
 
-    
+
     addProductDetail({ state }) {
       firebase
         .database()
@@ -300,6 +320,42 @@ export default new Vuex.Store({
         return a.price - b.price;
       })
     },
+
+    chatEnter({ state, commit }) {
+      if (state.user) {
+        let userId = firebase.auth().currentUser.uid
+      let chatList = firebase.database().ref('chat/' + userId)
+      const key = chatList.push().key;
+      if (state.chat !== "")
+        chatList.child(key).set({
+          chat: state.chat,
+          time: Date.now(),
+        });
+      state.chat = "";
+      } else {
+        commit('setChatError', "You have to login")
+      }
+    },
+
+    getChat({ state, commit }) {
+      return firebase
+        .database()
+        .ref('chat/' + state.user.uid)
+        .on('value', snapshot => {
+          if (snapshot.val()) {
+            let result = Object.keys(snapshot.val()).map(function (_) { return snapshot.val()[_]; });
+            result.reverse()
+            commit('setChatList', result);
+          }
+        })
+    },
+
+    deleteChat({ commit }) {
+      let userId = firebase.auth().currentUser.uid
+      let chatList = firebase.database().ref('chat/' + userId)
+      chatList.remove();
+      commit('setChatList', [])
+    }
   },
 
   getters: {

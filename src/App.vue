@@ -4,31 +4,38 @@
       <!-- <router-link to="/">Home</router-link> | -->
       <!-- <router-link to="/about">About</router-link> -->
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 
-
 export default {
   data() {
-    return {
-    }
+    return {};
   },
   methods: {
-    ...mapActions(["authAction","getAllProduct",]),
+    ...mapActions(["authAction", "getAllProduct"]),
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+      });
+    },
   },
   mounted() {
-      this.authAction();
-      this.getAllProduct();
+    this.toTop();
+    this.authAction();
+    this.getAllProduct();
   },
-}
+};
 </script>
 
 <style lang="scss">
-*{margin:0;padding:0};
+* {
+  margin: 0;
+  padding: 0;
+}
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

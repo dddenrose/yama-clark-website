@@ -95,6 +95,7 @@
         </div>
       </div>
     </div>
+    <Chat />
     <Footer />
     <Pavement />
     <Gotop />
@@ -108,6 +109,7 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+import Chat from "../components/Chat.vue";
 import { mapActions, mapGetters, mapState } from "vuex";
 import Loading from "../components/Loading.vue";
 
@@ -149,7 +151,8 @@ export default {
     Pavement,
     Logo,
     Features,
-    Loading
+    Loading,
+    Chat
   },
 };
 </script>

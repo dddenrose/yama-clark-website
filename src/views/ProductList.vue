@@ -155,6 +155,7 @@
       </div>
       <Features />
     </div>
+    <Chat />
     <Footer />
     <Pavement />
     <Gotop />
@@ -168,11 +169,15 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+import Chat from "../components/Chat.vue";
 import { mapActions, mapState } from "vuex";
 
 export default {
   data() {
     return {};
+  },
+  mounted() {
+    this.toTop();
   },
   methods: {
     ...mapActions([
@@ -183,6 +188,11 @@ export default {
       "smallToBig",
       "bigToSmall",
     ]),
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+      });
+    },
   },
   computed: {
     ...mapState(["allProduct", ]),
@@ -213,6 +223,7 @@ export default {
     Pavement,
     Logo,
     Features,
+    Chat
   },
 };
 </script>
@@ -439,12 +450,26 @@ ul {
 @media screen and (max-width: 1100px) {
   .content {
     .container {
-      width: 80%;
+      width: 80vw;
       flex-direction: column;
     }
     .left-info {
       text-align: center;
       align-items: center;
+      &:hover {
+        .tag {
+          display: block;
+        }
+      }
+    }
+
+    .left-title {
+      width: 30vw;
+    }
+
+    .tag {
+      width: 30vw;
+      display: none;
     }
 
     .trending-products {
@@ -461,10 +486,10 @@ ul {
   .main-list {
     .container {
       .left-info {
-        width: 70%;
+        width: 70vw;
       }
       .right-list {
-        width: 70%;
+        width: 70vw;
       }
     }
   }

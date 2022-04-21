@@ -57,6 +57,10 @@
         </div>
       </div>
     </div>
+    <div class="bottom-img">
+        <img src="../img/s15.jpg" alt="image">
+      </div>
+    <Chat/>
     <Footer />
     <Pavement />
     <Gotop />
@@ -70,6 +74,7 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+import Chat from "../components/Chat.vue";
 import { mapActions } from "vuex";
 
 export default {
@@ -127,6 +132,7 @@ export default {
     Pavement,
     Logo,
     Features,
+    Chat
   },
 };
 </script>
@@ -274,6 +280,16 @@ ul {
     font-size: 9px;
     flex: 1;
     text-align: left;
+  }
+}
+
+.bottom-img {
+  width: 100%;
+  img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    margin-top: 50px;
   }
 }
 

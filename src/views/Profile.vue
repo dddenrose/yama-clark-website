@@ -36,8 +36,9 @@
       </div>
     </div>
     <div class="bottom-img">
-        <img src="../img/s14.jpg" alt="image">
+        <img src="../img/s15.jpg" alt="image">
       </div>
+      <Chat/>
     <Footer />
     <Pavement />
     <Gotop />
@@ -51,6 +52,7 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+import Chat from "../components/Chat.vue";
 import { mapActions, mapGetters, mapState } from "vuex";
 
 
@@ -79,6 +81,7 @@ export default {
     Pavement,
     Logo,
     Features,
+    Chat
   },
 };
 </script>

@@ -93,6 +93,7 @@
         <img class="none thirty" src="../img/d03.jpg" alt="image" />
       </div>
     </div>
+    <Chat />
     <Footer />
     <Pavement />
     <Gotop />
@@ -106,6 +107,7 @@ import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
+import Chat from "../components/Chat.vue";
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -121,14 +123,6 @@ export default {
   },
   computed: {
     ...mapState(["currentProduct"]),
-    // currentProduct: function () {
-    //   return firebase
-    //     .database()
-    //     .ref('productList/' + '0')
-    //     .on('value', snapshot => {
-    //       commit('setAllProduct', snapshot.val());
-    //     })
-    // }
   },
   methods: {
     ...mapActions(["setCurrentProduct", "addProductDetail","addProduct"]),
@@ -150,6 +144,7 @@ export default {
     Pavement,
     Logo,
     Features,
+    Chat
   },
 };
 </script>
