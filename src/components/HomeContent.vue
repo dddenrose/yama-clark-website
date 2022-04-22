@@ -6,7 +6,7 @@
           <img src="../img/s11-2.jpg" alt="image" />
         </div>
         <div class="photo-row">
-          <div class="image-box">
+          <div class="image-box" @click="toProductList">
             <img src="../img/s12.jpg" alt="image" />
             <router-link class="info" :to="{ name: 'productlist' }">
               mens' wateches <i class="arrow right white"></i>
@@ -17,7 +17,7 @@
               </router-link>
             </div>
           </div>
-          <div class="image-box">
+          <div class="image-box" @click="toProductList">
             <img src="../img/s01.jpg" alt="image" />
             <router-link class="info" :to="{ name: 'productlist' }">
               new releases <i class="arrow right white"></i>
@@ -28,7 +28,7 @@
               </router-link>
             </div>
           </div>
-          <div class="image-box">
+          <div class="image-box" @click="toProductList">
             <img src="../img/s06.jpg" alt="image" />
             <router-link class="info" :to="{ name: 'productlist' }">
               classic watches <i class="arrow right white"></i>
@@ -64,12 +64,15 @@
             <template v-if="index <= 7">
               <div class="image-box">
                 <img v-bind:src="product.imagePath" alt="prodcut" />
-                <div class="hover-box">
+                <div
+                  @click.stop="routerToDetail({ index: product.productId })"
+                  class="hover-box"
+                >
                   <button @click="addProduct(product)">
                     ADD TO CART <i class="fas fa-shopping-cart"></i>
                   </button>
                   <button
-                    @click="routerToDetail({ index })"
+                    @click.stop="routerToDetail({ index: product.productId })"
                     class="information"
                   >
                     MORE INFORMATION
@@ -82,7 +85,7 @@
                 <h3>{{ product.color }}</h3>
                 <h3>${{ product.price }}</h3>
               </div>
-            </template >
+            </template>
           </div>
         </div>
       </div>
@@ -125,12 +128,15 @@
         </div>
         <div class="product-bar" v-if="true">
           <div
-            v-for="(product, index) in allProduct.slice(0,4)"
+            v-for="(product, index) in allProduct.slice(0, 4)"
             :key="index"
             class="product"
           >
             <template v-if="index <= 3">
-              <div class="image-box">
+              <div
+                @click.stop="routerToDetail({ index: product.productId })"
+                class="image-box"
+              >
                 <img v-bind:src="product.imagePath" alt="prodcut" />
                 <div class="hover-box">
                   <button @click="addProduct(product)">
@@ -150,7 +156,7 @@
                 <h3>{{ product.color }}</h3>
                 <h3>${{ product.price }}</h3>
               </div>
-            </template >
+            </template>
           </div>
         </div>
       </div>
@@ -207,9 +213,12 @@ export default {
   },
   methods: {
     ...mapActions(["addProduct", "routerToDetail"]),
+    toProductList: function () {
+      this.$router.push("productlist");
+    },
   },
   computed: {
-    ...mapGetters(["homeProduct",]),
+    ...mapGetters(["homeProduct"]),
     ...mapState(["allProduct"]),
   },
 };
@@ -295,6 +304,7 @@ $green-color: #3e5940;
     right: 0;
     background-color: rgba($color: $brand-color, $alpha: 0.8);
     transition: 0.5s ease-in;
+    cursor: pointer;
   }
 
   .hover-box:hover {
@@ -424,6 +434,7 @@ $green-color: #3e5940;
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      cursor: pointer;
 
       .information {
         text-decoration: none;
@@ -521,7 +532,7 @@ $green-color: #3e5940;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color:  $brand-color;
+  background-color: $brand-color;
   padding-top: 100px;
   margin-bottom: 60px;
   .container {
@@ -577,6 +588,7 @@ $green-color: #3e5940;
     .image-box {
       flex: 6 1 250px;
       position: relative;
+      cursor: pointer;
     }
     img {
       width: 100%;

@@ -27,8 +27,8 @@
                 v-for="(item, index) in userList"
                 :key="index"
               >
-                <img v-bind:src="item.imagePath" alt="product" />
-                <h3>
+                <img @click="routerToDetail({ index: item.productId })" v-bind:src="item.imagePath" alt="product" />
+                <h3 @click="routerToDetail({ index: item.productId })" class="name">
                   {{ item.seriesName }}
                 </h3>
                 <div class="count">
@@ -130,7 +130,14 @@ export default {
       "addCount",
       "minusCount",
       "confirmOrder",
+      "routerToDetail"
     ]),
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+      });
+    },
+    
     order: function() {
       if (this.address != "" && this.phone != "" && this.name != "") {
         this.confirmOrder();
@@ -139,7 +146,9 @@ export default {
       }
     }
   },
-
+  mounted() {
+    this.toTop();
+  },
   computed: {
     ...mapState(["userList", "user","loading"]),
     ...mapGetters(["totalPrice"]),
@@ -226,6 +235,10 @@ ul {
       height: 80px;
       flex: 2 1 0;
       object-fit: contain;
+      cursor: pointer;
+    }
+    .name{
+      cursor: pointer;
     }
     h3 {
       flex: 5 1 0;

@@ -16,17 +16,13 @@ export default {
     return {};
   },
   methods: {
-    ...mapActions(["authAction", "getAllProduct"]),
-    toTop: function () {
-      window.scrollTo({
-        top: 0,
-      });
-    },
+    ...mapActions(["authAction", "getAllProduct","setCurrentProduct"]),
+    
   },
   mounted() {
-    this.toTop();
     this.authAction();
     this.getAllProduct();
+    this.setCurrentProduct();
   },
 };
 </script>

@@ -80,9 +80,18 @@ export default {
       validationErrors: [],
     };
   },
+  
+  mounted() {
+    this.toTop();
+  },
 
   methods: {
     ...mapActions(["signInAction", "signOutAction"]),
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+      });
+    },
 
     // 提示錯誤資訊方法
     resetError() {

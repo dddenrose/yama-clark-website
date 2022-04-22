@@ -93,7 +93,16 @@ export default {
     loadMore() {
       this.loadCount = this.loadCount + 3;
     },
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+      });
+    },
     ...mapActions(["clearHistory"]),
+  },
+
+  mounted() {
+    this.toTop();
   },
 
   computed: {

@@ -128,14 +128,14 @@
               <div class="product">
                 <div class="image-box">
                   <img v-bind:src="product.imagePath" alt="prodcut" />
-                  <div class="hover-box">
+                  <div class="hover-box" @click="routerToDetail({ index: product.productId })">
                     <button
-                      @click="addProduct({ product: product, index: index })"
+                      @click.stop="addProduct({ product: product, index: index })"
                     >
                       ADD TO CART <i class="fas fa-shopping-cart"></i>
                     </button>
                     <button
-                      @click="routerToDetail({ index })"
+                      @click.stop="routerToDetail({ index: product.productId })"
                       class="information"
                     >
                       MORE INFORMATION
@@ -195,7 +195,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["allProduct", ]),
+    ...mapState(["allProduct"]),
 
     tag: {
       get() {
@@ -223,7 +223,7 @@ export default {
     Pavement,
     Logo,
     Features,
-    Chat
+    Chat,
   },
 };
 </script>
@@ -321,7 +321,6 @@ ul {
   }
 }
 
-
 .trending-products {
   .container {
     display: flex;
@@ -415,6 +414,7 @@ ul {
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      cursor: pointer;
 
       .information {
         text-decoration: none;
@@ -449,7 +449,6 @@ ul {
 @media screen and (max-width: 1100px) {
   .content {
     .tag {
-      
       max-width: 0;
       max-height: 0;
       overflow: hidden;
@@ -465,7 +464,7 @@ ul {
       margin-bottom: 30px;
       text-align: center;
       align-items: center;
-    
+
       &:hover {
         .tag {
           width: 50vw;

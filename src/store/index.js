@@ -78,6 +78,7 @@ export default new Vuex.Store({
           dispatch('getUserList');
           dispatch('getOrderHistory');
           dispatch('getChat');
+          commit("setChatError",null)
         } else {
           commit("setUser", null);
           commit("setUserList", null)
@@ -92,7 +93,11 @@ export default new Vuex.Store({
       firebase
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
+        .then(() => {
+          this.$router.push("/profile");
+        })
         .catch(error => {
+          alert(error)
           commit("setError", error.message);
         });
     },
@@ -116,6 +121,8 @@ export default new Vuex.Store({
         .signOut()
         .then(() => {
           commit("setUser", null);
+          alert("You have already logout.")
+          router.push({name: "homerun"})
         })
         .catch(error => {
           commit("setError", error.message);
@@ -271,20 +278,34 @@ export default new Vuex.Store({
       console.log(getters)
     },
 
-    routerToDetail({ getters }, { index }) {
-      console.log(getters)
-      router.push({ name: "productdetail", params: { id: index } })
+    routerToDetail({ state, dispatch }, { index }) {
+      let name = router.currentRoute.name;
+      if (name != "productlist" && name != "shoppinglist" && name != "orderlist" && name != "homerun") {
+        if (state.currentProduct.productId != index) {
+          router.push({ name: "productdetail", params: { id: index } })
+          dispatch("setCurrentProduct")
+        }
+      } else {
+        router.push({ name: "productdetail", params: { id: index } })
+        dispatch("setCurrentProduct")
+      }
     },
 
     setCurrentProduct({ commit }) {
       const id = router.currentRoute.params.id;
-      let productId = id;
-      return firebase
-        .database()
-        .ref('productList/' + '0' + '/' + productId)
-        .on('value', snapshot => {
-          commit('setCurrentProduct', snapshot.val());
-        })
+      if (id) {
+        return firebase
+          .database()
+          .ref('productList/' + '0')
+          .on('value', snapshot => {
+            let list = Object.keys(snapshot.val()).map(function (_) { return snapshot.val()[_]; });
+            list.forEach((e) => {
+              if (e.productId === id) {
+                commit('setCurrentProduct', e);
+              }
+            })
+          })
+      }
     },
 
     getOrderHistory({ state, commit }) {

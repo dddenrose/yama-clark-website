@@ -75,7 +75,7 @@ import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
 import Chat from "../components/Chat.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   data() {
@@ -119,11 +119,18 @@ export default {
     },
     signUp() {
       this.signUpAction({ email: this.email, password: this.password })
-      .then(() => {
-        this.$router.push("/profile");
-      });
-      console.log("Success!")
     },
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+      });
+    },
+  },
+  mounted() {
+    this.toTop();
+  },
+  computed: {
+    ...mapState(["error"]),
   },
   components: {
     Gotop,

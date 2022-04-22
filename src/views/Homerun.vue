@@ -5,27 +5,10 @@
         <div class="container-top">
           <TopNav />
           <Logo />
-          <div class="nav margin" id="hover">
-            <router-link class="shape-ex1" :to="{ name: 'productlist' }">
-              MEN'S WATCHES</router-link
-            >
-            <router-link class="shape-ex1" :to="{ name: 'productlist' }">
-              LADIES' WATCHES</router-link
-            >
-            <router-link class="shape-ex1" :to="{ name: 'productlist' }">
-              NEW RELEASES</router-link
-            >
-            <router-link class="shape-ex1" :to="{ name: 'productlist' }">
-              ACCESSORIES</router-link
-            >
-            <router-link class="shape-ex1" :to="{ name: 'productlist' }">
-              OTHER</router-link
-            >
-          </div>
+          <Category />
         </div>
       </div>
     </div>
-    
     <HomeContent />
     <Chat />
     <Footer />
@@ -42,8 +25,19 @@ import Pavement from "../components/Pavement.vue";
 import HomeContent from "../components/HomeContent.vue";
 import Logo from "../components/Logo.vue";
 import Chat from "../components/Chat.vue";
+import Category from "../components/Category.vue";
 
 export default {
+  methods: {
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+      });
+    },
+  },
+  mounted() {
+    this.toTop();
+  },
   components: {
     Gotop,
     TopNav,
@@ -51,7 +45,8 @@ export default {
     Pavement,
     HomeContent,
     Logo,
-    Chat
+    Chat,
+    Category,
   },
 };
 </script>
@@ -62,6 +57,13 @@ $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
 
+.container-top {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 img {
   vertical-align: top;
 }
@@ -69,39 +71,5 @@ img {
 ul {
   list-style-type: none;
   padding: 0;
-}
-
-.header {
-  .nav {
-    &.margin {
-      padding-top: 60px;
-      a {
-        text-decoration: none;
-        color: $gray-color;
-        font-size: 10px;
-        margin: 0 20px;
-        letter-spacing: 1.5px;
-        text-align: center;
-        padding-bottom: 3px;
-        border-bottom: 1px solid white;
-        transition: 0.3s ease-in;
-      }
-
-      a:hover {
-        border-bottom: 1px solid $brand-color;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .nav.margin {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .shape-ex1 {
-    padding: 5px 0;
-  }
 }
 </style>

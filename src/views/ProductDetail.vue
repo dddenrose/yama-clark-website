@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="hello" id="hello">
     <div class="header">
       <div class="nav">
         <div class="container-top">
@@ -25,6 +25,7 @@
           </div>
           <div class="product-photo">
             <img
+              @click="nextPhoto()"
               v-bind:src="
                 this.changePhotoUrl
                   ? this.changePhotoUrl
@@ -53,7 +54,12 @@
             Fuga ad dicta totam itaque consequuntur deserunt molestias qui sequi
             minima aut similique, natus hic sunt.
           </h4>
-          <button class="button" @click="addProduct({ product: currentProduct })">ADD TO CART</button>
+          <button
+            class="button"
+            @click="addProduct({ product: currentProduct })"
+          >
+            ADD TO CART
+          </button>
         </div>
       </div>
       <div class="brand-story">
@@ -125,9 +131,8 @@ export default {
     ...mapState(["currentProduct"]),
   },
   methods: {
-    ...mapActions(["setCurrentProduct", "addProductDetail","addProduct"]),
-    changePhoto: function (img) {
-      console.log(img);
+    ...mapActions(["setCurrentProduct", "addProductDetail", "addProduct"]),
+    changePhoto(img) {
       let imgUrl = img;
       this.changePhotoUrl = imgUrl;
     },
@@ -135,6 +140,23 @@ export default {
       window.scrollTo({
         top: 0,
       });
+    },
+    nextPhoto() {
+      let one = this.currentProduct.introImg.intro1;
+      let two = this.currentProduct.introImg.intro2;
+      let three = this.currentProduct.introImg.intro3;
+
+      if (this.changePhotoUrl !== "") {
+        if (this.changePhotoUrl === one) {
+          this.changePhotoUrl = two;
+        } else if (this.changePhotoUrl === two) {
+          this.changePhotoUrl = three;
+        } else if (this.changePhotoUrl === three) {
+          this.changePhotoUrl = one;
+        }
+      } else {
+        this.changePhotoUrl = two;
+      }
     },
   },
   components: {
@@ -144,7 +166,7 @@ export default {
     Pavement,
     Logo,
     Features,
-    Chat
+    Chat,
   },
 };
 </script>
@@ -202,28 +224,22 @@ ul {
     display: flex;
   }
   .scroll {
-    padding-right: 30px;
+    margin-right: 30px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     flex-direction: column;
-    flex: 1 1 0;
-    .border {
-      border: 3px solid black;
-    }
   }
   .photo {
     margin-bottom: 10px;
-    flex: 1 1 0;
     display: flex;
     flex-direction: column;
-    width: 100%;
     .img-box {
+      width: 150px;
       height: 150px;
       box-sizing: border-box;
       flex: 1 1 0;
       display: flex;
-      width: 100%;
       cursor: pointer;
     }
     img {
@@ -234,10 +250,15 @@ ul {
   }
 
   .product-photo {
-    flex: 2 1 0;
+    width: 30vw;
+    height: 30vw;
+    max-width: 500px;
+    max-height: 500px;
+    cursor: pointer;
     img {
       width: 100%;
-      max-width: 350px;
+      height: 100%;
+      object-fit: contain;
     }
   }
 
@@ -256,7 +277,7 @@ ul {
   .series {
     font-size: 35px;
     border-bottom: 1px solid $brand-color;
-    width: 80%;
+    width: 100%;
     margin-bottom: 15px;
     padding-bottom: 15px;
     color: $brand-color;
@@ -271,18 +292,18 @@ ul {
       text-transform: uppercase;
       border-bottom: 1px solid $brand-color;
       display: inline-block;
-      width: 80%;
+      width: 100%;
       padding-bottom: 15px;
       margin-bottom: 15px;
       color: $brand-color;
     }
   }
   h3.id {
-      color: rgb(182, 182, 182);
+    color: rgb(182, 182, 182);
   }
   h4 {
     font-size: 10px;
-    width: 80%;
+    width: 100%;
     letter-spacing: 1px;
     font-weight: 100;
     margin-bottom: 30px;
@@ -388,7 +409,7 @@ button {
 
 //RWD
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1200px) {
   .product-detail {
     flex-direction: column;
     align-items: center;
@@ -400,7 +421,10 @@ button {
 
     .product-main {
       .product-photo {
-        width: 50vw;
+        width: 60vw;
+        height: 60vw;
+        max-width: 450px;
+        max-height: 450px;
       }
     }
   }
@@ -425,14 +449,20 @@ button {
 }
 
 @media screen and (max-width: 700px) {
-  .main-list {
-    .container {
-      .left-info {
-        width: 70%;
-      }
-      .right-list {
-        width: 70%;
-      }
+  #hello {
+    .scroll {
+      margin-right: 3vw;
+    }
+    .img-box {
+      width: 17vw;
+      height: 17vw;
+    }
+    .photo-row {
+      display: none;
+    }
+    .brand-story {
+      margin-top: 60px;
+      margin-bottom: 60px;
     }
   }
 }

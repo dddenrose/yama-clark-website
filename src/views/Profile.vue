@@ -67,6 +67,14 @@ export default {
 
   methods: {
     ...mapActions(["signInAction", "signOutAction"]),
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+      });
+    },
+  },
+  mounted() {
+    this.toTop();
   },
 
   computed: {

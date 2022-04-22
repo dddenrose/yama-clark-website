@@ -31,8 +31,8 @@
               v-for="(item, index) in userList"
               :key="index"
             >
-              <img v-bind:src="item.imagePath" alt="product" />
-              <div class="name">
+              <img @click="routerToDetail({ index: item.productId })" v-bind:src="item.imagePath" alt="product" />
+              <div class="name" @click="routerToDetail({ index: item.productId })">
                 <h3>
                   {{ item.seriesName }}
                 </h3>
@@ -74,14 +74,6 @@
                 <h3 class="left-title">total</h3>
                 <h3 class="price">${{ totalPrice }}</h3>
               </div>
-              <!-- <div class="coupon">
-                <h3 class="left-title">coupon</h3>
-                <h3 class="price gold">-$0</h3>
-              </div>
-              <div class="price-title">
-                <h3 class="left-title">price</h3>
-                <h3 class="price">${{ totalPrice }}</h3>
-              </div> -->
               <button class="confirm" @click="goToOrderList">confirm</button>
             </div>
           </div>
@@ -120,7 +112,13 @@ export default {
       "fbDeleteTask",
       "addCount",
       "minusCount",
+      "routerToDetail"
     ]),
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+      });
+    },
     goToOrderList: function () {
       if (this.$store.state.userList !== null) {
         this.$router.push({ name: "orderlist" });
@@ -132,7 +130,9 @@ export default {
     ...mapState(["userList", "user", "loading"]),
     ...mapGetters(["totalPrice", "tempUserList"]),
   },
-
+  mounted() {
+    this.toTop();
+  },
   components: {
     Gotop,
     TopNav,
@@ -242,13 +242,16 @@ ul {
     display: flex;
     align-items: center;
     padding: 20px 0;
+    
     img {
       height: 120px;
       flex: 2 1 0;
       object-fit: contain;
+      cursor: pointer;
     }
     .name {
       flex: 5 1 0;
+      cursor: pointer;
     }
     
     h3 {

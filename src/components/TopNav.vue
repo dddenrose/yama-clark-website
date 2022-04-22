@@ -16,8 +16,8 @@
               v-for="(item, index) in userList"
               :key="index"
             >
-              <img v-bind:src="item.imagePath" alt="product" />
-              <div class="name">
+              <img @click="routerToDetail({ index: item.productId })" v-bind:src="item.imagePath" alt="product" />
+              <div class="name" @click="routerToDetail({ index: item.productId })">
                 <h3>
                   {{ item.seriesName }}
                 </h3>
@@ -70,7 +70,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["signOutAction", "deleteProduct"]),
+    ...mapActions(["signOutAction", "deleteProduct","routerToDetail"]),
   },
 
   computed: {
@@ -161,11 +161,13 @@ a {
       height: 60px;
       flex: 2 1 0;
       object-fit: contain;
+      cursor: pointer;
     }
     .name {
       flex: 3 1 0;
       color: $brand-color;
       margin-left: 10px;
+      cursor: pointer;
     }
 
     h3 {

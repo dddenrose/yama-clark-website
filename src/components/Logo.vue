@@ -22,7 +22,7 @@ $green-color: #3e5940;
     position: relative;
 
     .line {
-      width: 70%;
+      width: 70vw;
       border-top: 1px solid $brand-color;
       position: relative;
     }
