@@ -3,9 +3,10 @@
     <div class="header">
       <div class="nav">
         <div class="container-top">
-          <TopNav />
-          <Logo />
-          <Category />
+          <TopNavOpacity />
+          <HomeImage/>
+          <!-- <Logo />
+          <Category /> -->
         </div>
       </div>
     </div>
@@ -19,13 +20,14 @@
 
 <script>
 import Gotop from "../components/Gotop.vue";
-import TopNav from "../components/TopNav.vue";
+import TopNavOpacity from "../components/TopNavOpacity.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import HomeContent from "../components/HomeContent.vue";
-import Logo from "../components/Logo.vue";
+// import Logo from "../components/Logo.vue";
 import Chat from "../components/Chat.vue";
-import Category from "../components/Category.vue";
+import HomeImage from "../components/HomeImage.vue";
+// import Category from "../components/Category.vue";
 
 export default {
   methods: {
@@ -40,13 +42,14 @@ export default {
   },
   components: {
     Gotop,
-    TopNav,
+    TopNavOpacity,
     Footer,
     Pavement,
     HomeContent,
-    Logo,
+    // Logo,
     Chat,
-    Category,
+    // Category,
+    HomeImage,
   },
 };
 </script>

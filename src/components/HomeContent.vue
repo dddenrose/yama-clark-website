@@ -2,9 +2,9 @@
   <div class="content">
     <div class="main-photo">
       <div class="container">
-        <div class="photo-top">
+        <!-- <div class="photo-top">
           <img src="../img/s11-2.jpg" alt="image" />
-        </div>
+        </div> -->
         <div class="photo-row">
           <div class="image-box" @click="toProductList">
             <img src="../img/s12.jpg" alt="image" />

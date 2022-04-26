@@ -15,15 +15,18 @@ export default new Vuex.Store({
     error: null,
     userList: [],
     allProduct: [],
+    tagPrdocut: [],
     currentProduct: [],
     orderHistory: [],
     loading: false,
     tag: [],
-    search: "",
+    search: [],
     chat: [],
     chatList: [],
     showChat: false,
     chatError: null,
+    bigToSmall: false,
+    showNav: false,
   },
 
   mutations: {
@@ -65,8 +68,16 @@ export default new Vuex.Store({
     },
     setChatError(state, payload) {
       state.chatError = payload;
-    }
-
+    },
+    setTagPrdocut(state, payload) {
+      state.tagPrdocut = payload;
+    },
+    setBigToSmall(state, payload) {
+      state.bigToSmall = payload;
+    },
+    setShowNav(state, payload) {
+      state.showNav = payload;
+    },
   },
 
   actions: {
@@ -78,7 +89,7 @@ export default new Vuex.Store({
           dispatch('getUserList');
           dispatch('getOrderHistory');
           dispatch('getChat');
-          commit("setChatError",null)
+          commit("setChatError", null)
         } else {
           commit("setUser", null);
           commit("setUserList", null)
@@ -122,7 +133,7 @@ export default new Vuex.Store({
         .then(() => {
           commit("setUser", null);
           alert("You have already logout.")
-          router.push({name: "homerun"})
+          router.push({ name: "homerun" })
         })
         .catch(error => {
           commit("setError", error.message);
@@ -213,14 +224,21 @@ export default new Vuex.Store({
     getAllProduct({ state, commit }) {
       if (state.tag.length >= 1) {
         let result = [];
-        state.allProduct.forEach((e) => {
-          if (state.tag.every(element => {
-            return e.tag.includes(element);
-          })) {
-            result.push(e);
-          }
-        })
-        commit('setAllProduct', result);
+        firebase
+          .database()
+          .ref('productList/' + '0')
+          .on('value', snapshot => {
+            let obj = snapshot.val()
+            let allProduct = Object.keys(obj).map(function (_) { return obj[_]; });
+            allProduct.forEach((e) => {
+              if (state.tag.every(element => {
+                return e.tag.includes(element);
+              })) {
+                result.push(e);
+              }
+            })
+            commit('setAllProduct', result);
+          })
       } else {
         return firebase
           .database()
@@ -233,17 +251,45 @@ export default new Vuex.Store({
       }
     },
 
-    searchlProduct({ state, commit, dispatch }) {
-      let search = [];
+    // searchlProduct({ state, commit, dispatch }) {
+    //   let search = [];
+    //   if (state.search !== "") {
+    //     state.allProduct.forEach((e) => {
+    //       if (e.productId === state.search) {
+    //         search.push(e);
+    //         commit('setAllProduct', search)
+    //       }
+    //     })
+    //   } else {
+    //     dispatch("getAllProduct")
+    //   }
+    // },
+
+    searchlProduct({ state, commit }) {
+      let result = [];
       if (state.search !== "") {
-        state.allProduct.forEach((e) => {
-          if (e.productId === state.search) {
-            search.push(e);
-            commit('setAllProduct', search)
-          }
-        })
+        firebase
+          .database()
+          .ref('productList/' + '0')
+          .on('value', snapshot => {
+            let obj = snapshot.val()
+            let allProduct = Object.keys(obj).map(function (_) { return obj[_]; });
+            allProduct.forEach((e) => {
+              if (e.tag.toLowerCase().includes(state.search.toLowerCase())) {
+                result.push(e);
+              }
+            })
+            commit('setAllProduct', result);
+          })
       } else {
-        dispatch("getAllProduct")
+        return firebase
+          .database()
+          .ref('productList/' + '0')
+          .on('value', snapshot => {
+            let obj = snapshot.val()
+            let allProduct = Object.keys(obj).map(function (_) { return obj[_]; });
+            commit('setAllProduct', allProduct);
+          })
       }
     },
 
@@ -349,16 +395,60 @@ export default new Vuex.Store({
       userProducts.remove();
     },
 
-    bigToSmall({ state }) {
-      state.allProduct.sort((a, b) => {
-        return b.price - a.price;
-      })
+    bigToSmall({ state, commit }) {
+      let result = !state.bigToSmall
+      commit('setBigToSmall', result)
+
+      if (state.bigToSmall) {
+        firebase
+          .database()
+          .ref('productList/' + '0')
+          .on('value', snapshot => {
+            let obj = snapshot.val()
+            let allProduct = Object.keys(obj).map(function (_) { return obj[_]; });
+            allProduct.sort((a, b) => {
+              return b.price - a.price;
+            })
+            commit('setAllProduct', allProduct);
+          })
+      } else {
+        return firebase
+          .database()
+          .ref('productList/' + '0')
+          .on('value', snapshot => {
+            let obj = snapshot.val()
+            let allProduct = Object.keys(obj).map(function (_) { return obj[_]; });
+            commit('setAllProduct', allProduct);
+          })
+      }
     },
 
-    smallToBig({ state }) {
-      state.allProduct.sort((a, b) => {
-        return a.price - b.price;
-      })
+    smallToBig({ state, commit }) {
+      let result = !state.bigToSmall
+      commit('setBigToSmall', result)
+
+      if (state.bigToSmall) {
+        firebase
+          .database()
+          .ref('productList/' + '0')
+          .on('value', snapshot => {
+            let obj = snapshot.val()
+            let allProduct = Object.keys(obj).map(function (_) { return obj[_]; });
+            allProduct.sort((a, b) => {
+              return a.price - b.price;
+            })
+            commit('setAllProduct', allProduct);
+          })
+      } else {
+        return firebase
+          .database()
+          .ref('productList/' + '0')
+          .on('value', snapshot => {
+            let obj = snapshot.val()
+            let allProduct = Object.keys(obj).map(function (_) { return obj[_]; });
+            commit('setAllProduct', allProduct);
+          })
+      }
     },
 
     chatEnter({ state, commit }) {

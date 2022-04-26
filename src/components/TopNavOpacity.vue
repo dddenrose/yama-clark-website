@@ -1,9 +1,37 @@
 <template>
   <div class="top-bar" id="top-bar">
     <div class="bar-1">
+      <div class="nav-bar" @click="setShowNav(true)" v-if="!showNav"></div>
+      <transition>
+        <div class="nav-bar-main" id="nav-bar-main" v-if="showNav">
+          <div class="nav-bar" @click="setShowNav(false)"></div>
+          <router-link class="list" :to="{ name: 'homerun' }">home</router-link>
+          <router-link class="list" :to="{ name: 'productlist' }"
+            >product list</router-link
+          >
+          <router-link class="list" :to="{ name: 'shoppinglist' }"
+            >shopping list</router-link
+          >
+          <router-link class="list" :to="{ name: 'orderhistory' }"
+            >order history</router-link
+          >
+          <router-link class="list" :to="{ name: 'profile' }"
+            >profile</router-link
+          >
+          <div class="social-media" id="social-media">
+            <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
+            <a class="icon" href="#"><i class="fab fa-instagram-square"></i></a>
+            <a class="icon" href="#"><i class="fab fa-twitter-square"></i></a>
+            <a class="icon" href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </transition>
+    </div>
+
+    <div class="bar-2" v-if="isUserAuth">
       <div class="shopping">
         <router-link class="list" :to="{ name: 'shoppinglist' }"
-          >shopping list <i class="fas fa-shopping-cart"></i>
+          ><i class="fas fa-shopping-cart"></i>
           <div class="circle-count" v-if="this.shoppingCount">
             <span> {{ shoppingCount }} </span>
           </div>
@@ -45,25 +73,56 @@
           >
         </div>
       </div>
-      <router-link class="list" :to="{ name: 'homerun' }">home</router-link>
-      <router-link class="list" :to="{ name: 'productlist' }"
-        >productlist</router-link
-      >
-      <div class="social-media">
-        <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
-        <a class="icon" href="#"><i class="fab fa-instagram-square"></i></a>
-        <a class="icon" href="#"><i class="fab fa-twitter-square"></i></a>
-        <a class="icon" href="#"><i class="fab fa-youtube"></i></a>
-      </div>
-    </div>
-
-    <div class="bar-2" v-if="isUserAuth">
       <router-link :to="{ name: 'profile' }" class="profile"
         >PROFILE</router-link
       >
       <button @click="signOutAction" class="login">logout</button>
     </div>
     <div class="bar-2" v-if="!isUserAuth">
+      <div class="shopping">
+        <router-link class="list" :to="{ name: 'shoppinglist' }"
+          ><i class="fas fa-shopping-cart"></i>
+          <div class="circle-count" v-if="this.shoppingCount">
+            <span> {{ shoppingCount }} </span>
+          </div>
+        </router-link>
+        <div class="lists" v-if="userList">
+          <h4 class="title">products</h4>
+          <div class="product-main">
+            <div
+              class="selling-product"
+              v-for="(item, index) in userList"
+              :key="index"
+            >
+              <img
+                @click="routerToDetail({ index: item.productId })"
+                v-bind:src="item.imagePath"
+                alt="product"
+              />
+              <div
+                class="name"
+                @click="routerToDetail({ index: item.productId })"
+              >
+                <h3>
+                  {{ item.seriesName }}
+                </h3>
+              </div>
+              <div class="count">
+                <div class="counting">
+                  <span> {{ item.count }} pic </span>
+                </div>
+                <button @click="deleteProduct({ item: item, index: index })">
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </div>
+              <div class="price">${{ item.price * item.count }}</div>
+            </div>
+          </div>
+          <router-link class="bottom" :to="{ name: 'shoppinglist' }"
+            >shopping list</router-link
+          >
+        </div>
+      </div>
       <router-link :to="{ name: 'signup' }" class="profile"
         >SIGN UP</router-link
       >
@@ -73,8 +132,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
-// import Loading from "../components/Loading.vue";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
   data() {
@@ -83,10 +141,11 @@ export default {
 
   methods: {
     ...mapActions(["signOutAction", "deleteProduct", "routerToDetail"]),
+    ...mapMutations(["setShowNav"]),
   },
 
   computed: {
-    ...mapState(["userList"]),
+    ...mapState(["userList", "showNav"]),
     ...mapGetters(["isUserAuth", "shoppingCount"]),
   },
   components: {
@@ -99,6 +158,26 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
+
+.v-leave {
+  opacity: 1;
+}
+.v-leave-active {
+  transition: all 0.5s;
+}
+.v-leave-to {
+  opacity: 0;
+}
+.v-enter {
+  transform: translateX(-50px);
+  opacity: 0;
+}
+.v-enter-active {
+  transition: all 0.5s;
+}
+.v-enter-to {
+  opacity: 1;
+}
 
 a {
   text-decoration: none;
@@ -121,6 +200,51 @@ a {
   width: 6px; /* width of vertical scrollbar */
 }
 
+.nav-bar {
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  width: 30px;
+  height: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+#nav-bar-main {
+  // display: none;
+  width: 30vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $brand-color;
+  .nav-bar {
+    margin-top: 20px;
+    margin-bottom: 100px;
+    margin-left: 50px;
+  }
+
+  a.list {
+    font-size: 30px;
+    font-family: "newyork";
+    letter-spacing: 3px;
+    margin-left: 50px;
+  }
+  #social-media {
+    margin-left: 50px;
+    display: flex;
+    margin-top: 30px;
+    a {
+      padding: 0;
+      margin: 0;
+    }
+    svg {
+      margin: 0;
+      margin-right: 20px;
+      font-size: 20px;
+    }
+  }
+}
+
 .shopping {
   &:hover {
     .lists {
@@ -137,7 +261,7 @@ a {
 
 .list {
   padding-bottom: 3px;
-  border-bottom: 1px solid $brand-color;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
   transition: all 0.3s;
   &:hover {
     border-bottom: 1px solid white;
@@ -188,6 +312,7 @@ a {
     text-align: left;
     margin-bottom: 5px;
   }
+
   .selling-product {
     display: flex;
     align-items: center;
@@ -258,7 +383,7 @@ a {
   display: flex;
   padding: 15px 0;
   flex: 1;
-  background-color: $brand-color;
+  // background-color: $brand-color;
   text-decoration: none;
   align-items: center;
 
@@ -271,14 +396,30 @@ a {
     .list {
       display: flex;
     }
-    a.shopping {
+
+    a {
+      text-decoration: none;
+      color: white;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin-left: 10px;
+      letter-spacing: 1px;
+    }
+    a.icon {
+      margin: 5px;
+      font-size: 14px;
+    }
+  }
+
+  .bar-2 {
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+
+    .list {
       display: flex;
     }
-    .shopping {
-      svg {
-        margin-left: 5px;
-      }
-    }
+
     .circle-count {
       position: relative;
       margin-left: 5px;
@@ -290,24 +431,21 @@ a {
 
     span {
       color: $brand-color;
-    }
-
-    a {
-      text-decoration: none;
-      color: white;
-      text-transform: uppercase;
       font-size: 12px;
-      margin: 10px;
-      letter-spacing: 1px;
+      position: relative;
+      top: -2.5px;
     }
-    a.icon {
-      margin: 5px;
-      font-size: 14px;
-    }
-  }
 
-  .bar-2 {
-    margin-right: 50px;
+    a.shopping {
+      display: flex;
+    }
+    .shopping {
+      
+      svg {
+        color: white;
+        margin-left: 5px;
+      }
+    }
 
     .login {
       color: $brand-color;
@@ -334,9 +472,10 @@ a {
       color: white;
       letter-spacing: 1px;
       text-decoration: none;
-      border-bottom: 1px solid $brand-color;
+      border-bottom: 1px solid rgba(0, 0, 0, 0);
       transition: all 0.3s;
       padding-bottom: 3px;
+      margin-left: 10px;
       &:hover {
         border-bottom: 1px solid white;
       }
@@ -346,12 +485,20 @@ a {
 
 #top-bar {
   a.bottom {
-    display: flex;
+    display: none;
     border-top: 1px solid $brand-color;
     padding-top: 3px;
     margin: 0;
     margin-top: 5px;
     color: $gray-color;
+  }
+
+  .shopping {
+    &:hover {
+      a.bottom {
+        display: flex;
+      }
+    }
   }
 }
 

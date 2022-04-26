@@ -8,6 +8,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/database';
+import './assets/font/font.css';
+
 
 Vue.config.productionTip = false
 

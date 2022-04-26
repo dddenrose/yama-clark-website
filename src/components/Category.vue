@@ -1,72 +1,24 @@
 <template>
   <div class="category-main">
-    <!-- <router-link class="shape-ex1" :to="{ name: 'productlist' }">
-      MEN'S WATCHES</router-link
-    >
-    <router-link class="shape-ex1" :to="{ name: 'productlist' }">
-      LADIES' WATCHES</router-link
-    >
-    <router-link class="shape-ex1" :to="{ name: 'productlist' }">
-      NEW RELEASES</router-link
-    >
-    <router-link class="shape-ex1" :to="{ name: 'productlist' }">
-      ACCESSORIES</router-link
-    >
-    <router-link class="shape-ex1" :to="{ name: 'productlist' }">
-      OTHER</router-link
-    > -->
-    <div class="category">
+    <div class="title-main">
       <router-link class="title" :to="{ name: 'productlist' }">
         men's watches</router-link
       >
-      <div class="detail">
-        <router-link :to="{ name: 'productlist' }">
-          classic wateches</router-link
-        >
-        <router-link :to="{ name: 'productlist' }"> casual watches</router-link>
-        <router-link :to="{ name: 'productlist' }"> power reserve</router-link>
-        <router-link :to="{ name: 'productlist' }"> chronometres</router-link>
-        <router-link :to="{ name: 'productlist' }">
-          greenwich mean time</router-link
-        >
-      </div>
-    </div>
-    <div class="category">
       <router-link class="title" :to="{ name: 'productlist' }">
         ladies's watches</router-link
       >
-      <div class="detail">
-        <router-link :to="{ name: 'productlist' }">
-          classic wateches</router-link
-        >
-        <router-link :to="{ name: 'productlist' }"> casual watches</router-link>
-        <router-link :to="{ name: 'productlist' }"> power reserve</router-link>
-        <router-link :to="{ name: 'productlist' }"> chronometres</router-link>
-        <router-link :to="{ name: 'productlist' }">
-          greenwich mean time</router-link
-        >
-      </div>
-    </div>
-    <div class="category">
       <router-link class="title" :to="{ name: 'productlist' }">
         accessories</router-link
       >
-      <div class="detail">
-        <router-link :to="{ name: 'productlist' }">
-          classic wateches</router-link
-        >
-        <router-link :to="{ name: 'productlist' }"> casual watches</router-link>
-        <router-link :to="{ name: 'productlist' }"> power reserve</router-link>
-        <router-link :to="{ name: 'productlist' }"> chronometres</router-link>
-        <router-link :to="{ name: 'productlist' }">
-          greenwich mean time</router-link
-        >
-      </div>
-    </div>
-    <div class="category">
       <router-link class="title" :to="{ name: 'productlist' }">
         new release</router-link
       >
+      <router-link class="title" :to="{ name: 'productlist' }">
+        other</router-link
+      >
+    </div>
+
+    <div class="category">
       <div class="detail">
         <router-link :to="{ name: 'productlist' }">
           classic wateches</router-link
@@ -78,11 +30,27 @@
           greenwich mean time</router-link
         >
       </div>
-    </div>
-    <div class="category">
-      <router-link class="title" :to="{ name: 'productlist' }">
-        other</router-link
-      >
+      <div class="detail">
+        <router-link :to="{ name: 'productlist' }"> chronometres</router-link>
+        <router-link :to="{ name: 'productlist' }">
+          elegant watches</router-link
+        >
+        <router-link :to="{ name: 'productlist' }"> power reserve</router-link>
+        <router-link :to="{ name: 'productlist' }">
+          casual wateches</router-link
+        >
+        <router-link :to="{ name: 'productlist' }">
+          greenwich mean time</router-link
+        >
+      </div>
+      <div class="detail">
+        <router-link :to="{ name: 'productlist' }">
+          leather wateches</router-link
+        >
+        <router-link :to="{ name: 'productlist' }"> steel watches</router-link>
+        <router-link :to="{ name: 'productlist' }"> sun glasses</router-link>
+        <router-link :to="{ name: 'productlist' }"> power reserve</router-link>
+      </div>
       <div class="detail">
         <router-link :to="{ name: 'productlist' }">
           classic wateches</router-link
@@ -90,12 +58,34 @@
         <router-link :to="{ name: 'productlist' }"> casual watches</router-link>
         <router-link :to="{ name: 'productlist' }"> power reserve</router-link>
         <router-link :to="{ name: 'productlist' }"> chronometres</router-link>
-        <router-link :to="{ name: 'productlist' }">greenwich mean time</router-link
+        <router-link :to="{ name: 'productlist' }">
+          greenwich mean time</router-link
+        >
+      </div>
+      <div class="detail">
+        <router-link :to="{ name: 'productlist' }">
+          classic wateches</router-link
+        >
+        <router-link :to="{ name: 'productlist' }"> casual watches</router-link>
+        <router-link :to="{ name: 'productlist' }"> power reserve</router-link>
+        <router-link :to="{ name: 'productlist' }"> chronometres</router-link>
+        <router-link :to="{ name: 'productlist' }">
+          greenwich mean time</router-link
         >
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      // upHere: false,
+    };
+  },
+};
+</script>
 
 
 <style scoped lang="scss">
@@ -105,41 +95,60 @@ $green-color: #3e5940;
 
 .category-main {
   display: flex;
-  padding-top: 60px;
-  .detail {
-    display: none;
+  margin-top: 60px;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  &:hover {
+    .category {
+      display: flex;
+    }
   }
-  .category {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin: 0 20px;
-    
 
-    &:hover {
-      .detail {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        background-color: white;
-        top: 25px;
-        width: 200px;
-        line-height: 2;
-        align-items: flex-start;
-        text-align: left;
-        padding: 5px 10px 10px 10px;
-        border: 1px solid rgba($color: #ececec, $alpha: 1.0);
-        border-top: none;
-        // box-shadow: 4px 6px 8px 1px rgba(0, 0, 0, 0.2);
-        :first-child {
-          padding-top: 5px;
-        }
+  .category {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    top: 15px;
+    width: 100%;
+    transition: all 0.3s ease-in;
+    justify-content: center;
+    padding: 30px 100px 100px 100px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgb(222, 222, 222);
+    .detail {
+      display: flex;
+      flex-direction: column;
+      top: 25px;
+      width: 250px;
+      align-items: center;
+      text-align: center;
+      border-top: none;
+      a {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      :last-child {
+        padding-bottom: 30px;
+        border-bottom: 1px solid $brand-color;
       }
     }
   }
-  
+
   .title {
-    padding-bottom: 15px;
+    width: 250px;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+
+  .title-main {
+    display: flex;
+    padding: 0 100px;
+    box-sizing: border-box;
+    justify-content: center;
   }
 
   a {
@@ -148,14 +157,16 @@ $green-color: #3e5940;
     color: $gray-color;
     font-size: 10px;
     letter-spacing: 1.5px;
-    text-align: left;
     padding-bottom: 1px;
     transition: 0.3s ease-in;
+    border-bottom: 1px solid white;
   }
 
-  a:hover {
-    border-bottom: 1px solid $brand-color;
-    color: $brand-color;
+  .detail {
+    a:hover {
+      border-bottom: 1px solid $brand-color;
+      color: $brand-color;
+    }
   }
 }
 

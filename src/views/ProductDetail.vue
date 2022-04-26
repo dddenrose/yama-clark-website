@@ -5,11 +5,11 @@
         <div class="container-top">
           <TopNav />
           <Logo />
+          <Category />
         </div>
       </div>
     </div>
     <div class="content">
-      <Features />
       <div class="product-detail">
         <div class="product-main">
           <div class="scroll">
@@ -112,8 +112,9 @@ import TopNav from "../components/TopNav.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
-import Features from "../components/Features.vue";
 import Chat from "../components/Chat.vue";
+import Category from "../components/Category.vue";
+
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -165,8 +166,8 @@ export default {
     Footer,
     Pavement,
     Logo,
-    Features,
     Chat,
+    Category
   },
 };
 </script>

@@ -12,119 +12,112 @@
     <div class="content">
       <div class="container">
         <div class="left-info">
-          <div class="left-title" @click="showButton">
-            COLLECTIONS
-            <i class="fas fa-caret-square-down"></i>
+          <div class="left-title">COLLECTIONS</div>
+          <div class="tag">
+            <h4 class="title top">men's / ladyies' watch</h4>
+            <label>
+              <input
+                type="checkbox"
+                value="Man"
+                v-model="tag"
+                @change="getAllProduct()"
+              />
+              Man
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="Lady"
+                v-model="tag"
+                @change="getAllProduct()"
+              />
+              Lady
+            </label>
           </div>
-          <transition>
-            <div class="tag-main" v-if="show">
-              <div class="tag">
-                <h4 class="title top">men's / ladyies' watch</h4>
-                <label>
-                  <input
-                    type="checkbox"
-                    value="Man"
-                    v-model="tag"
-                    @onchange="getAllProduct()"
-                  />
-                  Man
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    value="Lady"
-                    v-model="tag"
-                    @change="getAllProduct()"
-                  />
-                  Lady
-                </label>
-              </div>
-              <div class="tag">
-                <h4 class="title">material</h4>
-                <label>
-                  <input
-                    type="checkbox"
-                    value="Steel"
-                    v-model="tag"
-                    @change="getAllProduct()"
-                  />
-                  Steel
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    value="Leather"
-                    v-model="tag"
-                    @change="getAllProduct()"
-                  />
-                  Leather
-                </label>
-              </div>
-              <div class="tag">
-                <h4 class="title">category</h4>
-                <label>
-                  <input
-                    type="checkbox"
-                    value="Best-selling"
-                    v-model="tag"
-                    @change="getAllProduct()"
-                  />
-                  Best-selling
-                </label>
+          <div class="tag">
+            <h4 class="title">material</h4>
+            <label>
+              <input
+                type="checkbox"
+                value="Steel"
+                v-model="tag"
+                @change="getAllProduct()"
+              />
+              Steel
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="Leather"
+                v-model="tag"
+                @change="getAllProduct()"
+              />
+              Leather
+            </label>
+          </div>
+          <div class="tag">
+            <h4 class="title">category</h4>
+            <label>
+              <input
+                type="checkbox"
+                value="Best-selling"
+                v-model="tag"
+                @change="getAllProduct()"
+              />
+              Best-selling
+            </label>
 
-                <label>
-                  <input
-                    type="checkbox"
-                    value="Classic"
-                    v-model="tag"
-                    @change="getAllProduct()"
-                  />
-                  Classic
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    value="Casual"
-                    v-model="tag"
-                    @change="getAllProduct()"
-                  />
-                  Casual
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    value="Elegant"
-                    v-model="tag"
-                    @change="getAllProduct()"
-                  />
-                  Elegant
-                </label>
-              </div>
-              <div class="tag">
-                <h4 class="title">price</h4>
-                <label>
-                  <input type="checkbox" @click="smallToBig()" /> Price from
-                  small to big
-                </label>
-                <label>
-                  <input type="checkbox" @change="bigToSmall()" /> Price from
-                  big to small
-                </label>
-              </div>
-              <div class="tag">
-                <label class="title">
-                  Search Product :
-                  <input
-                    type="text"
-                    v-model="search"
-                    @input="searchlProduct()"
-                    placeholder="ex: YM001"
-                    class="search"
-                  />
-                </label>
-              </div>
-            </div>
-          </transition>
+            <label>
+              <input
+                type="checkbox"
+                value="Classic"
+                v-model="tag"
+                @change="getAllProduct()"
+              />
+              Classic
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="Casual"
+                v-model="tag"
+                @change="getAllProduct()"
+              />
+              Casual
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                value="Elegant"
+                v-model="tag"
+                @change="getAllProduct()"
+              />
+              Elegant
+            </label>
+          </div>
+          <div class="tag">
+            <h4 class="title">price</h4>
+            <label>
+              <input type="checkbox" @change="smallToBig()" /> Price from small
+              to big
+            </label>
+            <label>
+              <input type="checkbox" @change="bigToSmall()" /> Price from big to
+              small
+            </label>
+          </div>
+          <div class="tag">
+            <label class="title">
+              Search Product :
+              <input
+                type="text"
+                v-model="search"
+                @input="searchlProduct()"
+                placeholder="ex: YM001"
+                class="search"
+              />
+            </label>
+          </div>
         </div>
         <div class="trending-products">
           <div class="total-container">
@@ -136,14 +129,9 @@
               <div class="product">
                 <div class="image-box">
                   <img v-bind:src="product.imagePath" alt="prodcut" />
-                  <div
-                    class="hover-box"
-                    @click="routerToDetail({ index: product.productId })"
-                  >
+                  <div class="hover-box" @click="routerToDetail({ index: product.productId })">
                     <button
-                      @click.stop="
-                        addProduct({ product: product, index: index })
-                      "
+                      @click.stop="addProduct({ product: product, index: index })"
                     >
                       ADD TO CART <i class="fas fa-shopping-cart"></i>
                     </button>
@@ -185,17 +173,14 @@ import Features from "../components/Features.vue";
 import Chat from "../components/Chat.vue";
 import Category from "../components/Category.vue";
 
-import { mapActions, mapMutations, mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   data() {
-    return {
-      show: false,
-    };
+    return {};
   },
   mounted() {
     this.toTop();
-    this.setShowNav(false);
   },
   methods: {
     ...mapActions([
@@ -206,28 +191,21 @@ export default {
       "smallToBig",
       "bigToSmall",
     ]),
-    ...mapMutations(["setShowNav"]),
     toTop: function () {
       window.scrollTo({
         top: 0,
       });
     },
-    showButton: function () {
-      if (this.show == true) {
-        this.show = false;
-      } else {
-        this.show = true;
-      }
-    },
   },
   computed: {
-    ...mapState(["allProduct", "tagProduct"]),
+    ...mapState(["allProduct"]),
 
     tag: {
       get() {
         return this.$store.state.tag;
       },
       set(value) {
+        console.log(value);
         this.$store.commit("setTag", value);
       },
     },
@@ -249,7 +227,7 @@ export default {
     Logo,
     Features,
     Chat,
-    Category,
+    Category
   },
 };
 </script>
@@ -260,24 +238,6 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
-.v-leave {
-  opacity: 1;
-}
-.v-leave-active {
-  transition: opacity 0.3s;
-}
-.v-leave-to {
-  opacity: 0;
-}
-.v-enter {
-  opacity: 0;
-}
-.v-enter-active {
-  transition: opacity 0.3s;
-}
-.v-enter-to {
-  opacity: 1;
-}
 
 img {
   vertical-align: top;
@@ -303,7 +263,6 @@ ul {
   align-items: center;
   .container {
     display: flex;
-    flex-direction: column;
     width: 70%;
   }
 }
@@ -321,7 +280,6 @@ ul {
 .tag {
   display: flex;
   flex-direction: column;
-  width: 200px;
   color: $brand-color;
   padding-bottom: 10px;
   line-height: 1.5;
@@ -335,6 +293,9 @@ ul {
     border-bottom: 1px solid $brand-color;
     padding-bottom: 5px;
     margin-bottom: 5px;
+    &.top {
+      margin-top: 10px;
+    }
   }
   .search {
     height: 30px;
@@ -347,18 +308,12 @@ ul {
   display: flex;
   text-align: left;
   flex-direction: column;
-  .tag-main {
-    display: flex;
-    justify-content: space-between;
-  }
   .left-title {
     color: $brand-color;
     border-bottom: 1px solid $brand-color;
-    width: 100%;
+    width: 200px;
     padding-bottom: 10px;
     letter-spacing: 1px;
-
-    margin-bottom: 20px;
   }
   a {
     font-weight: 100;
