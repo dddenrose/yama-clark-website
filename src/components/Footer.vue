@@ -145,4 +145,10 @@ $green-color: #3e5940;
     }
   }
 }
+
+@media screen and (max-width: 450px) {
+  .footer {
+    display: none;
+  }
+}
 </style>

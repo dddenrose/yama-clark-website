@@ -55,6 +55,7 @@
           </div>
           <div class="line"></div>
         </div>
+        <Category/>
         <div class="product-bar" v-if="true">
           <div
             v-for="(product, index) in allProduct"
@@ -206,6 +207,7 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
+import Category from "../components/Category.vue";
 
 export default {
   data() {
@@ -221,6 +223,9 @@ export default {
     ...mapGetters(["homeProduct"]),
     ...mapState(["allProduct"]),
   },
+  components: {
+    Category,
+  }
 };
 </script>
 
@@ -770,6 +775,14 @@ $green-color: #3e5940;
       padding-bottom: 2vh;
       font-size: 13vw;
     }
+  }
+}
+
+@media screen and (max-width: 450px) {
+
+
+  .brand-story, .photo-row-bottom {
+    display: none;
   }
 }
 </style>

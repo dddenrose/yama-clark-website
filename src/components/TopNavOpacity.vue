@@ -1,28 +1,66 @@
 <template>
-  <div class="top-bar" id="top-bar">
+  <div
+    class="top-bar"
+    id="top-bar"
+    :class="{ change_color: scrollPosition > 50 }"
+  >
     <div class="bar-1">
-      <div class="nav-bar" @click="setShowNav(true)" v-if="!showNav"></div>
+      <div
+        class="nav-bar main-bar"
+        @click="setShowNav(true)"
+        v-if="!showNav"
+      ></div>
+      <div class="logo">
+        <router-link class="logo-box" :to="{ name: 'homerun' }"
+          ><img src="../img/logo-w-2.png" alt="logo"
+        /></router-link>
+      </div>
       <transition>
         <div class="nav-bar-main" id="nav-bar-main" v-if="showNav">
           <div class="nav-bar" @click="setShowNav(false)"></div>
-          <router-link class="list" :to="{ name: 'homerun' }">home</router-link>
-          <router-link class="list" :to="{ name: 'productlist' }"
+          <router-link class="list left-nav" :to="{ name: 'homerun' }"
+            >home</router-link
+          >
+          <router-link class="list left-nav" :to="{ name: 'productlist' }"
             >product list</router-link
           >
-          <router-link class="list" :to="{ name: 'shoppinglist' }"
+          <router-link class="list left-nav" :to="{ name: 'shoppinglist' }"
             >shopping list</router-link
           >
-          <router-link class="list" :to="{ name: 'orderhistory' }"
+          <router-link class="list left-nav" :to="{ name: 'orderhistory' }"
             >order history</router-link
           >
-          <router-link class="list" :to="{ name: 'profile' }"
+          <div class="line top"></div>
+          <router-link class="list left-nav" :to="{ name: 'profile' }"
             >profile</router-link
           >
+          <router-link
+            v-if="user === null"
+            class="list left-nav"
+            :to="{ name: 'login' }"
+            >login</router-link
+          >
+          <router-link
+            v-if="user === null"
+            class="list left-nav"
+            :to="{ name: 'signup' }"
+            >sign up</router-link
+          >
+          <button v-if="user !== null" @click="signOutAction" class="login">
+            logout
+          </button>
+          <div class="line bottom"></div>
           <div class="social-media" id="social-media">
             <a class="icon" href="#"><i class="fab fa-facebook"></i></a>
             <a class="icon" href="#"><i class="fab fa-instagram-square"></i></a>
             <a class="icon" href="#"><i class="fab fa-twitter-square"></i></a>
             <a class="icon" href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+          <div class="info">
+            <h5>
+              Lorem ipsum dolor <br />
+              consectetur adipisicing elit.
+            </h5>
           </div>
         </div>
       </transition>
@@ -136,16 +174,24 @@ import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      scrollPosition: null,
+    };
+  },
+  mounted() {
+    window.addEventListener("scroll", this.updateScroll);
   },
 
   methods: {
     ...mapActions(["signOutAction", "deleteProduct", "routerToDetail"]),
     ...mapMutations(["setShowNav"]),
+    updateScroll() {
+      this.scrollPosition = window.scrollY;
+    },
   },
 
   computed: {
-    ...mapState(["userList", "showNav"]),
+    ...mapState(["userList", "showNav", "user"]),
     ...mapGetters(["isUserAuth", "shoppingCount"]),
   },
   components: {
@@ -158,6 +204,10 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
+
+img {
+  vertical-align: top;
+}
 
 .v-leave {
   opacity: 1;
@@ -210,20 +260,26 @@ a {
 }
 
 #nav-bar-main {
-  // display: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   width: 30vw;
+  min-width: 450px;
   height: 100vh;
   position: absolute;
+  z-index: 3;
   top: 0;
   left: 0;
-  background-color: $brand-color;
+  background-color: $green-color;
   .nav-bar {
-    margin-top: 20px;
+    margin-top: 23px;
     margin-bottom: 100px;
     margin-left: 50px;
   }
 
   a.list {
+    margin-bottom: 10px;
+    text-align: left;
     font-size: 30px;
     font-family: "newyork";
     letter-spacing: 3px;
@@ -232,7 +288,6 @@ a {
   #social-media {
     margin-left: 50px;
     display: flex;
-    margin-top: 30px;
     a {
       padding: 0;
       margin: 0;
@@ -260,30 +315,20 @@ a {
 }
 
 .list {
-  padding-bottom: 3px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0);
-  transition: all 0.3s;
-  &:hover {
-    border-bottom: 1px solid white;
-  }
-}
-
-.social-media {
-  svg {
-    padding-bottom: 3px;
-    border-bottom: 1px solid $brand-color;
+  &.left-nav {
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
     transition: all 0.3s;
-  }
-  a {
+
     &:hover {
-      svg {
-        border-bottom: 1px solid white;
-      }
+      border-bottom: 1px solid white;
     }
   }
 }
 
+
 .lists {
+  right: 50px;
+  top: 50px;
   opacity: 0;
   position: absolute;
   background-color: white;
@@ -355,6 +400,9 @@ a {
         border-radius: 10px;
         letter-spacing: 1px;
         cursor: pointer;
+        svg {
+          color: black;
+        }
       }
     }
     .counting {
@@ -375,27 +423,32 @@ a {
   }
 }
 
+.change_color {
+  background-color: $brand-color;
+}
+
 .top-bar {
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   top: 0;
   width: 100%;
   display: flex;
-  padding: 15px 0;
   flex: 1;
-  // background-color: $brand-color;
   text-decoration: none;
   align-items: center;
+  transition: all 0.3s;
+
+  .logo {
+    img {
+      width: 65px;
+    }
+  }
 
   .bar-1 {
     flex: 1;
     margin-left: 50px;
     display: flex;
     align-items: center;
-
-    .list {
-      display: flex;
-    }
 
     a {
       text-decoration: none;
@@ -409,12 +462,58 @@ a {
       margin: 5px;
       font-size: 14px;
     }
+    .login {
+      font-size: 30px;
+      font-family: "newyork";
+      letter-spacing: 3px;
+      margin-left: 50px;
+      color: $brand-color;
+      text-transform: uppercase;
+      padding: 5px 15px;
+      background-color: white;
+      border-radius: 30px;
+      transition: all 0.3s;
+      &:hover {
+        background-color: $brand-color;
+        color: white;
+      }
+    }
+    button {
+      border: none;
+      cursor: pointer;
+    }
+
+    .line {
+      border-top: 1px solid white;
+      width: 100px;
+      margin-left: 50px;
+      &.top {
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
+      &.bottom {
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
+    }
+
+    .info {
+      font-family: "newyork";
+      margin-top: 10px;
+      text-align: left;
+      margin-left: 50px;
+      color: white;
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
   }
 
   .bar-2 {
     display: flex;
+    flex: 1;
     align-items: center;
     margin-right: 50px;
+    justify-content: flex-end;
 
     .list {
       display: flex;
@@ -440,7 +539,7 @@ a {
       display: flex;
     }
     .shopping {
-      
+      padding: 17px 0;
       svg {
         color: white;
         margin-left: 5px;
@@ -472,13 +571,7 @@ a {
       color: white;
       letter-spacing: 1px;
       text-decoration: none;
-      border-bottom: 1px solid rgba(0, 0, 0, 0);
-      transition: all 0.3s;
-      padding-bottom: 3px;
       margin-left: 10px;
-      &:hover {
-        border-bottom: 1px solid white;
-      }
     }
   }
 }
@@ -490,7 +583,11 @@ a {
     padding-top: 3px;
     margin: 0;
     margin-top: 5px;
-    color: $gray-color;
+    color: grey;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
   }
 
   .shopping {
@@ -502,36 +599,17 @@ a {
   }
 }
 
-@media screen and (max-width: 700px) {
-  .nav {
-    .top-bar {
-      align-items: flex-start;
-      .bar-1 {
-        display: flex;
-        flex-direction: column;
-        margin-left: 5%;
-        align-items: flex-start;
-        a {
-          margin: 5px 0;
-          border-bottom: 1px solid white;
-          padding-bottom: 2px;
-        }
-        svg {
-          margin-right: 5px;
-        }
-      }
-      .bar-2 {
-        height: 15px;
-        margin-right: 5%;
-        display: flex;
-        flex-direction: column;
-        text-align: right;
-        align-items: center;
-        .login {
-          margin-left: 0px;
-          margin-top: 5px;
-        }
-      }
+@media screen and (max-width: 850px) {
+  .top-bar {
+    .bar-2 {
+      display: none;
+    }
+
+    .logo {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 50px;
+      padding:9px 0;
     }
   }
 }

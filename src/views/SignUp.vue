@@ -3,7 +3,7 @@
     <div class="header">
       <div class="nav">
         <div class="container-top">
-          <TopNav />
+          <TopNavOpacity />
           <Logo />
         </div>
       </div>
@@ -69,13 +69,13 @@
 
 <script>
 import Gotop from "../components/Gotop.vue";
-import TopNav from "../components/TopNav.vue";
+import TopNavOpacity from "../components/TopNavOpacity.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
 import Chat from "../components/Chat.vue";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 
 export default {
   data() {
@@ -88,6 +88,7 @@ export default {
   },
   methods: {
     ...mapActions(["signUpAction"]),
+    ...mapMutations(["setShowNav"]),
 
     // 提示錯誤資訊方法
     resetError() {
@@ -128,13 +129,14 @@ export default {
   },
   mounted() {
     this.toTop();
+    this.setShowNav(false);
   },
   computed: {
     ...mapState(["error"]),
   },
   components: {
     Gotop,
-    TopNav,
+    TopNavOpacity,
     Footer,
     Pavement,
     Logo,
@@ -150,6 +152,10 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
+
+#top-bar {
+  background-color: $brand-color;
+}
 
 img {
   vertical-align: top;

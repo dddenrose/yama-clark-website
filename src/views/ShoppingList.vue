@@ -3,7 +3,7 @@
     <div class="header">
       <div class="nav">
         <div class="container-top">
-          <TopNav />
+          <TopNavOpacity />
           <Logo />
         </div>
       </div>
@@ -31,14 +31,19 @@
               v-for="(item, index) in userList"
               :key="index"
             >
-              <img @click="routerToDetail({ index: item.productId })" v-bind:src="item.imagePath" alt="product" />
-              <div class="name" @click="routerToDetail({ index: item.productId })">
+              <img
+                @click="routerToDetail({ index: item.productId })"
+                v-bind:src="item.imagePath"
+                alt="product"
+              />
+              <div
+                class="name"
+                @click="routerToDetail({ index: item.productId })"
+              >
                 <h3>
                   {{ item.seriesName }}
                 </h3>
-                <h3 class="id">
-                  ProductId: {{ item.productId }}
-                </h3>
+                <h3 class="id">ProductId: {{ item.productId }}</h3>
               </div>
               <div class="count">
                 <div class="counting">
@@ -89,14 +94,14 @@
 
 <script>
 import Gotop from "../components/Gotop.vue";
-import TopNav from "../components/TopNav.vue";
+import TopNavOpacity from "../components/TopNavOpacity.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
 import Loading from "../components/Loading.vue";
 import Chat from "../components/Chat.vue";
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
   data() {
@@ -112,8 +117,9 @@ export default {
       "fbDeleteTask",
       "addCount",
       "minusCount",
-      "routerToDetail"
+      "routerToDetail",
     ]),
+    ...mapMutations(["setShowNav"]),
     toTop: function () {
       window.scrollTo({
         top: 0,
@@ -132,16 +138,17 @@ export default {
   },
   mounted() {
     this.toTop();
+    this.setShowNav(false);
   },
   components: {
     Gotop,
-    TopNav,
+    TopNavOpacity,
     Footer,
     Pavement,
     Logo,
     Features,
     Loading,
-    Chat
+    Chat,
   },
 };
 </script>
@@ -160,6 +167,10 @@ img {
 ul {
   list-style-type: none;
   padding: 0;
+}
+
+#top-bar {
+  background-color: $brand-color;
 }
 
 // header
@@ -242,7 +253,7 @@ ul {
     display: flex;
     align-items: center;
     padding: 20px 0;
-    
+
     img {
       height: 120px;
       flex: 2 1 0;
@@ -253,7 +264,7 @@ ul {
       flex: 5 1 0;
       cursor: pointer;
     }
-    
+
     h3 {
       text-transform: uppercase;
       font-size: 12px;

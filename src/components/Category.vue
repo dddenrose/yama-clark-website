@@ -120,10 +120,11 @@ $green-color: #3e5940;
     box-sizing: border-box;
     border-bottom: 1px solid rgb(222, 222, 222);
     .detail {
+      padding: 0px 10px;
       display: flex;
       flex-direction: column;
       top: 25px;
-      width: 250px;
+      width: 14vw;
       align-items: center;
       text-align: center;
       border-top: none;
@@ -139,15 +140,15 @@ $green-color: #3e5940;
   }
 
   .title {
-    width: 250px;
+    width: 14vw;
+    
+    padding: 0px 10px;
     padding-bottom: 10px;
     text-align: center;
   }
 
   .title-main {
     display: flex;
-    padding: 0 100px;
-    box-sizing: border-box;
     justify-content: center;
   }
 
@@ -172,12 +173,7 @@ $green-color: #3e5940;
 
 @media screen and (max-width: 700px) {
   .category-main {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .shape-ex1 {
-    padding: 5px 0;
+    display: none;
   }
 }
 </style>

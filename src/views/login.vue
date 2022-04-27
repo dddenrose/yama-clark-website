@@ -3,7 +3,7 @@
     <div class="header">
       <div class="nav">
         <div class="container-top">
-          <TopNav />
+          <TopNavOpacity />
           <Logo />
         </div>
       </div>
@@ -45,15 +45,14 @@
 
             <button type="submit" class="login">LOGIN</button>
           </form>
-          <button class="login" v-if="!isUserAuth">Forgot password ?</button>
+          <button class="login" v-if="!isUserAuth" @click="routerToSignUp">sign up?</button>
           <!-- <button v-if="isUserAuth" @click="signOut">LOGOUT</button> -->
         </div>
       </div>
-      
     </div>
     <div class="bottom-img">
-        <img src="../img/s15.jpg" alt="image">
-      </div>
+      <img src="../img/s15.jpg" alt="image" />
+    </div>
     <Chat />
     <Footer />
     <Pavement />
@@ -63,14 +62,13 @@
 
 <script>
 import Gotop from "../components/Gotop.vue";
-import TopNav from "../components/TopNav.vue";
+import TopNavOpacity from "../components/TopNavOpacity.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
 import Chat from "../components/Chat.vue";
-import { mapActions, mapGetters } from "vuex";
-
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -80,17 +78,22 @@ export default {
       validationErrors: [],
     };
   },
-  
+
   mounted() {
     this.toTop();
+    this.setShowNav(false);
   },
 
   methods: {
     ...mapActions(["signInAction", "signOutAction"]),
+    ...mapMutations(["setShowNav"]),
     toTop: function () {
       window.scrollTo({
         top: 0,
       });
+    },
+    routerToSignUp: function() {
+      this.$router.push({ name: 'signup'})
     },
 
     // 提示錯誤資訊方法
@@ -124,7 +127,6 @@ export default {
 
     signIn() {
       this.signInAction({ email: this.email, password: this.password });
-      
     },
 
     signOut() {
@@ -133,18 +135,17 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getUser", "isUserAuth",]),
-    
+    ...mapGetters(["getUser", "isUserAuth"]),
   },
 
   components: {
     Gotop,
-    TopNav,
+    TopNavOpacity,
     Footer,
     Pavement,
     Logo,
     Features,
-    Chat
+    Chat,
   },
 };
 </script>
@@ -155,6 +156,10 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
+
+#top-bar {
+  background-color: $brand-color;
+}
 
 img {
   vertical-align: top;
@@ -220,7 +225,7 @@ ul {
       text-decoration: none;
       color: $brand-color;
     }
-    h4{
+    h4 {
       font-size: 14px;
       font-weight: 100;
       letter-spacing: 1px;
@@ -267,7 +272,6 @@ ul {
   letter-spacing: 1px;
   color: $brand-color;
 
-  
   input {
     width: 100%;
     height: 45px;
@@ -307,8 +311,6 @@ ul {
     cursor: pointer;
     letter-spacing: 1px;
   }
-
-  
 
   h4 {
     margin: 20px 0;

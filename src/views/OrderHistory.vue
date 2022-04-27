@@ -3,7 +3,7 @@
     <div class="header">
       <div class="nav">
         <div class="container-top">
-          <TopNav />
+          <TopNavOpacity />
           <Logo />
         </div>
       </div>
@@ -72,14 +72,14 @@
 
 <script>
 import Gotop from "../components/Gotop.vue";
-import TopNav from "../components/TopNav.vue";
+import TopNavOpacity from "../components/TopNavOpacity.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
 import Loading from "../components/Loading.vue";
 import Chat from "../components/Chat.vue";
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
   data() {
@@ -99,10 +99,12 @@ export default {
       });
     },
     ...mapActions(["clearHistory"]),
+    ...mapMutations(["setShowNav"])
   },
 
   mounted() {
     this.toTop();
+    this.setShowNav(false);
   },
 
   computed: {
@@ -117,7 +119,7 @@ export default {
 
   components: {
     Gotop,
-    TopNav,
+    TopNavOpacity,
     Footer,
     Pavement,
     Logo,
@@ -134,6 +136,10 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
+
+#top-bar {
+  background-color: $brand-color;
+}
 
 img {
   vertical-align: top;

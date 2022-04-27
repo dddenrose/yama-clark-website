@@ -27,10 +27,12 @@ import HomeContent from "../components/HomeContent.vue";
 // import Logo from "../components/Logo.vue";
 import Chat from "../components/Chat.vue";
 import HomeImage from "../components/HomeImage.vue";
+import { mapMutations } from 'vuex';
 // import Category from "../components/Category.vue";
 
 export default {
   methods: {
+    ...mapMutations(["setShowNav"]),
     toTop: function () {
       window.scrollTo({
         top: 0,
@@ -39,6 +41,7 @@ export default {
   },
   mounted() {
     this.toTop();
+    this.setShowNav(false);
   },
   components: {
     Gotop,

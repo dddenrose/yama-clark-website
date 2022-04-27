@@ -3,7 +3,7 @@
     <div class="header">
       <div class="nav">
         <div class="container-top">
-          <TopNav />
+          <TopNavOpacity />
           <Logo />
           <Category />
         </div>
@@ -19,7 +19,7 @@
           <transition>
             <div class="tag-main" v-if="show">
               <div class="tag">
-                <h4 class="title top">men's / ladyies' watch</h4>
+                <h4 class="title top">men / ladyies</h4>
                 <label>
                   <input
                     type="checkbox"
@@ -177,7 +177,7 @@
 
 <script>
 import Gotop from "../components/Gotop.vue";
-import TopNav from "../components/TopNav.vue";
+import TopNavOpacity from "../components/TopNavOpacity.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
@@ -243,7 +243,7 @@ export default {
 
   components: {
     Gotop,
-    TopNav,
+    TopNavOpacity,
     Footer,
     Pavement,
     Logo,
@@ -260,6 +260,9 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
+#top-bar {
+  background-color: $brand-color;
+}
 .v-leave {
   opacity: 1;
 }
@@ -497,14 +500,6 @@ ul {
 //RWD
 @media screen and (max-width: 1100px) {
   .content {
-    .tag {
-      max-width: 0;
-      max-height: 0;
-      overflow: hidden;
-      -webkit-transition: max-height 0.5s ease-in;
-      transition: max-height 0.5s ease-in;
-    }
-
     .container {
       width: 80vw;
       flex-direction: column;
@@ -513,14 +508,11 @@ ul {
       margin-bottom: 30px;
       text-align: center;
       align-items: center;
+    }
 
-      &:hover {
-        .tag {
-          width: 50vw;
-          max-width: 70vw;
-          max-height: 200px;
-        }
-      }
+    .tag-main {
+      
+      flex-direction: column;
     }
 
     .trending-products {

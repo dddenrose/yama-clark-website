@@ -1,14 +1,14 @@
 <template>
   <div class="img">
-    <img class="move-img" src="../img/s11.jpg" alt="image" />
+    <img class="move-img" src="../img/s16.jpg" alt="image" />
     <div class="word">
       <h4 class="one">Always</h4>
       <h4 class="two">Be A</h4>
       <h4 class="three">Gentelman.</h4>
     </div>
-    <div class="one-line">
+    <!-- <div class="one-line">
       <h4>Always Be A Gentelman.</h4>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -40,24 +40,29 @@ img {
     letter-spacing: 5px;
     position: absolute;
     color: white;
-    font-size: 150px;
-    line-height: 1.2;
+    font-size: 120px;
     border-bottom: 1px solid white;
   }
 
   h4.one {
+    bottom: calc(10vh + 300px);
+    left: 10vw;
     animation-name: one;
-    animation-duration: 5s;
+    animation-duration: 2s;
   }
 
   h4.two {
+    bottom: calc(10vh + 150px);
+    left: 10vw;
     animation-name: two;
-    animation-duration: 5.1s;
+    animation-duration: 2.1s;
   }
 
   h4.three {
+    bottom: 10vh;
+    left: 10vw;
     animation-name: three;
-    animation-duration: 5.2s;
+    animation-duration: 2.2s;
   }
 }
 
@@ -78,7 +83,7 @@ img {
     font-size: 70px;
     line-height: 1.2;
     animation-name: four;
-    animation-duration: 6s;
+    animation-duration: 4s;
     border-bottom: 1px solid white;
   }
 }
@@ -97,105 +102,106 @@ img {
 
 @keyframes one {
   0% {
-    top: 50vh;
-    left: 30vw;
-    opacity: 0;
-  }
-
-  25% {
-    opacity: 1;
-  }
-
-  50% {
-    top: 20vh;
-    left: 30vw;
-    opacity: 1;
-  }
-
-  75% {
-    top: 20vh;
-    left: 30vw;
-    opacity: 1;
-  }
-
-  100% {
-    top: 20vh;
-    left: 30vw;
+    bottom: -20vh;
+    left: 10vw;
     opacity: 0;
   }
 }
 
 @keyframes two {
   0% {
-    top: 90vh;
-    left: 30vw;
-    opacity: 0;
-  }
-
-  25% {
-    opacity: 1;
-  }
-
-  50% {
-    top: 40vh;
-    left: 30vw;
-    opacity: 1;
-  }
-
-  75% {
-    top: 40vh;
-    left: 30vw;
-    opacity: 1;
-  }
-
-  100% {
-    top: 40vh;
-    left: 30vw;
+    bottom: -20vh;
+    left: 10vw;
     opacity: 0;
   }
 }
 
 @keyframes three {
   0% {
-    top: 110vh;
-    left: 30vw;
-    opacity: 0;
-  }
-
-  25% {
-    opacity: 1;
-  }
-
-  50% {
-    top: 60vh;
-    left: 30vw;
-    opacity: 1;
-  }
-
-  75% {
-    top: 60vh;
-    left: 30vw;
-    opacity: 1;
-  }
-
-  100% {
-    top: 60vh;
-    left: 30vw;
+    bottom: -20vh;
+    left: 10vw;
     opacity: 0;
   }
 }
 
-@keyframes four {
-  0% {
-    opacity: 0;
+//RWD
+
+@media screen and (max-width: 850px) {
+  .img {
+    height: 80vh;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .word {
+    h4 {
+      font-size: 90px;
+    }
+
+    h4.one {
+      bottom: calc(10vh + 250px);
+      left: 10vw;
+    }
+
+    h4.two {
+      bottom: calc(10vh + 120px);
+      left: 10vw;
+    }
+
+    h4.three {
+      bottom: 10vh;
+      left: 10vw;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .word {
+    h4 {
+      font-size: 60px;
+    }
+
+    h4.one {
+      bottom: calc(10vh + 160px);
+      left: 10vw;
+    }
+
+    h4.two {
+      bottom: calc(10vh + 80px);
+      left: 10vw;
+    }
+
+    h4.three {
+      bottom: 10vh;
+      left: 10vw;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .img {
+    height: 70vh;
   }
 
-  75% {
-    opacity: 0;
-  }
+  .word {
+    h4 {
+      font-size: 40px;
+    }
 
-  100% {
-    opacity: 1;
+    h4.one {
+      bottom: calc(10vh + 120px);
+      left: 10vw;
+    }
+
+    h4.two {
+      bottom: calc(10vh + 60px);
+      left: 10vw;
+    }
+
+    h4.three {
+      bottom: 10vh;
+      left: 10vw;
+    }
   }
 }
 </style>

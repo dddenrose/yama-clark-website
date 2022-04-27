@@ -132,8 +132,9 @@ export default new Vuex.Store({
         .signOut()
         .then(() => {
           commit("setUser", null);
-          alert("You have already logout.")
-          router.push({ name: "homerun" })
+          commit("setShowNav", false);
+          alert("You have already logout.");
+          router.push({ name: "homerun" }).catch(() => { });
         })
         .catch(error => {
           commit("setError", error.message);
