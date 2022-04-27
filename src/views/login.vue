@@ -45,7 +45,9 @@
 
             <button type="submit" class="login">LOGIN</button>
           </form>
-          <button class="login" v-if="!isUserAuth" @click="routerToSignUp">sign up?</button>
+          <button class="login" v-if="!isUserAuth" @click="routerToSignUp">
+            sign up?
+          </button>
           <!-- <button v-if="isUserAuth" @click="signOut">LOGOUT</button> -->
         </div>
       </div>
@@ -92,8 +94,8 @@ export default {
         top: 0,
       });
     },
-    routerToSignUp: function() {
-      this.$router.push({ name: 'signup'})
+    routerToSignUp: function () {
+      this.$router.push({ name: "signup" });
     },
 
     // 提示錯誤資訊方法
@@ -306,6 +308,7 @@ ul {
     line-height: 3.5;
     text-transform: uppercase;
     font-size: 12px;
+    font-weight: 300;
     border: none;
     margin-bottom: 30px;
     cursor: pointer;
@@ -334,6 +337,23 @@ ul {
     flex: 1;
     text-align: left;
   }
+}
+
+.login {
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  height: 45px;
+  background-color: $brand-color;
+  display: block;
+  line-height: 3.5;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 300;
+  border: none;
+  margin-bottom: 30px;
+  cursor: pointer;
+  letter-spacing: 1px;
 }
 
 .bottom-img {

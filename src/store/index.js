@@ -105,7 +105,7 @@ export default new Vuex.Store({
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
         .then(() => {
-          this.$router.push("/profile");
+          router.push({ name: "profile" })
         })
         .catch(error => {
           alert(error)

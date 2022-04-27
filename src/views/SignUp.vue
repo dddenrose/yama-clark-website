@@ -50,7 +50,7 @@
 
             <button type="submit" class="login">Sign Up</button>
             <p class="info-signin">Already registered</p>
-            <p>
+            <p class="login">
               <router-link :to="{ name: 'login' }">sign in?</router-link>
             </p>
           </form>
@@ -262,6 +262,7 @@ ul {
     height: 45px;
     background-color: $brand-color;
     display: block;
+    font-weight: 300;
     line-height: 3.5;
     text-transform: uppercase;
     font-size: 12px;
