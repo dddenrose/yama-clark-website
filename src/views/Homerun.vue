@@ -5,8 +5,6 @@
         <div class="container-top">
           <TopNavOpacity />
           <HomeImage/>
-          <!-- <Logo />
-          <Category /> -->
         </div>
       </div>
     </div>
@@ -24,15 +22,15 @@ import TopNavOpacity from "../components/TopNavOpacity.vue";
 import Footer from "../components/Footer.vue";
 import Pavement from "../components/Pavement.vue";
 import HomeContent from "../components/HomeContent.vue";
-// import Logo from "../components/Logo.vue";
 import Chat from "../components/Chat.vue";
 import HomeImage from "../components/HomeImage.vue";
-import { mapMutations } from 'vuex';
-// import Category from "../components/Category.vue";
+import { mapActions, mapMutations } from 'vuex';
+
 
 export default {
   methods: {
-    ...mapMutations(["setShowNav"]),
+    ...mapActions(["getAllProduct"]),
+    ...mapMutations(["setShowNav","setTag"]),
     toTop: function () {
       window.scrollTo({
         top: 0,
@@ -42,6 +40,8 @@ export default {
   mounted() {
     this.toTop();
     this.setShowNav(false);
+    this.setTag([]);
+    this.getAllProduct();
   },
   components: {
     Gotop,
@@ -49,9 +49,7 @@ export default {
     Footer,
     Pavement,
     HomeContent,
-    // Logo,
     Chat,
-    // Category,
     HomeImage,
   },
 };

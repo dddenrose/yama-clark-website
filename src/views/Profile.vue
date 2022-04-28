@@ -53,20 +53,16 @@ import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
 import Chat from "../components/Chat.vue";
-import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 
 
 export default {
   data() {
     return {
-      email: "",
-      password: "",
-      validationErrors: [],
     };
   },
 
   methods: {
-    ...mapActions(["signInAction", "signOutAction"]),
     ...mapMutations(["setShowNav"]),
     toTop: function () {
       window.scrollTo({
@@ -92,7 +88,6 @@ export default {
     Logo,
     Features,
     Chat,
-    
   },
 };
 </script>
@@ -134,24 +129,6 @@ ul {
   width: 70%;
 }
 
-.features {
-  display: flex;
-  text-transform: uppercase;
-  padding: 20px 0;
-  border-bottom: 1px solid $brand-color;
-  width: 70%;
-  justify-content: center;
-  font-size: 9px;
-  letter-spacing: 1px;
-  .goods {
-    color: $brand-color;
-    margin: 0 20px;
-  }
-  svg {
-    padding-right: 10px;
-    font-size: 18px;
-  }
-}
 
 .main-list {
   display: flex;
@@ -189,86 +166,7 @@ ul {
   }
 }
 
-.left-img {
-  width: 550px;
-  img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-  }
-}
 
-.right-login {
-  display: flex;
-  flex-direction: column;
-  padding: 0 20px;
-  box-sizing: border-box;
-  width: 550px;
-  letter-spacing: 1px;
-  color: $brand-color;
-  input {
-    width: 100%;
-    height: 45px;
-    margin-bottom: 25px;
-    box-sizing: border-box;
-    padding: 10px;
-  }
-
-  ::placeholder {
-    text-transform: uppercase;
-    font-size: 9px;
-    letter-spacing: 1px;
-  }
-  a {
-    text-decoration: none;
-    color: white;
-    width: 100%;
-    height: 45px;
-    background-color: $brand-color;
-    display: block;
-    line-height: 3.5;
-    text-transform: uppercase;
-    font-size: 9px;
-  }
-  .login {
-    text-decoration: none;
-    color: white;
-    width: 100%;
-    height: 45px;
-    background-color: $brand-color;
-    display: block;
-    line-height: 3.5;
-    text-transform: uppercase;
-    font-size: 9px;
-    border: none;
-    margin-bottom: 30px;
-    cursor: pointer;
-    letter-spacing: 1px;
-  }
-
-  h4 {
-    margin: 20px 0;
-    text-transform: uppercase;
-    font-size: 9px;
-    font-weight: 100;
-  }
-
-  .info {
-    display: flex;
-    margin-top: 20px;
-    .info-box {
-      text-transform: uppercase;
-      font-size: 9px;
-    }
-  }
-
-  .con {
-    text-transform: uppercase;
-    font-size: 9px;
-    flex: 1;
-    text-align: left;
-  }
-}
 
 .bottom-img {
   width: 100%;
@@ -288,27 +186,6 @@ ul {
       .container {
         flex-direction: column;
         width: 100%;
-        .left-img {
-          width: 80vw;
-        }
-        .right-login {
-          width: 80vw;
-          padding: 0;
-          padding-top: 30px;
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .main-list {
-    .container {
-      .left-info {
-        width: 70%;
-      }
-      .right-list {
-        width: 70%;
       }
     }
   }

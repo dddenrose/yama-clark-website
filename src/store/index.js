@@ -1,13 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import "firebase/compat/database";
 import router from '@/router/index.js'
-
+import { firebaseAuth, firebaseDb } from '../main.js'
 
 Vue.use(Vuex)
+
 
 export default new Vuex.Store({
   state: {
@@ -83,7 +80,7 @@ export default new Vuex.Store({
   actions: {
     authAction({ commit, dispatch }) {
       commit('setLoading', true)
-      firebase.auth().onAuthStateChanged(user => {
+      firebaseAuth.onAuthStateChanged(user => {
         if (user) {
           commit("setUser", user);
           dispatch('getUserList');
@@ -101,8 +98,7 @@ export default new Vuex.Store({
     },
 
     signUpAction({ commit }, payload) {
-      firebase
-        .auth()
+      firebaseAuth
         .createUserWithEmailAndPassword(payload.email, payload.password)
         .then(() => {
           router.push({ name: "profile" })
@@ -114,8 +110,7 @@ export default new Vuex.Store({
     },
 
     signInAction({ commit }, payload) {
-      firebase
-        .auth()
+      firebaseAuth
         .signInWithEmailAndPassword(payload.email, payload.password)
         .then(() => {
           router.push({ name: "profile" })
@@ -127,8 +122,7 @@ export default new Vuex.Store({
     },
 
     signOutAction({ commit }) {
-      firebase
-        .auth()
+      firebaseAuth
         .signOut()
         .then(() => {
           commit("setUser", null);
@@ -142,8 +136,7 @@ export default new Vuex.Store({
     },
 
     forgetPassword({ payload }) {
-      firebase
-        .auth()
+      firebaseAuth
         .sendPasswordResetEmail(payload.email)
         .then(() => {
           alert('Check your registered email to reset the password!')
@@ -156,7 +149,7 @@ export default new Vuex.Store({
       if (state.user) {
         let newProduct = [];
         newProduct.push(product);
-        let userId = firebase.auth().currentUser.uid;
+        let userId = firebaseAuth.currentUser.uid;
 
         let oldList = state.userList;
         let sameImage = false;
@@ -169,8 +162,7 @@ export default new Vuex.Store({
         }
 
         if (state.userList == null) {
-          firebase
-            .database()
+          firebaseDb
             .ref("users")
             .child(state.user.uid)
             .set(newProduct)
@@ -178,7 +170,7 @@ export default new Vuex.Store({
           if (sameImage) {
             for (let i = 0; i < oldList.length; i++) {
               if (oldList[i].imagePath === newProduct[0].imagePath) {
-                let userProducts = firebase.database().ref('users/' + userId + '/' + i);
+                let userProducts = firebaseDb.ref('users/' + userId + '/' + i);
                 userProducts.once("value", (snap) => {
                   let countResult = snap.val();
                   let payload = {
@@ -190,14 +182,12 @@ export default new Vuex.Store({
             }
           } else {
             let newList = oldList.concat(newProduct);
-            firebase
-              .database()
+            firebaseDb
               .ref("users")
               .child(state.user.uid)
               .set(newList)
           }
         }
-
       } else {
         alert("You can continue to shop after login.")
       }
@@ -205,16 +195,14 @@ export default new Vuex.Store({
 
 
     addProductDetail({ state }) {
-      firebase
-        .database()
+      firebaseDb
         .ref("users")
         .child(state.user.uid)
         .push(state.currentProduct);
     },
 
     getUserList({ state, commit }) {
-      return firebase
-        .database()
+      return firebaseDb
         .ref('users/' + state.user.uid)
         .on('value', snapshot => {
           commit('setUserList', snapshot.val());
@@ -225,8 +213,7 @@ export default new Vuex.Store({
     getAllProduct({ state, commit }) {
       if (state.tag.length >= 1) {
         let result = [];
-        firebase
-          .database()
+        firebaseDb
           .ref('productList/' + '0')
           .on('value', snapshot => {
             let obj = snapshot.val()
@@ -241,8 +228,7 @@ export default new Vuex.Store({
             commit('setAllProduct', result);
           })
       } else {
-        return firebase
-          .database()
+        return firebaseDb
           .ref('productList/' + '0')
           .on('value', snapshot => {
             let obj = snapshot.val()
@@ -252,25 +238,10 @@ export default new Vuex.Store({
       }
     },
 
-    // searchlProduct({ state, commit, dispatch }) {
-    //   let search = [];
-    //   if (state.search !== "") {
-    //     state.allProduct.forEach((e) => {
-    //       if (e.productId === state.search) {
-    //         search.push(e);
-    //         commit('setAllProduct', search)
-    //       }
-    //     })
-    //   } else {
-    //     dispatch("getAllProduct")
-    //   }
-    // },
-
     searchlProduct({ state, commit }) {
       let result = [];
       if (state.search !== "") {
-        firebase
-          .database()
+        firebaseDb
           .ref('productList/' + '0')
           .on('value', snapshot => {
             let obj = snapshot.val()
@@ -283,8 +254,7 @@ export default new Vuex.Store({
             commit('setAllProduct', result);
           })
       } else {
-        return firebase
-          .database()
+        return firebaseDb
           .ref('productList/' + '0')
           .on('value', snapshot => {
             let obj = snapshot.val()
@@ -296,16 +266,15 @@ export default new Vuex.Store({
 
     deleteProduct({ state }, { index }) {
       state.userList.splice(index, 1);
-      firebase
-        .database()
+      firebaseDb
         .ref("users")
         .child(state.user.uid)
         .set(state.userList)
     },
 
     addCount({ getters }, { item, index }) {
-      let userId = firebase.auth().currentUser.uid
-      let userProducts = firebase.database().ref('users/' + userId + '/' + index)
+      let userId = firebaseAuth.currentUser.uid
+      let userProducts = firebaseDb.ref('users/' + userId + '/' + index)
       let payload = {
         count: item.count + 1
       }
@@ -314,8 +283,8 @@ export default new Vuex.Store({
     },
 
     minusCount({ getters }, { item, index }) {
-      let userId = firebase.auth().currentUser.uid
-      let userProducts = firebase.database().ref('users/' + userId + '/' + index)
+      let userId = firebaseAuth.currentUser.uid
+      let userProducts = firebaseDb.ref('users/' + userId + '/' + index)
       if (item.count >= 2) {
         let payload = {
           count: item.count - 1
@@ -325,24 +294,25 @@ export default new Vuex.Store({
       console.log(getters)
     },
 
-    routerToDetail({ state, dispatch }, { index }) {
-      let name = router.currentRoute.name;
-      if (name != "productlist" && name != "shoppinglist" && name != "orderlist" && name != "homerun") {
-        if (state.currentProduct.productId != index) {
-          router.push({ name: "productdetail", params: { id: index } })
+    routerToDetail({ dispatch }, { index }) {
+      // let name = router.currentRoute.name;
+      // if (name != "productlist" && name != "shoppinglist" && name != "orderlist" && name != "homerun") {
+      //   if (state.currentProduct.productId != index) {
+      //     router.push({ name: "productdetail", params: { id: index } })
+      //     dispatch("setCurrentProduct")
+      //   }
+      // } else {
+      //   router.push({ name: "productdetail", params: { id: index } })
+      //   dispatch("setCurrentProduct")
+      // }
+      router.push({ name: "productdetail", params: { id: index } })
           dispatch("setCurrentProduct")
-        }
-      } else {
-        router.push({ name: "productdetail", params: { id: index } })
-        dispatch("setCurrentProduct")
-      }
     },
 
     setCurrentProduct({ commit }) {
       const id = router.currentRoute.params.id;
       if (id) {
-        return firebase
-          .database()
+        return firebaseDb
           .ref('productList/' + '0')
           .on('value', snapshot => {
             let list = Object.keys(snapshot.val()).map(function (_) { return snapshot.val()[_]; });
@@ -356,8 +326,7 @@ export default new Vuex.Store({
     },
 
     getOrderHistory({ state, commit }) {
-      return firebase
-        .database()
+      return firebaseDb
         .ref('history/' + state.user.uid)
         .on('value', snapshot => {
           commit('setOrderHistory', snapshot.val());
@@ -367,32 +336,30 @@ export default new Vuex.Store({
     confirmOrder({ state }) {
       if (state.orderHistory != null) {
         let newHistroy = state.orderHistory.concat(state.userList);
-        firebase
-          .database()
+        firebaseDb
           .ref("history")
           .child(state.user.uid)
           .set(newHistroy)
 
-        let userId = firebase.auth().currentUser.uid
-        let userProducts = firebase.database().ref('users/' + userId)
+        let userId = firebaseAuth.currentUser.uid
+        let userProducts = firebaseDb.ref('users/' + userId)
         userProducts.remove();
         router.push({ name: "orderhistory" })
       } else {
-        firebase
-          .database()
+        firebaseDb
           .ref("history")
           .child(state.user.uid)
           .set(state.userList)
-        let userId = firebase.auth().currentUser.uid
-        let userProducts = firebase.database().ref('users/' + userId)
+        let userId = firebaseAuth.currentUser.uid
+        let userProducts = firebaseDb.ref('users/' + userId)
         userProducts.remove();
         router.push({ name: "orderhistory" })
       }
     },
 
     clearHistory() {
-      let userId = firebase.auth().currentUser.uid
-      let userProducts = firebase.database().ref('history/' + userId)
+      let userId = firebaseAuth.currentUser.uid
+      let userProducts = firebaseDb.ref('history/' + userId)
       userProducts.remove();
     },
 
@@ -401,8 +368,7 @@ export default new Vuex.Store({
       commit('setBigToSmall', result)
 
       if (state.bigToSmall) {
-        firebase
-          .database()
+        firebaseDb
           .ref('productList/' + '0')
           .on('value', snapshot => {
             let obj = snapshot.val()
@@ -413,8 +379,7 @@ export default new Vuex.Store({
             commit('setAllProduct', allProduct);
           })
       } else {
-        return firebase
-          .database()
+        return firebaseDb
           .ref('productList/' + '0')
           .on('value', snapshot => {
             let obj = snapshot.val()
@@ -429,8 +394,7 @@ export default new Vuex.Store({
       commit('setBigToSmall', result)
 
       if (state.bigToSmall) {
-        firebase
-          .database()
+        firebaseDb
           .ref('productList/' + '0')
           .on('value', snapshot => {
             let obj = snapshot.val()
@@ -441,8 +405,7 @@ export default new Vuex.Store({
             commit('setAllProduct', allProduct);
           })
       } else {
-        return firebase
-          .database()
+        return firebaseDb
           .ref('productList/' + '0')
           .on('value', snapshot => {
             let obj = snapshot.val()
@@ -454,8 +417,8 @@ export default new Vuex.Store({
 
     chatEnter({ state, commit }) {
       if (state.user) {
-        let userId = firebase.auth().currentUser.uid
-        let chatList = firebase.database().ref('chat/' + userId)
+        let userId = firebaseAuth.currentUser.uid
+        let chatList = firebaseDb.ref('chat/' + userId)
         const key = chatList.push().key;
         if (state.chat !== "")
           chatList.child(key).set({
@@ -469,8 +432,7 @@ export default new Vuex.Store({
     },
 
     getChat({ state, commit }) {
-      return firebase
-        .database()
+      return firebaseDb
         .ref('chat/' + state.user.uid)
         .on('value', snapshot => {
           if (snapshot.val()) {
@@ -482,8 +444,8 @@ export default new Vuex.Store({
     },
 
     deleteChat({ commit }) {
-      let userId = firebase.auth().currentUser.uid
-      let chatList = firebase.database().ref('chat/' + userId)
+      let userId = firebaseAuth.currentUser.uid
+      let chatList = firebaseDb.ref('chat/' + userId)
       chatList.remove();
       commit('setChatList', [])
     }

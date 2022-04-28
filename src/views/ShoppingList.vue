@@ -114,7 +114,6 @@ export default {
     ...mapActions([
       "getUserList",
       "deleteProduct",
-      "fbDeleteTask",
       "addCount",
       "minusCount",
       "routerToDetail",
@@ -128,13 +127,15 @@ export default {
     goToOrderList: function () {
       if (this.$store.state.userList !== null) {
         this.$router.push({ name: "orderlist" });
+      } else {
+        alert("There is no product.")
       }
     },
   },
 
   computed: {
     ...mapState(["userList", "user", "loading"]),
-    ...mapGetters(["totalPrice", "tempUserList"]),
+    ...mapGetters(["totalPrice"]),
   },
   mounted() {
     this.toTop();

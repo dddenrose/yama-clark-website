@@ -17,7 +17,6 @@ export default {
   },
   methods: {
     ...mapActions(["authAction", "getAllProduct","setCurrentProduct"]),
-    
   },
   mounted() {
     this.authAction();

@@ -183,25 +183,6 @@ ul {
   width: 70%;
 }
 
-.features {
-  display: flex;
-  text-transform: uppercase;
-  padding: 20px 0;
-  border-bottom: 1px solid $brand-color;
-  width: 70%;
-  justify-content: center;
-  font-size: 9px;
-  letter-spacing: 1px;
-  .goods {
-    color: $brand-color;
-    margin: 0 20px;
-  }
-  svg {
-    padding-right: 10px;
-    font-size: 18px;
-  }
-}
-
 .main-list {
   display: flex;
   margin-top: 60px;

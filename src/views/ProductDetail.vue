@@ -203,27 +203,6 @@ ul {
   align-items: center;
 }
 
-.features {
-  margin-bottom: 60px;
-  display: flex;
-  text-transform: uppercase;
-  padding: 20px 0;
-  border-top: 1px solid $brand-color;
-  border-bottom: 1px solid $brand-color;
-  width: 70%;
-  justify-content: center;
-  font-size: 9px;
-  letter-spacing: 1px;
-  .goods {
-    color: $brand-color;
-    margin: 0 20px;
-  }
-  svg {
-    padding-right: 10px;
-    font-size: 18px;
-  }
-}
-
 .product-detail {
   width: 70%;
   display: flex;
@@ -422,7 +401,7 @@ button {
     align-items: center;
 
     .product-info {
-      padding-top: 30px;
+      margin-top: 50px;
       padding-left: 0;
     }
 

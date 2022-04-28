@@ -27,8 +27,15 @@
                 v-for="(item, index) in userList"
                 :key="index"
               >
-                <img @click="routerToDetail({ index: item.productId })" v-bind:src="item.imagePath" alt="product" />
-                <h3 @click="routerToDetail({ index: item.productId })" class="name">
+                <img
+                  @click="routerToDetail({ index: item.productId })"
+                  v-bind:src="item.imagePath"
+                  alt="product"
+                />
+                <h3
+                  @click="routerToDetail({ index: item.productId })"
+                  class="name"
+                >
                   {{ item.seriesName }}
                 </h3>
                 <div class="count">
@@ -55,30 +62,27 @@
                   <h3 class="left-title">total</h3>
                   <h3 class="price">${{ totalPrice }}</h3>
                 </div>
-                <!-- <div class="coupon">
-                <h3 class="left-title">coupon</h3>
-                <h3 class="price gold">-$0</h3>
-              </div> -->
-                <!-- <div class="price-title">
-                <h3 class="left-title">price</h3>
-                <h3 class="price">${{ totalPrice }}</h3>
-              </div> -->
               </div>
             </div>
           </div>
           <div class="left-info">
             <h3 class="title">information</h3>
             <div v-if="error.length" class="error">
-              <p> {{error}} </p>
+              <p>{{ error }}</p>
             </div>
             <label class="one-part">
-              <input type="text" placeholder="NAME" v-model="name" required/>
+              <input type="text" placeholder="NAME" v-model="name" required />
             </label>
             <div class="one-part">
-              <input type="text" placeholder="ADDRESS" v-model="address" required/>
+              <input
+                type="text"
+                placeholder="ADDRESS"
+                v-model="address"
+                required
+              />
             </div>
             <div class="one-part">
-              <input type="text" placeholder="PHONE" v-model="phone" required/>
+              <input type="text" placeholder="PHONE" v-model="phone" required />
             </div>
             <select name="country" class="one-part">
               <option value="Taiwan">Taiwan</option>
@@ -88,8 +92,7 @@
               <option value="Philipin">Philipin</option>
               <option value="Australia">Australia</option>
             </select>
-            <!-- <input type="submit" class="confirm" @click="order()" value="confirm"/> -->
-            
+
             <button class="confirm" @click="order">confirm</button>
           </div>
         </div>
@@ -116,21 +119,19 @@ import Loading from "../components/Loading.vue";
 export default {
   data() {
     return {
-      address:"",
-      phone:"",
-      name:"",
-      error:"",
+      address: "",
+      phone: "",
+      name: "",
+      error: "",
     };
   },
   methods: {
     ...mapActions([
-      "getUserList",
       "deleteProduct",
-      "fbDeleteTask",
       "addCount",
       "minusCount",
       "confirmOrder",
-      "routerToDetail"
+      "routerToDetail",
     ]),
     ...mapMutations(["setShowNav"]),
     toTop: function () {
@@ -138,21 +139,25 @@ export default {
         top: 0,
       });
     },
-    
-    order: function() {
-      if (this.address != "" && this.phone != "" && this.name != "") {
-        this.confirmOrder();
+
+    order: function () {
+      if (this.$store.state.user) {
+        if (this.address != "" && this.phone != "" && this.name != "") {
+          this.confirmOrder();
+        } else {
+          this.error = "Please enter all information bellow here.";
+        }
       } else {
-        this.error = "Please enter all information bellow here."
+        alert("You must login first.");
       }
-    }
+    },
   },
   mounted() {
     this.toTop();
     this.setShowNav(false);
   },
   computed: {
-    ...mapState(["userList", "user","loading"]),
+    ...mapState(["userList", "user", "loading"]),
     ...mapGetters(["totalPrice"]),
   },
   components: {
@@ -242,7 +247,7 @@ ul {
       object-fit: contain;
       cursor: pointer;
     }
-    .name{
+    .name {
       cursor: pointer;
     }
     h3 {
@@ -345,12 +350,6 @@ ul {
     display: flex;
     margin-bottom: 10px;
   }
-  .coupon {
-    display: flex;
-    padding-bottom: 10px;
-    border-bottom: 1px solid;
-    margin-bottom: 10px;
-  }
   .price-title {
     display: flex;
     margin-bottom: 20px;
@@ -362,14 +361,14 @@ ul {
     width: 550px;
     margin-right: 50px;
     h3.title {
-        text-transform: uppercase;
-        color: $brand-color;
-        border-bottom: 1px solid $brand-color;
-        padding-bottom: 20px;
-        margin-bottom: 30px;
-        letter-spacing: 1px;
-        font-weight: 100;
-      }
+      text-transform: uppercase;
+      color: $brand-color;
+      border-bottom: 1px solid $brand-color;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+      font-weight: 100;
+    }
   }
   .container {
     display: flex;
@@ -421,22 +420,7 @@ ul {
       letter-spacing: 1px;
     }
   }
-  .saveInfo {
-    text-align: left;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    .square {
-      width: 20px;
-      height: 20px;
-      border: 1px solid $brand-color;
-      margin-right: 10px;
-      border-radius: 5px;
-    }
-    .word {
-      font-size: 10px;
-    }
-  }
+  
   a.confirm {
     text-decoration: none;
     text-transform: uppercase;
@@ -464,7 +448,6 @@ ul {
     .container {
       flex-direction: column;
       align-items: center;
-
     }
 
     .right-list {

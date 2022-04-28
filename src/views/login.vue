@@ -48,7 +48,6 @@
           <button class="login" v-if="!isUserAuth" @click="routerToSignUp">
             sign up?
           </button>
-          <!-- <button v-if="isUserAuth" @click="signOut">LOGOUT</button> -->
         </div>
       </div>
     </div>
@@ -152,9 +151,8 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-//全域設定
+
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
@@ -172,7 +170,6 @@ ul {
   padding: 0;
 }
 
-//content
 .content {
   margin-top: 60px;
   display: flex;
@@ -189,25 +186,6 @@ ul {
   width: 70%;
 }
 
-.features {
-  display: flex;
-  text-transform: uppercase;
-  padding: 20px 0;
-  border-bottom: 1px solid $brand-color;
-  width: 70%;
-  justify-content: center;
-  font-size: 9px;
-  letter-spacing: 1px;
-  .goods {
-    color: $brand-color;
-    margin: 0 20px;
-  }
-  svg {
-    padding-right: 10px;
-    font-size: 18px;
-  }
-}
-
 .main-list {
   display: flex;
   margin-top: 60px;
@@ -217,30 +195,7 @@ ul {
     align-items: center;
     flex-direction: column;
   }
-  .columns {
-    display: flex;
-    flex-direction: column;
-    line-height: 3;
-    a {
-      font-size: 15px;
-      letter-spacing: 1px;
-      text-decoration: none;
-      color: $brand-color;
-    }
-    h4 {
-      font-size: 14px;
-      font-weight: 100;
-      letter-spacing: 1px;
-      color: grey;
-      border-bottom: 1px solid $brand-color;
-    }
-    span {
-      color: $brand-color;
-    }
-    .border {
-      border-bottom: 1px solid $brand-color;
-    }
-  }
+  
   button {
     text-decoration: none;
     color: white;
@@ -258,14 +213,6 @@ ul {
   }
 }
 
-.left-img {
-  width: 550px;
-  img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-  }
-}
 
 .right-login {
   display: flex;
@@ -329,13 +276,6 @@ ul {
       text-transform: uppercase;
       font-size: 9px;
     }
-  }
-
-  .con {
-    text-transform: uppercase;
-    font-size: 9px;
-    flex: 1;
-    text-align: left;
   }
 }
 

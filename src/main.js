@@ -26,6 +26,9 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig);
+const firebaseDb = firebase.database();
+const firebaseAuth = firebase.auth();
+export { firebaseDb, firebaseAuth }
 
 
 new Vue({

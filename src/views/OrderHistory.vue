@@ -13,11 +13,11 @@
       <Features />
       <div class="main-list">
         <div class="container">
-          <div class="intro" v-if="orderHistory">
+          <div class="intro" v-if="orderHistory.length >= 1">
             <h4>Thank you for your purchase.</h4>
             <h4>You can see your order history here.</h4>
           </div>
-          <div class="intro" v-if="!orderHistory">
+          <div class="intro" v-if="orderHistory.length == 0">
             <h4>There is no order history.</h4>
             <router-link :to="{ name: 'productlist' }"
               >Click here to product list.</router-link
@@ -50,7 +50,7 @@
           <div class="load">
             <button
               @click="loadMore()"
-              v-if="orderHistory !== null"
+              v-if="orderHistory.length >= 1"
               class="load-button"
             >
               loading more
@@ -108,11 +108,6 @@ export default {
   },
 
   computed: {
-    // showProduct() {
-    //   if (this.loadCount >= this.orderHistory.length) {
-    //     this.show = false;
-    //   }
-    // },
     ...mapState(["orderHistory", "user", "loading"]),
     ...mapGetters(["totalPrice"]),
   },
@@ -130,7 +125,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 //全域設定
 $brand-color: #bfb094;
