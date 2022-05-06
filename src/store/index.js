@@ -306,7 +306,7 @@ export default new Vuex.Store({
       //   dispatch("setCurrentProduct")
       // }
       router.push({ name: "productdetail", params: { id: index } })
-          dispatch("setCurrentProduct")
+      dispatch("setCurrentProduct")
     },
 
     setCurrentProduct({ commit }) {
@@ -420,11 +420,10 @@ export default new Vuex.Store({
         let userId = firebaseAuth.currentUser.uid
         let chatList = firebaseDb.ref('chat/' + userId)
         const key = chatList.push().key;
-        if (state.chat !== "")
-          chatList.child(key).set({
-            chat: state.chat,
-            time: Date.now(),
-          });
+        chatList.child(key).set({
+          chat: state.chat,
+          time: Date.now(),
+        });
         state.chat = "";
       } else {
         commit('setChatError', "You have to login")

@@ -25,7 +25,7 @@
                     type="checkbox"
                     value="Man"
                     v-model="tag"
-                    @onchange="getAllProduct()"
+                    @change="getAllProduct()"
                   />
                   Man
                 </label>
@@ -350,9 +350,15 @@ ul {
   display: flex;
   text-align: left;
   flex-direction: column;
+  position: relative;
   .tag-main {
     display: flex;
+    width: 100%;
+    top: 40px;
+    position: absolute;
+    background-color: white;
     justify-content: space-between;
+    z-index: 1;
   }
   .left-title {
     color: $brand-color;

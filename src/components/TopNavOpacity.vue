@@ -166,6 +166,54 @@
       >
       <router-link :to="{ name: 'login' }" class="login">login</router-link>
     </div>
+
+    <div class="bar-2 rwd">
+      <div class="shopping">
+        <router-link class="list" :to="{ name: 'shoppinglist' }"
+          ><i class="fas fa-shopping-cart"></i>
+          <div class="circle-count" v-if="this.shoppingCount">
+            <span> {{ shoppingCount }} </span>
+          </div>
+        </router-link>
+        <div class="lists" v-if="userList">
+          <h4 class="title">products</h4>
+          <div class="product-main">
+            <div
+              class="selling-product"
+              v-for="(item, index) in userList"
+              :key="index"
+            >
+              <img
+                @click="routerToDetail({ index: item.productId })"
+                v-bind:src="item.imagePath"
+                alt="product"
+              />
+              <div
+                class="name"
+                @click="routerToDetail({ index: item.productId })"
+              >
+                <h3>
+                  {{ item.seriesName }}
+                </h3>
+              </div>
+              <div class="count">
+                <div class="counting">
+                  <span> {{ item.count }} pic </span>
+                </div>
+                <button @click="deleteProduct({ item: item, index: index })">
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </div>
+              <div class="price">${{ item.price * item.count }}</div>
+            </div>
+          </div>
+          <router-link class="bottom" :to="{ name: 'shoppinglist' }"
+            >shopping list</router-link
+          >
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -515,6 +563,10 @@ a {
     margin-right: 50px;
     justify-content: flex-end;
 
+    &.rwd {
+      display: none;
+    }
+
     .list {
       display: flex;
     }
@@ -603,6 +655,9 @@ a {
   .top-bar {
     .bar-2 {
       display: none;
+      &.rwd {
+        display: flex;
+      }
     }
 
     .logo {
