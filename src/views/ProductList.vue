@@ -353,6 +353,7 @@ ul {
   position: relative;
   .tag-main {
     display: flex;
+    align-items: center;
     width: 100%;
     top: 40px;
     position: absolute;
