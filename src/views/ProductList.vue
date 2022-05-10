@@ -104,11 +104,11 @@
                 <h4 class="title">price</h4>
                 <label>
                   <input type="checkbox" @click="smallToBig()" /> Price from
-                  small to big
+                  low to high
                 </label>
                 <label>
                   <input type="checkbox" @change="bigToSmall()" /> Price from
-                  big to small
+                  high to low
                 </label>
               </div>
               <div class="tag">

@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="content">
-      <div class="shop-title">ORDER HISTORY</div>
+      <div class="shop-title">HISTORY ORDER</div>
       <Features />
       <div class="main-list">
         <div class="container">
@@ -25,7 +25,7 @@
           </div>
           <div class="top-info">
             <div class="product">
-              <h3>order history <i class="fas fa-clock"></i></h3>
+              <h3>history order <i class="fas fa-clock"></i></h3>
             </div>
             <h3 class="count">count</h3>
             <h3 class="price">price</h3>
@@ -58,7 +58,7 @@
           </div>
           <div class="pavement">
             <button @click="clearHistory()">clear all</button>
-            <span>Click button to clean all order history.</span>
+            <span>Click button to clean all history order.</span>
           </div>
         </div>
       </div>

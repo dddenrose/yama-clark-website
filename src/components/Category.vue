@@ -6,7 +6,7 @@
       >
       <div class="detail">
         <router-link :to="{ name: 'productlist' }">
-          classic wateches</router-link
+          classic watches</router-link
         >
         <router-link :to="{ name: 'productlist' }"> casual watches</router-link>
         <router-link :to="{ name: 'productlist' }"> power reserve</router-link>
@@ -27,7 +27,7 @@
         >
         <router-link :to="{ name: 'productlist' }"> power reserve</router-link>
         <router-link :to="{ name: 'productlist' }">
-          casual wateches</router-link
+          casual watches</router-link
         >
         <router-link :to="{ name: 'productlist' }">
           greenwich mean time</router-link
@@ -40,7 +40,7 @@
       >
       <div class="detail">
         <router-link :to="{ name: 'productlist' }">
-          leather wateches</router-link
+          leather watches</router-link
         >
         <router-link :to="{ name: 'productlist' }"> steel watches</router-link>
         <router-link :to="{ name: 'productlist' }"> sun glasses</router-link>
@@ -53,7 +53,7 @@
       >
       <div class="detail">
         <router-link :to="{ name: 'productlist' }">
-          classic wateches</router-link
+          classic watches</router-link
         >
         <router-link :to="{ name: 'productlist' }"> casual watches</router-link>
         <router-link :to="{ name: 'productlist' }"> power reserve</router-link>
@@ -69,7 +69,7 @@
       >
       <div class="detail">
         <router-link :to="{ name: 'productlist' }">
-          classic wateches</router-link
+          classic watches</router-link
         >
         <router-link :to="{ name: 'productlist' }"> casual watches</router-link>
         <router-link :to="{ name: 'productlist' }"> power reserve</router-link>
