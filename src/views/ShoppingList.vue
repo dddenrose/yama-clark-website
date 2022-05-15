@@ -19,7 +19,7 @@
             <h3 class="price">price</h3>
           </div>
           <Loading v-if="loading" />
-          <div class="error" v-if="userList === null">
+          <div class="error" v-if="userList == null">
             <p>{{ error }}</p>
             <router-link :to="{ name: 'productlist' }"
               >Go to productlist</router-link

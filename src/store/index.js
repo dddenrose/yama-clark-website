@@ -11,6 +11,7 @@ export default new Vuex.Store({
     user: null,
     error: null,
     userList: [],
+    localList: [],
     allProduct: [],
     tagPrdocut: [],
     currentProduct: [],
@@ -75,6 +76,9 @@ export default new Vuex.Store({
     setShowNav(state, payload) {
       state.showNav = payload;
     },
+    setLocalList(state, payload) {
+      state.localList = payload;
+    }
   },
 
   actions: {
@@ -89,8 +93,8 @@ export default new Vuex.Store({
           commit("setChatError", null)
         } else {
           commit("setUser", null);
-          commit("setUserList", null)
           commit('setLoading', false)
+          dispatch('getUserList');
           commit('setChatList', [])
           commit('setShowChat', false)
         }
@@ -145,8 +149,8 @@ export default new Vuex.Store({
         })
     },
 
-    addProduct({ state }, { product }) {
-      if (state.user) {
+    addProduct({ state, commit }, { product }) {
+      if (state.user) {  //登入用戶購物車功能
         let newProduct = [];
         newProduct.push(product);
         let userId = firebaseAuth.currentUser.uid;
@@ -160,7 +164,6 @@ export default new Vuex.Store({
             }
           }
         }
-
         if (state.userList == null) {
           firebaseDb
             .ref("users")
@@ -188,8 +191,32 @@ export default new Vuex.Store({
               .set(newList)
           }
         }
-      } else {
-        alert("You can continue to shop after login.")
+      } else { //一般訪客購物車功能
+        let list = JSON.parse(localStorage.getItem('localList'));
+        if (list) {
+          let sameImage = false;
+          let arrayIndex = 0;
+          list.forEach((e, index) => {
+            if (e.imagePath === product.imagePath) {
+              sameImage = true;
+              arrayIndex = index;
+            }
+          })
+          if (sameImage) {
+            list[arrayIndex].count++;
+            localStorage.setItem('localList', JSON.stringify(list));
+            commit('setUserList', list)
+          } else {
+            list.push(product);
+            localStorage.setItem('localList', JSON.stringify(list));
+            commit('setUserList', list)
+          }
+        } else {
+          let newProduct = [];
+          newProduct.push(product);
+          localStorage.setItem('localList', JSON.stringify(newProduct));
+          commit('setUserList', list)
+        }
       }
     },
 
@@ -202,12 +229,17 @@ export default new Vuex.Store({
     },
 
     getUserList({ state, commit }) {
-      return firebaseDb
-        .ref('users/' + state.user.uid)
-        .on('value', snapshot => {
-          commit('setUserList', snapshot.val());
-          commit('setLoading', false)
-        })
+      if (state.user) {
+        return firebaseDb
+          .ref('users/' + state.user.uid)
+          .on('value', snapshot => {
+            commit('setUserList', snapshot.val());
+            commit('setLoading', false)
+          })
+      } else {
+        let list = JSON.parse(localStorage.getItem('localList'));
+        commit('setUserList', list);
+      }
     },
 
     getAllProduct({ state, commit }) {
@@ -264,47 +296,59 @@ export default new Vuex.Store({
       }
     },
 
-    deleteProduct({ state }, { index }) {
-      state.userList.splice(index, 1);
-      firebaseDb
-        .ref("users")
-        .child(state.user.uid)
-        .set(state.userList)
-    },
-
-    addCount({ getters }, { item, index }) {
-      let userId = firebaseAuth.currentUser.uid
-      let userProducts = firebaseDb.ref('users/' + userId + '/' + index)
-      let payload = {
-        count: item.count + 1
+    deleteProduct({ state, commit }, { index }) {
+      if (state.user) {
+        state.userList.splice(index, 1);
+        firebaseDb
+          .ref("users")
+          .child(state.user.uid)
+          .set(state.userList)
+      } else {
+        let list = JSON.parse(localStorage.getItem('localList'));
+        list.splice(index, 1);
+        localStorage.setItem('localList', JSON.stringify(list));
+        commit('setUserList', list);
       }
-      userProducts.update(payload)
-      console.log(getters)
     },
 
-    minusCount({ getters }, { item, index }) {
-      let userId = firebaseAuth.currentUser.uid
-      let userProducts = firebaseDb.ref('users/' + userId + '/' + index)
-      if (item.count >= 2) {
+    addCount({ state, commit }, { item, index }) {
+      if (state.user) {
+        let userId = firebaseAuth.currentUser.uid
+        let userProducts = firebaseDb.ref('users/' + userId + '/' + index)
         let payload = {
-          count: item.count - 1
+          count: item.count + 1
         }
         userProducts.update(payload)
+
+      } else {
+        let list = JSON.parse(localStorage.getItem('localList'));
+        list[index].count++;
+        localStorage.setItem('localList', JSON.stringify(list));
+        commit('setUserList', list);
       }
-      console.log(getters)
+    },
+
+    minusCount({ state, commit }, { item, index }) {
+      if (state.user) {
+        let userId = firebaseAuth.currentUser.uid
+        let userProducts = firebaseDb.ref('users/' + userId + '/' + index)
+        if (item.count >= 2) {
+          let payload = {
+            count: item.count - 1
+          }
+          userProducts.update(payload)
+        }
+      } else {
+        let list = JSON.parse(localStorage.getItem('localList'));
+        if (list[index].count >= 2) {
+          list[index].count--;
+        }
+        localStorage.setItem('localList', JSON.stringify(list));
+        commit('setUserList', list);
+      }
     },
 
     routerToDetail({ dispatch }, { index }) {
-      // let name = router.currentRoute.name;
-      // if (name != "productlist" && name != "shoppinglist" && name != "orderlist" && name != "homerun") {
-      //   if (state.currentProduct.productId != index) {
-      //     router.push({ name: "productdetail", params: { id: index } })
-      //     dispatch("setCurrentProduct")
-      //   }
-      // } else {
-      //   router.push({ name: "productdetail", params: { id: index } })
-      //   dispatch("setCurrentProduct")
-      // }
       router.push({ name: "productdetail", params: { id: index } })
       dispatch("setCurrentProduct")
     },
@@ -333,27 +377,33 @@ export default new Vuex.Store({
         })
     },
 
-    confirmOrder({ state }) {
-      if (state.orderHistory != null) {
-        let newHistroy = state.orderHistory.concat(state.userList);
-        firebaseDb
-          .ref("history")
-          .child(state.user.uid)
-          .set(newHistroy)
-
-        let userId = firebaseAuth.currentUser.uid
-        let userProducts = firebaseDb.ref('users/' + userId)
-        userProducts.remove();
-        router.push({ name: "orderhistory" })
+    confirmOrder({ state, commit }) {
+      if (state.user) {
+        if (state.orderHistory != null) {
+          let newHistroy = state.orderHistory.concat(state.userList);
+          firebaseDb
+            .ref("history")
+            .child(state.user.uid)
+            .set(newHistroy)
+  
+          let userId = firebaseAuth.currentUser.uid
+          let userProducts = firebaseDb.ref('users/' + userId)
+          userProducts.remove();
+          router.push({ name: "orderhistory" })
+        } else {
+          firebaseDb
+            .ref("history")
+            .child(state.user.uid)
+            .set(state.userList)
+          let userId = firebaseAuth.currentUser.uid
+          let userProducts = firebaseDb.ref('users/' + userId)
+          userProducts.remove();
+          router.push({ name: "orderhistory" })
+        }
       } else {
-        firebaseDb
-          .ref("history")
-          .child(state.user.uid)
-          .set(state.userList)
-        let userId = firebaseAuth.currentUser.uid
-        let userProducts = firebaseDb.ref('users/' + userId)
-        userProducts.remove();
-        router.push({ name: "orderhistory" })
+        localStorage.removeItem('localList')
+        commit('setUserList', null)
+        router.push({ name: "homerun" })
       }
     },
 

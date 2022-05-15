@@ -148,7 +148,11 @@ export default {
           this.error = "Please enter all information bellow here.";
         }
       } else {
-        alert("You must login first.");
+        if (this.address != "" && this.phone != "" && this.name != "") {
+          this.confirmOrder();
+        } else {
+          this.error = "Please enter all information bellow here.";
+        }
       }
     },
   },
