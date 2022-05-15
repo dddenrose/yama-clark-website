@@ -1,5 +1,8 @@
 <template>
   <div class="hello">
+    <transition v-if="showNotice">
+      <Notice/>
+    </transition>
     <div class="header">
       <div class="nav">
         <div class="container-top">
@@ -184,6 +187,7 @@ import Logo from "../components/Logo.vue";
 import Features from "../components/Features.vue";
 import Chat from "../components/Chat.vue";
 import Category from "../components/Category.vue";
+import Notice from "../components/Notice.vue";
 
 import { mapActions, mapMutations, mapState } from "vuex";
 
@@ -221,7 +225,10 @@ export default {
     },
   },
   computed: {
-    ...mapState(["allProduct", "tagProduct"]),
+    ...mapState(["allProduct", "tagProduct","showNotice"]),
+    showNotice() {
+      return this.$store.state.showNotice
+    },
 
     tag: {
       get() {
@@ -250,6 +257,7 @@ export default {
     Features,
     Chat,
     Category,
+    Notice,
   },
 };
 </script>

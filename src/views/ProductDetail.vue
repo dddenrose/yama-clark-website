@@ -1,5 +1,8 @@
 <template>
   <div class="hello" id="hello">
+    <transition v-if="showNotice">
+      <Notice/>
+    </transition>
     <div class="header">
       <div class="nav">
         <div class="container-top">
@@ -114,7 +117,7 @@ import Pavement from "../components/Pavement.vue";
 import Logo from "../components/Logo.vue";
 import Chat from "../components/Chat.vue";
 import Category from "../components/Category.vue";
-
+import Notice from "../components/Notice.vue";
 import { mapActions, mapState,mapMutations } from "vuex";
 
 export default {
@@ -130,7 +133,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["currentProduct"]),
+    ...mapState(["currentProduct","showNotice"]),
+    showNotice() {
+      return this.$store.state.showNotice
+    },
   },
   methods: {
     ...mapActions(["setCurrentProduct", "addProductDetail", "addProduct"]),
@@ -169,7 +175,8 @@ export default {
     Pavement,
     Logo,
     Chat,
-    Category
+    Category,
+    Notice
   },
 };
 </script>
@@ -179,6 +186,25 @@ export default {
 $brand-color: #bfb094;
 $gray-color: #5b5b5b;
 $green-color: #3e5940;
+
+.v-leave {
+  opacity: 1;
+}
+.v-leave-active {
+  transition: opacity 0.3s;
+}
+.v-leave-to {
+  opacity: 0;
+}
+.v-enter {
+  opacity: 0;
+}
+.v-enter-active {
+  transition: opacity 0.3s;
+}
+.v-enter-to {
+  opacity: 1;
+}
 
 #top-bar {
   background-color: $brand-color;

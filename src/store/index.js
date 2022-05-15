@@ -25,6 +25,7 @@ export default new Vuex.Store({
     chatError: null,
     bigToSmall: false,
     showNav: false,
+    showNotice: false,
   },
 
   mutations: {
@@ -149,7 +150,7 @@ export default new Vuex.Store({
         })
     },
 
-    addProduct({ state, commit }, { product }) {
+    addProduct({ state, commit, dispatch }, { product }) {
       if (state.user) {  //登入用戶購物車功能
         let newProduct = [];
         newProduct.push(product);
@@ -169,6 +170,7 @@ export default new Vuex.Store({
             .ref("users")
             .child(state.user.uid)
             .set(newProduct)
+          dispatch('showNotice');
         } else {
           if (sameImage) {
             for (let i = 0; i < oldList.length; i++) {
@@ -181,6 +183,7 @@ export default new Vuex.Store({
                   }
                   userProducts.update(payload)
                 });
+                dispatch('showNotice');
               }
             }
           } else {
@@ -189,6 +192,7 @@ export default new Vuex.Store({
               .ref("users")
               .child(state.user.uid)
               .set(newList)
+            dispatch('showNotice');
           }
         }
       } else { //一般訪客購物車功能
@@ -206,20 +210,29 @@ export default new Vuex.Store({
             list[arrayIndex].count++;
             localStorage.setItem('localList', JSON.stringify(list));
             commit('setUserList', list)
+            dispatch('showNotice');
           } else {
             list.push(product);
             localStorage.setItem('localList', JSON.stringify(list));
             commit('setUserList', list)
+            dispatch('showNotice');
           }
         } else {
           let newProduct = [];
           newProduct.push(product);
           localStorage.setItem('localList', JSON.stringify(newProduct));
           commit('setUserList', list)
+          dispatch('showNotice');
         }
       }
     },
 
+    showNotice({state}) {
+      state.showNotice = true;
+      setTimeout(() => {
+        state.showNotice = false;
+      },300)
+    },
 
     addProductDetail({ state }) {
       firebaseDb
